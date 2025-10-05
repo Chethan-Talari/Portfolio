@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Chethan Talari — Visual Designer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Special+Elite&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="index.html"><img src="assets/logo-black.png" alt="Chethan Talari logo"></a>
+      <nav class="main-nav">
+        <a href="index.html" class="nav-link active">Home</a>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="connect.html" class="nav-link">Connect</a>
+      </nav>
+    </div>
+  </header>
+
+<!-- HERO SECTION -->
+<section class="home-hero">
+  <div class="container hero-container">
+    <div class="hero-text">
+      <h1 class="hero-title">VISUAL DESIGNER</h1>
+      <p class="hero-desc">
+        I design seamless digital experiences that balance usability and aesthetics. A fast learner and film enthusiast. I blend storytelling and craft to make products and projects that feel human and purposeful.
+      </p>
+
+      <div class="hero-slashes">
+        <span>/ Experience Designer</span>
+        <span>/ Photographer</span>
+        <span>/ Editor</span>
+        <span>/ Filmmaker</span>
+      </div>
+    </div>
+
+    <!-- Side portrait (revealed on scroll) -->
+    <div class="hero-photo">
+      <img src="assets/portrait.jpg" alt="Chethan Talari Portrait">
+    </div>
+  </div>
+</section>
+
+<!-- Fold design / scroll indicator -->
+<section class="fold-hint">
+  <div class="fold-inner">
+    <span class="fold-text">Scroll to see projects</span>
+    <div class="mouse-icon">
+      <div class="wheel"></div>
+    </div>
+  </div>
+</section>
+
+<!-- keep your existing projects section below -->
+
+    <!-- thin fold divider -->
+    <div class="fold-divider" aria-hidden="true"></div>
+
+    <!-- PROJECTS (kept minimal here; script will populate) -->
+    <section class="projects">
+      <div class="container">
+        <div class="category-dock">
+          <button class="cat active" data-cat="uiux">UI/UX Design</button>
+          <button class="cat" data-cat="brand">Brand Identity</button>
+          <button class="cat" data-cat="docs">Documentaries</button>
+          <button class="cat" data-cat="edit">Editing</button>
+          <button class="cat" data-cat="all">View All</button>
+        </div>
+
+        <div id="project-grid" class="project-grid"></div>
+      </div>
+    </section>
+  </main>
+
+
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© <span id="year"></span> Chethan Talari</p>
+    </div>
+  </footer>
+
+  <script src="script.js" defer></script>
+</body>
+</html>

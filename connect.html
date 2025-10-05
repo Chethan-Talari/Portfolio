@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Connect — Chethan Talari</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Special+Elite&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="index.html"><img src="assets/logo-black.png" alt="Chethan Talari logo"></a>
+      <nav class="main-nav">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="connect.html" class="nav-link active">Connect</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="connect-hero">
+      <div class="container connect-wrap">
+        <h1 class="connect-title">Let’s Connect</h1>
+        <p class="connect-desc">Got a project, idea or collaboration in mind? I’d love to hear from you.</p>
+
+        <!-- Basin form -->
+        <form class="connect-form" action="https://usebasin.com/f/YOUR_BASIN_ENDPOINT" method="POST">
+          <input type="text" name="name" placeholder="Your Name" required>
+          <input type="email" name="email" placeholder="Your Email" required>
+          <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+          <button type="submit" class="btn-send">Send Message</button>
+        </form>
+
+        <!-- Contact Info -->
+        <div class="contact-info">
+          <p><strong>Email:</strong> <a href="mailto:chethantalari@gmail.com">chethantalari@gmail.com</a></p>
+          <p><strong>Phone:</strong> +91-XXXXXXXXXX</p>
+        </div>
+
+        <!-- Social Handles -->
+        <div class="social-links">
+          <a href="https://instagram.com/c_celluloids" target="_blank">Instagram</a>
+          <a href="https://dribbble.com/" target="_blank">Dribbble</a>
+          <a href="https://www.linkedin.com/in/chethantalari/" target="_blank">LinkedIn</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">© <span id="year"></span> Chethan Talari</div>
+  </footer>
+
+  <script src="connect-script.js" defer></script>
+</body>
+</html>

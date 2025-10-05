@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Contact — Chethan Talari</title>
+  <meta name="description" content="Contact Chethan Talari for commissions, collaborations and bookings. Email: chethantalari@gmail.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#contact-main">Skip to content</a>
+
+  <header class="site-header" role="banner">
+    <div class="wrap header-inner">
+      <a class="logo" href="/">CT</a>
+      <nav class="main-nav" aria-label="Primary navigation">
+        <ul class="nav-list">
+          <li><a href="/">Home</a></li>
+          <li><a href="projects/">Projects</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html" aria-current="page">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contact-main" class="wrap" tabindex="-1" role="main">
+    <h1>Contact</h1>
+
+    <div class="contact-grid">
+      <form id="contact-form" class="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" novalidate>
+        <p class="lead">For commissions, collaborations, and bookings — send me a message and I’ll reply within 3 business days.</p>
+
+        <label for="name">Name</label>
+        <input id="name" name="name" type="text" required autocomplete="name">
+
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" required autocomplete="email">
+
+        <label for="subject">Subject</label>
+        <input id="subject" name="subject" type="text" autocomplete="off">
+
+        <label for="message">Message</label>
+        <textarea id="message" name="message" rows="6" required></textarea>
+
+        <!-- formspree/redirection fields -->
+        <input type="hidden" name="_subject" value="New message from portfolio site">
+        <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+
+        <button class="btn btn-primary" type="submit">Send message</button>
+
+        <p class="form-note">Prefer DMs? <a href="https://instagram.com/c_celluloids" target="_blank" rel="noopener">Instagram @c_celluloids</a></p>
+      </form>
+
+      <aside class="contact-info" aria-label="Other contact details">
+        <h2>Other ways to reach me</h2>
+        <p><strong>Email</strong><br><a href="mailto:chethantalari@gmail.com">chethantalari@gmail.com</a></p>
+
+        <p><strong>Social</strong><br>
+          <a href="https://instagram.com/c_celluloids" target="_blank" rel="noopener">Instagram</a><br>
+          <a href="https://www.linkedin.com/in/chethan-talari" target="_blank" rel="noopener">LinkedIn</a><br>
+          <a href="https://www.behance.net/chethan" target="_blank" rel="noopener">Behance</a>
+        </p>
+
+        <h3>Rates & Availability</h3>
+        <p>Short documentary / film edits and editorial shoots — available on request. Please include location and brief project scope in your message.</p>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="wrap footer-inner">
+      <small>© <span id="year-contact"></span> Chethan Talari</small>
+      <nav class="footer-nav" aria-label="Footer">
+        <a href="/">Home</a>
+        <a href="about.html">About</a>
+        <a href="projects/">Projects</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="assets/js/site.js" defer></script>
+  <script>document.getElementById('year-contact').textContent = new Date().getFullYear();</script>
+</body>
+</html>
