@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>PROJECT_TITLE — Chethan Talari</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Special+Elite&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* minimal local overrides for project page (you can move to style.css) */
+    .project-hero{max-width:var(--wrap);margin:48px auto 20px;padding:0 28px;display:flex;gap:28px;align-items:flex-start}
+    .project-meta{flex:1}
+    .project-title{font-family:'Bebas Neue';font-size:46px;margin:0 0 8px;line-height:1}
+    .project-sub{color:var(--grey);margin-bottom:14px}
+    .project-desc{color:var(--grey);max-width:820px}
+
+    /* images column */
+    .project-body{max-width:var(--wrap);margin:28px auto;padding:0 28px 0px}
+    .project-image{ margin:48px 0; display:block; width:100%; overflow:hidden; box-shadow:0 24px 60px rgba(0,0,0,0.06) }
+    .project-image img{ width:100%; height:auto; display:block; object-fit:cover; }
+
+/* PROJECT GALLERY — no gaps between images, with top & bottom breathing space */
+.project-gallery {
+  max-width: var(--wrap);
+  margin: 48px auto;       /* space before first and after last */
+  padding: 0 28px;
+  box-sizing: border-box;
+}
+
+/* Remove any per-image top/bottom margin — images stack flush */
+.project-gallery img {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0;               /* removes gap between images */
+  padding: 0;
+  border-radius: 0;        /* remove radius so images meet flush (set to e.g. 6px to keep tiny curve) */
+  box-shadow: none;        /* remove shadow so they sit seamlessly; keep if you prefer overlap */
+  object-fit: contain;
+}
+
+/* If you want a subtle separation line between images (optional), enable this:
+.project-gallery img + img { border-top: 1px solid rgba(0,0,0,0.03); }
+*/
+
+/* If you want the hero cover area above the stack to have the shadow/rounded look, wrap it separately */
+/* Example hero: */
+.project-hero img { border-radius: 12px; box-shadow: 0 24px 60px rgba(0,0,0,0.06); margin-bottom: 20px; }
+
+/* Small screens: keep same behavior */
+@media (max-width: 900px) {
+  .project-gallery { margin: 36px auto; padding: 0 18px; }
+}
+
+
+    
+    /* right side floating action rail */
+    .actions-rail{
+      position:fixed;
+      right:28px;
+      top:40%;
+      transform:translateY(-40%);
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+      z-index:150;
+      align-items:center;
+    }
+    .action-btn{
+      width:52px;height:52px;border-radius:12px;background:var(--white);border:1px solid #eee;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 28px rgba(0,0,0,0.06);cursor:pointer;
+    }
+    .action-btn svg{width:20px;height:20px;display:block}
+    .like-count{font-family:'Special Elite';font-size:12px;color:var(--muted);margin-top:6px;text-align:center}
+
+    /* bottom connect CTA */
+    .connect-cta{
+      position:fixed;
+      left:50%;
+      transform:translateX(-50%);
+      bottom:18px;
+      z-index:160;
+      background:var(--black);
+      color:var(--white);
+      padding:10px 16px;
+      border-radius:999px;
+      box-shadow:0 16px 48px rgba(0,0,0,0.18);
+      display:flex;
+      gap:10px;
+      align-items:center;
+      font-weight:700;
+    }
+    .connect-cta a{ color:inherit; text-decoration:none }
+
+    /* responsive: hide rail on small screens, show smaller CTA */
+    @media (max-width:900px){
+      .actions-rail{ display:none }
+      .project-title{ font-size:34px }
+    }
+  </style>
+</head>
+<body>
+<header class="site-header" style="
+  width:100%;
+  background:#fff;
+  border-bottom:1px solid rgba(0,0,0,0.05);
+  position:relative;
+  z-index:999;">
+  <style>
+    .header-inner {
+      max-width:1200px;
+      margin:0 auto;
+      padding:20px 32px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+    .site-logo img {
+      height:36px;
+      display:block;
+    }
+    .nav-list {
+      list-style:none;
+      display:flex;
+      gap:36px;
+      margin:0;
+      padding:0;
+      position:relative;
+    }
+    .nav-list a {
+      position:relative;
+      text-decoration:none;
+      font-weight:500;
+      color:#111;
+      padding:6px 0;
+      transition:color 0.3s ease;
+      z-index:1;
+    }
+    /* Hover black block */
+    .nav-list a::before {
+      content:"";
+      position:absolute;
+      left:50%;
+      top:50%;
+      width:0%;
+      height:100%;
+      transform:translate(-50%,-50%);
+      background:#111;
+      z-index:-1;
+      border-radius:4px;
+      transition:all 0.35s ease;
+    }
+    .nav-list a:hover::before {
+      width:120%;
+      height:120%;
+    }
+    .nav-list a:hover {
+      color:#fff;
+    }
+    /* Moving underline */
+    .nav-underline {
+      position:absolute;
+      bottom:-6px;
+      left:0;
+      height:2px;
+      width:0;
+      background:#111;
+      border-radius:1px;
+      pointer-events:none;
+      transition:left 0.35s cubic-bezier(.645,.045,.355,1),width 0.35s cubic-bezier(.645,.045,.355,1);
+    }
+    /* Active link persistent underline */
+    .nav-list a.active {
+      color:#111;
+      font-weight:600;
+    }
+    .nav-list a.active::after {
+      content:"";
+      position:absolute;
+      left:0;
+      bottom:-6px;
+      width:100%;
+      height:2px;
+      background:#111;
+      border-radius:1px;
+    }
+    @media(max-width:640px){
+      .header-inner{flex-direction:column;gap:10px;}
+      .nav-list{gap:24px;}
+    }
+  </style>
+
+  <div class="header-inner">
+    <a href="index.html" class="site-logo">
+      <img src="assets/logo-black.png" alt="Chethan Talari">
+    </a>
+
+    <nav class="site-nav">
+      <ul class="nav-list">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="connect.html">Connect</a></li>
+      </ul>
+      <span class="nav-underline"></span>
+    </nav>
+  </div>
+
+ <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const nav = document.querySelector(".nav-list");
+    const underline = document.querySelector(".nav-underline");
+    const links = nav.querySelectorAll("a");
+    const current = location.pathname.split("/").pop() || "index.html";
+
+    // ----- Mark current page active -----
+    links.forEach(a => {
+      const file = (a.getAttribute("href") || "").split("/").pop();
+      if (file === current) a.classList.add("active");
+      else a.classList.remove("active");
+    });
+
+    function moveUnderline(link) {
+      const rect = link.getBoundingClientRect();
+      const navRect = nav.getBoundingClientRect();
+      underline.style.width = rect.width + "px";
+      underline.style.left = rect.left - navRect.left + "px";
+    }
+
+    function updateUnderline() {
+      const active = nav.querySelector(".active");
+      if (active) moveUnderline(active);
+    }
+
+    // ----- Hover animations -----
+    links.forEach(link => {
+      link.addEventListener("mouseenter", () => moveUnderline(link));
+      link.addEventListener("focus", () => moveUnderline(link));
+      link.addEventListener("click", () => {
+        // Save underline position before navigating
+        const rect = link.getBoundingClientRect();
+        const navRect = nav.getBoundingClientRect();
+        sessionStorage.setItem("underlineLeft", rect.left - navRect.left);
+        sessionStorage.setItem("underlineWidth", rect.width);
+      });
+    });
+
+    nav.addEventListener("mouseleave", updateUnderline);
+    window.addEventListener("resize", updateUnderline);
+
+    // ----- Animate underline from previous page -----
+    window.addEventListener("load", () => {
+      const prevLeft = sessionStorage.getItem("underlineLeft");
+      const prevWidth = sessionStorage.getItem("underlineWidth");
+      const active = nav.querySelector(".active");
+
+      if (prevLeft && prevWidth && active) {
+        // Start underline from previous position (same as last page)
+        underline.style.transition = "none";
+        underline.style.left = prevLeft + "px";
+        underline.style.width = prevWidth + "px";
+
+        // Force reflow before animating to current link
+        void underline.offsetWidth;
+
+        // Animate to new active link
+        underline.style.transition =
+          "left 0.35s cubic-bezier(.645,.045,.355,1), width 0.35s cubic-bezier(.645,.045,.355,1)";
+        updateUnderline();
+      } else {
+        updateUnderline();
+      }
+    });
+  });
+</script>
+
+</header>
+
+<!-- end header -->
+
+
+ <main class="page-inner" style="max-width:1180px;margin:0 auto;padding:0 36px;">
+  <h1 style="margin-top:28px;font-size:36px;">Cook It — Recipe App</h1>
+  <p style="color:#666;margin-top:4px;">UI/UX Design · 2024</p>
+  <p style="margin:16px 0 40px;">An interactive mobile recipe app designed to simplify cooking through step-by-step guidance and smart ingredient tracking.</p>
+
+  <div class="project-gallery">
+    <img src="assets/projects/cookit/01.jpg" alt="Cook It screen 1">
+    <img src="assets/projects/cookit/02.gif" alt="Cook It interaction" loading="lazy">
+    <img src="assets/projects/cookit/03.jpg" alt="Cook It screen 2" loading="lazy">
+    <img src="assets/projects/cookit/04.jpg" alt="Cook It screen 3" loading="lazy">
+    <img src="assets/projects/cookit/05.jpg" alt="Cook It screen 4" loading="lazy">
+    <img src="assets/projects/cookit/06.jpg" alt="Cook It screen 5" loading="lazy">
+    <img src="assets/projects/cookit/07.jpg" alt="Cook It screen 6" loading="lazy">
+    <img src="assets/projects/cookit/08.jpg" alt="Cook It screen 7" loading="lazy">
+    <img src="assets/projects/cookit/09.jpg" alt="Cook It screen 8" loading="lazy">
+    <img src="assets/projects/cookit/10.jpg" alt="Cook It screen 9" loading="lazy">
+    <img src="assets/projects/cookit/11.jpg" alt="Cook It screen 10" loading="lazy">
+    <img src="assets/projects/cookit/12.jpg" alt="Cook It screen 11" loading="lazy">
+  </div>
+</main>
+
+
+
+<footer class="site-footer" role="contentinfo">
+  <div class="footer-inner">
+    <div class="footer-logo">
+      <a href="index.html" aria-label="Home"><img src="assets/logo-black.png" alt="Chethan Talari logo"></a>
+    </div>
+
+    <div class="socials" aria-label="Social links">
+      <a href="https://instagram.com/c_celluloids" target="_blank" rel="noopener" aria-label="Instagram">Instagram</a>
+      <a href="https://dribbble.com/" target="_blank" rel="noopener" aria-label="Dribbble">Dribbble</a>
+      <a href="https://www.linkedin.com/in/chethantalari/" target="_blank" rel="noopener" aria-label="LinkedIn">LinkedIn</a>
+    </div>
+  </div>
+</footer>
+
+  <script src="project-script.js" defer></script>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+<script src="project-loader.js" defer></script>
+
+<script>
+// --- Force "Projects" nav active before header-script.js runs ---
+document.addEventListener("DOMContentLoaded", () => {
+  const links = document.querySelectorAll(".nav-list a");
+  links.forEach(a => a.classList.remove("active"));
+  // find link that includes 'projects' in its href
+  const projectsLink = Array.from(links).find(a =>
+    (a.getAttribute("href") || "").toLowerCase().includes("projects")
+  );
+  if (projectsLink) projectsLink.classList.add("active");
+});
+</script>
+
+
+ <script src="header-script.js" defer></script>
+ <link rel="stylesheet" href="header-style.css">
+
+
+
+
+</body>
+</html>

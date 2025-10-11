@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Projects — Chethan Talari</title>
+  <meta name="description" content="Chethan Talari — Projects and case studies. UI/UX, Brand Identity, Documentaries, Editing." />
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Special+Elite&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root { --wrap: 1200px; --muted: #6b6b6b; }
+    body { margin:0; font-family:'Inter', sans-serif; background:#fff; color:#111; }
+    main { max-width: var(--wrap); margin:0 auto; padding:0 28px; }
+
+    h1 {
+      font-family:'Bebas Neue', sans-serif;
+      font-size: 60px;
+      letter-spacing:-1px;
+      margin: 48px 0 8px;
+    }
+    p.subtitle {
+      color: var(--muted);
+      margin-bottom: 32px;
+    }
+
+.header-inner{display:flex;align-items:center;justify-content:space-between;padding:18px 0}
+.site-nav {
+  position:relative;
+  display:flex;
+  align-items:center;
+}
+
+
+    /* Tabs */
+    .project-tabs {
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-bottom:32px;
+    }
+    .tab {
+      padding:8px 14px;
+      border:1px solid rgba(0,0,0,0.08);
+      border-radius:6px;
+      cursor:pointer;
+      font-size:14px;
+      background:#fff;
+      transition:all .2s ease;
+    }
+    .tab.active {
+      background:#111;
+      color:#fff;
+      border-color:#111;
+    }
+    .tab:hover { background:#f5f5f5; }
+
+    /* Grid + cards */
+    .projects-grid {
+      display:grid;
+      grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+      gap:28px;
+      margin-bottom:80px;
+    }
+    .project-card {
+      display:block;
+      text-decoration:none;
+      color:inherit;
+      border-radius:8px;
+      overflow:hidden;
+      border:1px solid #eee;
+      background:#fff;
+      box-shadow:0 10px 30px rgba(0,0,0,0.05);
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+    .project-card:hover {
+      transform:translateY(-4px);
+      box-shadow:0 18px 40px rgba(0,0,0,0.08);
+    }
+    .project-thumb {
+      width:100%;
+      aspect-ratio:16/9;
+      background-size:cover;
+      background-position:center;
+    }
+    .project-info {
+      padding:14px 16px;
+    }
+    .project-info h4 {
+      margin:0 0 6px;
+      font-size:17px;
+      font-weight:600;
+    }
+    .project-info p {
+      margin:0;
+      color:#777;
+      font-size:14px;
+    }
+
+    footer.site-footer { margin-top:60px; padding:24px 0; border-top:1px solid #efefef; background:#fff; }
+    footer .footer-inner { max-width:var(--wrap); margin:0 auto; padding:0 28px; display:flex; justify-content:space-between; align-items:center; gap:16px; }
+
+    @media (max-width:640px){
+      main { padding:0 20px; }
+      h1 { font-size:46px; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header" style="
+  width:100%;
+  background:#fff;
+  border-bottom:1px solid rgba(0,0,0,0.05);
+  position:relative;
+  z-index:999;">
+  <style>
+    .header-inner {
+      max-width:1200px;
+      margin:0 auto;
+      padding:20px 32px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+    .site-logo img {
+      height:36px;
+      display:block;
+    }
+    .nav-list {
+      list-style:none;
+      display:flex;
+      gap:36px;
+      margin:0;
+      padding:0;
+      position:relative;
+    }
+    .nav-list a {
+      position:relative;
+      text-decoration:none;
+      font-weight:500;
+      color:#111;
+      padding:6px 0;
+      transition:color 0.3s ease;
+      z-index:1;
+    }
+    /* Hover black block */
+    .nav-list a::before {
+      content:"";
+      position:absolute;
+      left:50%;
+      top:50%;
+      width:0%;
+      height:100%;
+      transform:translate(-50%,-50%);
+      background:#111;
+      z-index:-1;
+      border-radius:4px;
+      transition:all 0.35s ease;
+    }
+    .nav-list a:hover::before {
+      width:120%;
+      height:120%;
+    }
+    .nav-list a:hover {
+      color:#fff;
+    }
+    /* Moving underline */
+    .nav-underline {
+      position:absolute;
+      bottom:-6px;
+      left:0;
+      height:2px;
+      width:0;
+      background:#111;
+      border-radius:1px;
+      pointer-events:none;
+      transition:left 0.35s cubic-bezier(.645,.045,.355,1),width 0.35s cubic-bezier(.645,.045,.355,1);
+    }
+    /* Active link persistent underline */
+    .nav-list a.active {
+      color:#111;
+      font-weight:600;
+    }
+    .nav-list a.active::after {
+      content:"";
+      position:absolute;
+      left:0;
+      bottom:-6px;
+      width:100%;
+      height:2px;
+      background:#111;
+      border-radius:1px;
+    }
+    @media(max-width:640px){
+      .header-inner{flex-direction:column;gap:10px;}
+      .nav-list{gap:24px;}
+    }
+  </style>
+
+  <div class="header-inner">
+    <a href="index.html" class="site-logo">
+      <img src="assets/logo-black.png" alt="Chethan Talari">
+    </a>
+
+    <nav class="site-nav">
+      <ul class="nav-list">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="connect.html">Connect</a></li>
+      </ul>
+      <span class="nav-underline"></span>
+    </nav>
+  </div>
+
+ <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const nav = document.querySelector(".nav-list");
+    const underline = document.querySelector(".nav-underline");
+    const links = nav.querySelectorAll("a");
+    const current = location.pathname.split("/").pop() || "index.html";
+
+    // ----- Mark current page active -----
+    links.forEach(a => {
+      const file = (a.getAttribute("href") || "").split("/").pop();
+      if (file === current) a.classList.add("active");
+      else a.classList.remove("active");
+    });
+
+    function moveUnderline(link) {
+      const rect = link.getBoundingClientRect();
+      const navRect = nav.getBoundingClientRect();
+      underline.style.width = rect.width + "px";
+      underline.style.left = rect.left - navRect.left + "px";
+    }
+
+    function updateUnderline() {
+      const active = nav.querySelector(".active");
+      if (active) moveUnderline(active);
+    }
+
+    // ----- Hover animations -----
+    links.forEach(link => {
+      link.addEventListener("mouseenter", () => moveUnderline(link));
+      link.addEventListener("focus", () => moveUnderline(link));
+      link.addEventListener("click", () => {
+        // Save underline position before navigating
+        const rect = link.getBoundingClientRect();
+        const navRect = nav.getBoundingClientRect();
+        sessionStorage.setItem("underlineLeft", rect.left - navRect.left);
+        sessionStorage.setItem("underlineWidth", rect.width);
+      });
+    });
+
+    nav.addEventListener("mouseleave", updateUnderline);
+    window.addEventListener("resize", updateUnderline);
+
+    // ----- Animate underline from previous page -----
+    window.addEventListener("load", () => {
+      const prevLeft = sessionStorage.getItem("underlineLeft");
+      const prevWidth = sessionStorage.getItem("underlineWidth");
+      const active = nav.querySelector(".active");
+
+      if (prevLeft && prevWidth && active) {
+        // Start underline from previous position (same as last page)
+        underline.style.transition = "none";
+        underline.style.left = prevLeft + "px";
+        underline.style.width = prevWidth + "px";
+
+        // Force reflow before animating to current link
+        void underline.offsetWidth;
+
+        // Animate to new active link
+        underline.style.transition =
+          "left 0.35s cubic-bezier(.645,.045,.355,1), width 0.35s cubic-bezier(.645,.045,.355,1)";
+        updateUnderline();
+      } else {
+        updateUnderline();
+      }
+    });
+  });
+</script>
+
+</header>
+
+
+  <!-- MAIN -->
+  <main>
+    <h1>PROJECTS</h1>
+    <p class="subtitle">Browse projects by category — UI/UX, Brand Identity, Documentaries, and Editing.</p>
+
+    <!-- Tab order: UI/UX, Brand Identity, Documentaries, Editing, View All (View All last) -->
+    <div class="project-tabs" role="tablist" aria-label="Project categories">
+      <button class="tab" data-cat="UI/UX">UI/UX</button>
+      <button class="tab" data-cat="Brand Identity">Brand Identity</button>
+      <button class="tab" data-cat="Documentaries">Documentaries</button>
+      <button class="tab" data-cat="Editing">Editing</button>
+      <button class="tab" data-cat="all">View All</button>
+    </div>
+
+    <div id="projectsGrid" class="projects-grid" aria-live="polite"></div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <a href="index.html"><img src="assets/logo-black.png" alt="logo" style="height:36px;"></a>
+      <div>
+        <a href="https://instagram.com/c_celluloids" target="_blank" rel="noopener">Instagram</a>
+        <span style="padding:0 10px;color:#ddd">•</span>
+        <a href="#" target="_blank" rel="noopener">Dribbble</a>
+        <span style="padding:0 10px;color:#ddd">•</span>
+        <a href="https://www.linkedin.com/in/chethantalari/" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- SCRIPT -->
+  <script>
+    /* === PROJECT DATA ===
+       Update these entries or add more projects. Ensure `image` paths are correct.
+    */
+    const projects = [
+      { title: "Awara — UI/UX Design", category: "UI/UX", year: "2025", image: "assets/projects/awara/cover.jpg", link: "awara.html" },
+      { title: "Cook It — Recipe App", category: "UI/UX", year: "2023", image: "assets/projects/cookit/Cover.jpg", link: "cookit.html" },
+      { title: "Bookafe — Online App", category: "UI/UX", year: "2023", image: "assets/projects/bookafe/Cover.jpg", link: "bookafe.html" },
+      { title: "Prachi — Brand Identity", category: "Brand Identity", year: "2024", image: "assets/projects/prachi/cover.jpg", link: "prachi.html" },
+      { title: "Sparsha — Brand Identity", category: "Brand Identity", year: "2024", image: "assets/projects/sparsha/cover.jpg", link: "sparsha.html" },
+      { title: "Samarth — Central Silk Board", category: "Documentaries", year: "2025", image: "assets/projects/samarth/cover.jpg", link: "samarth.html" },
+      { title: "Editing Showreel", category: "Editing", year: "2023", image: "assets/projects/editing1/cover.jpg", link: "editing1.html" },
+      // add more project objects here as needed...
+    ];
+
+    const grid = document.getElementById('projectsGrid');
+    const tabs = Array.from(document.querySelectorAll('.tab'));
+
+    // Normalize category string for comparisons
+    function normalizeCat(s){ return (s||'').toString().trim().toLowerCase(); }
+
+    // Render project cards for given category filter ('all' or category text)
+    function renderProjects(filter) {
+      grid.innerHTML = '';
+      const norm = normalizeCat(filter);
+      const list = norm === 'all' ? projects : projects.filter(p => normalizeCat(p.category).includes(norm));
+      if (!list.length) {
+        const empty = document.createElement('div');
+        empty.style.gridColumn = '1/-1';
+        empty.style.color = '#777';
+        empty.style.padding = '28px 20px';
+        empty.textContent = 'No projects found.';
+        grid.appendChild(empty);
+        return;
+      }
+      list.forEach(p => {
+        const a = document.createElement('a');
+        a.className = 'project-card';
+        a.href = p.link || '#';
+        a.innerHTML = `
+          <div class="project-thumb" style="background-image:url('${p.image}')"></div>
+          <div class="project-info">
+            <h4>${p.title}</h4>
+            <p>${p.category} · ${p.year}</p>
+          </div>
+        `;
+        grid.appendChild(a);
+      });
+    }
+
+    // Set UI/UX as the default active tab and ensure View All is last visually (we already arranged order in markup)
+    function activateDefault() {
+      // find UI/UX tab or fallback to 'all'
+      const uiux = tabs.find(t => normalizeCat(t.dataset.cat) === 'ui/ux' || normalizeCat(t.dataset.cat).includes('ui'));
+      const defaultTab = uiux || tabs.find(t => t.dataset.cat === 'all');
+      tabs.forEach(t => t.classList.remove('active'));
+      if (defaultTab) {
+        defaultTab.classList.add('active');
+        renderProjects(defaultTab.dataset.cat);
+      } else {
+        // safety fallback
+        tabs[0].classList.add('active');
+        renderProjects(tabs[0].dataset.cat);
+      }
+    }
+
+    // Tab click handlers
+    tabs.forEach(t => {
+      t.addEventListener('click', (e) => {
+        tabs.forEach(x => x.classList.remove('active'));
+        t.classList.add('active');
+        renderProjects(t.dataset.cat);
+        // small scroll so content is visible after clicking
+        setTimeout(()=>{ window.scrollTo({ top: document.querySelector('main').offsetTop, behavior: 'smooth' }); }, 80);
+      });
+    });
+
+    // Initialize
+    activateDefault();
+  </script>
+
+  <link rel="stylesheet" href="header-style.css">
+
+
+</body>
+</html>

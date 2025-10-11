@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Bookafe — Reading App | Chethan Talari</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    .project-gallery {
+      max-width:1200px;
+      margin:48px auto;
+      padding:0 28px;
+      box-sizing:border-box;
+    }
+    .project-gallery img {
+      display:block;
+      width:100%;
+      height:auto;
+      margin:0;
+      border-radius:0;
+      box-shadow:none;
+    }
+    .project-hero {
+      max-width:1200px;
+      margin:40px auto 0;
+      padding:0 28px;
+    }
+    .project-header {
+      max-width:1200px;
+      margin:24px auto;
+      padding:0 28px;
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header" style="
+  width:100%;
+  background:#fff;
+  border-bottom:1px solid rgba(0,0,0,0.05);
+  position:relative;
+  z-index:999;">
+  <style>
+    .header-inner {
+      max-width:1200px;
+      margin:0 auto;
+      padding:20px 32px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+    .site-logo img {
+      height:36px;
+      display:block;
+    }
+    .nav-list {
+      list-style:none;
+      display:flex;
+      gap:36px;
+      margin:0;
+      padding:0;
+      position:relative;
+    }
+    .nav-list a {
+      position:relative;
+      text-decoration:none;
+      font-weight:500;
+      color:#111;
+      padding:6px 0;
+      transition:color 0.3s ease;
+      z-index:1;
+    }
+    /* Hover black block */
+    .nav-list a::before {
+      content:"";
+      position:absolute;
+      left:50%;
+      top:50%;
+      width:0%;
+      height:100%;
+      transform:translate(-50%,-50%);
+      background:#111;
+      z-index:-1;
+      border-radius:4px;
+      transition:all 0.35s ease;
+    }
+    .nav-list a:hover::before {
+      width:120%;
+      height:120%;
+    }
+    .nav-list a:hover {
+      color:#fff;
+    }
+    /* Moving underline */
+    .nav-underline {
+      position:absolute;
+      bottom:-6px;
+      left:0;
+      height:2px;
+      width:0;
+      background:#111;
+      border-radius:1px;
+      pointer-events:none;
+      transition:left 0.35s cubic-bezier(.645,.045,.355,1),width 0.35s cubic-bezier(.645,.045,.355,1);
+    }
+    /* Active link persistent underline */
+    .nav-list a.active {
+      color:#111;
+      font-weight:600;
+    }
+    .nav-list a.active::after {
+      content:"";
+      position:absolute;
+      left:0;
+      bottom:-6px;
+      width:100%;
+      height:2px;
+      background:#111;
+      border-radius:1px;
+    }
+    @media(max-width:640px){
+      .header-inner{flex-direction:column;gap:10px;}
+      .nav-list{gap:24px;}
+    }
+  </style>
+
+  <div class="header-inner">
+    <a href="index.html" class="site-logo">
+      <img src="assets/logo-black.png" alt="Chethan Talari">
+    </a>
+
+    <nav class="site-nav">
+      <ul class="nav-list">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="connect.html">Connect</a></li>
+      </ul>
+      <span class="nav-underline"></span>
+    </nav>
+  </div>
+
+ <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const nav = document.querySelector(".nav-list");
+    const underline = document.querySelector(".nav-underline");
+    const links = nav.querySelectorAll("a");
+    const current = location.pathname.split("/").pop() || "index.html";
+
+    // ----- Mark current page active -----
+    links.forEach(a => {
+      const file = (a.getAttribute("href") || "").split("/").pop();
+      if (file === current) a.classList.add("active");
+      else a.classList.remove("active");
+    });
+
+    function moveUnderline(link) {
+      const rect = link.getBoundingClientRect();
+      const navRect = nav.getBoundingClientRect();
+      underline.style.width = rect.width + "px";
+      underline.style.left = rect.left - navRect.left + "px";
+    }
+
+    function updateUnderline() {
+      const active = nav.querySelector(".active");
+      if (active) moveUnderline(active);
+    }
+
+    // ----- Hover animations -----
+    links.forEach(link => {
+      link.addEventListener("mouseenter", () => moveUnderline(link));
+      link.addEventListener("focus", () => moveUnderline(link));
+      link.addEventListener("click", () => {
+        // Save underline position before navigating
+        const rect = link.getBoundingClientRect();
+        const navRect = nav.getBoundingClientRect();
+        sessionStorage.setItem("underlineLeft", rect.left - navRect.left);
+        sessionStorage.setItem("underlineWidth", rect.width);
+      });
+    });
+
+    nav.addEventListener("mouseleave", updateUnderline);
+    window.addEventListener("resize", updateUnderline);
+
+    // ----- Animate underline from previous page -----
+    window.addEventListener("load", () => {
+      const prevLeft = sessionStorage.getItem("underlineLeft");
+      const prevWidth = sessionStorage.getItem("underlineWidth");
+      const active = nav.querySelector(".active");
+
+      if (prevLeft && prevWidth && active) {
+        // Start underline from previous position (same as last page)
+        underline.style.transition = "none";
+        underline.style.left = prevLeft + "px";
+        underline.style.width = prevWidth + "px";
+
+        // Force reflow before animating to current link
+        void underline.offsetWidth;
+
+        // Animate to new active link
+        underline.style.transition = "left 0.5s cubic-bezier(.4,0,.2,1), width 0.5s cubic-bezier(.4,0,.2,1)";
+        
+        updateUnderline();
+      } else {
+        updateUnderline();
+      }
+    });
+  });
+</script>
+
+</header>
+
+  <!-- PROJECT HEADER -->
+  <section class="project-header">
+    <h1 style="font-family:'Bebas Neue',sans-serif;font-size:48px;margin:24px 0;">Bookafe — Reading App</h1>
+    <p style="color:#777;margin:8px 0 24px;">UI/UX · 2023 — A digital space where design meets reading comfort.</p>
+    <p>Bookafe brings a calm and distraction-free reading experience inspired by the ambiance of a cozy café. This project explores typography, minimal UI, and user flow for avid readers.</p>
+  </section>
+
+
+  <!-- GALLERY -->
+  <main class="project-gallery">
+    <img src="assets/projects/bookafe/01.jpg" alt="">
+    <img src="assets/projects/bookafe/02.gif" alt="">
+    <img src="assets/projects/bookafe/03.jpg" alt="">
+    <img src="assets/projects/bookafe/04.jpg" alt="">
+    <img src="assets/projects/bookafe/05.jpg" alt="">
+    <img src="assets/projects/bookafe/06.jpg" alt="">
+    <img src="assets/projects/bookafe/07.jpg" alt="">
+    <img src="assets/projects/bookafe/08.jpg" alt="">
+    <img src="assets/projects/bookafe/09.jpg" alt="">
+    <img src="assets/projects/bookafe/10.jpg" alt="">
+    <img src="assets/projects/bookafe/11.jpg" alt="">
+    <img src="assets/projects/bookafe/12.jpg" alt="">
+    <img src="assets/projects/bookafe/13.jpg" alt="">
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer" style="margin-top:60px;border-top:1px solid #efefef;padding:24px 0;">
+    <div style="max-width:1200px;margin:0 auto;padding:0 28px;display:flex;justify-content:space-between;align-items:center;">
+      <a href="index.html"><img src="assets/logo-black.png" alt="logo" style="height:36px;"></a>
+      <div>
+        <a href="https://instagram.com/c_celluloids">Instagram</a> · <a href="#">Dribbble</a> · <a href="https://www.linkedin.com/in/chethantalari/">LinkedIn</a>
+      </div>
+    </div>
+  </footer>
+
+
+</body>
+</html>

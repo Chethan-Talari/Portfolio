@@ -515,7 +515,7 @@ html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,Segoe U
   height:auto;
   background: #222222;
   display:block;
-  align:center;
+  align-items:center;
   box-shadow: 0 12px 30px rgba(0,0,0,0.04);
   border-radius:18px;
   transition: transform .32s ease;
@@ -647,3 +647,702 @@ html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,Segoe U
     *{box-sizing:border-box}
     body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--black);background:var(--white);-webkit-font-smoothing:antialiased}
 
+/* Project page shared styles (add to style.css) */
+.project-body{ padding-bottom:120px }
+.project-image{ border-radius:6px; overflow:hidden }
+.project-image img{ display:block; width:100%; height:auto }
+
+/* slight fade-in for images when loaded */
+.project-image img.is-loaded{ opacity:1; transform:none; transition:opacity .6s ease, transform .6s ease }
+.project-image img{ opacity:0; transform:translateY(8px) }
+
+/* floating rail buttons hover states */
+.action-btn:hover{ transform:translateY(-6px); box-shadow:0 22px 56px rgba(0,0,0,0.12) }
+.action-btn:active{ transform:translateY(-2px) }
+
+/* small screens: compact connect CTA */
+@media (max-width:520px){
+  .connect-cta{ padding:8px 12px; bottom:12px }
+}
+/* ---------------- Project card overlay ---------------- */
+.project-card {
+  position: relative;
+  display: block;
+  color: inherit;
+  text-decoration: none;
+  overflow: hidden;
+  border-radius: 8px;
+  transition: transform .28s ease, box-shadow .28s ease;
+}
+.project-card img.thumb {
+  width: 100%;
+  height: auto;
+  display: block;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  transition: transform .45s cubic-bezier(.2,.9,.3,1);
+}
+
+/* overlay that shows on hover/focus */
+.project-card .card-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.54);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity .22s ease, transform .22s ease;
+}
+.project-card .card-title {
+  color: #fff;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 20px;
+  text-align: center;
+  line-height: 1.05;
+  letter-spacing: 0.6px;
+}
+
+/* hover + focus behavior */
+.project-card:hover .card-overlay,
+.project-card:focus-within .card-overlay {
+  opacity: 1;
+  transform: translateY(0);
+}
+.project-card:hover img.thumb,
+.project-card:focus-within img.thumb {
+  transform: scale(1.03);
+}
+
+/* mobile: avoid overlay on touch where it doesn't make sense */
+@media (max-width:760px){
+  .project-card .card-overlay { display: none; }
+}
+
+/* ---------------- Project end-sign ---------------- */
+.project-end-sign {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+  padding:64px 18px;
+  max-width:920px;
+  margin: 48px auto;
+  text-align:center;
+}
+.project-end-sign img {
+  max-width:520px;
+  width:80%;
+  height:auto;
+  border-radius:10px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.06);
+}
+.project-end-sign .end-title {
+  font-family:'Bebas Neue',sans-serif;
+  font-size:28px;
+  letter-spacing:1px;
+}
+.project-end-sign .end-sub {
+  color:var(--grey);
+  max-width:680px;
+  font-size:16px;
+  line-height:1.6;
+}
+
+/* small CTA row under the sign */
+.end-cta-row {
+  display:flex;
+  gap:12px;
+  margin-top:8px;
+  flex-wrap:wrap;
+}
+.end-cta-row a.btn{
+  padding:10px 16px;
+  border-radius:999px;
+  border:1px solid var(--black);
+  text-decoration:none;
+  color:var(--black);
+  font-weight:700;
+}
+.end-cta-row a.btn.primary {
+  background:var(--black); color:var(--white); border-color:transparent;
+}
+
+/* reveal animation when scrolled into view */
+.project-end-sign.fade-in {
+  opacity:0;
+  transform: translateY(10px);
+  transition: opacity .6s ease, transform .6s ease;
+}
+.project-end-sign.visible { opacity:1; transform:none; }
+
+/* ---------------- Footer (site-wide) ---------------- */
+.site-footer {
+  border-top:1px solid #efefef;
+  padding:28px 0;
+  background: #fff;
+}
+.site-footer .footer-inner {
+  max-width:var(--wrap); margin:0 auto; padding:0 28px; display:flex; align-items:center; justify-content:space-between; gap:16px;
+}
+.site-footer .footer-logo img { height:36px; display:block }
+.site-footer .socials { display:flex; gap:14px; align-items:center }
+.site-footer .socials a { text-decoration:none; color:var(--grey); font-weight:600; font-size:14px; }
+@media (max-width:720px){
+  .site-footer .footer-inner{ flex-direction:column; gap:12px; text-align:center }
+}
+
+/* small focus states for accessibility */
+.project-card:focus { outline: 3px solid rgba(0,0,0,0.06); outline-offset:3px; }
+
+/* ---------- Global header / nav styles (paste into style.css) ---------- */
+
+.site-header {
+  width:100%;
+  background: #fff;
+  border-bottom: 1px solid #efefef;
+  position: sticky;
+  top: 0;
+  z-index: 1200;
+}
+
+.header-inner {
+  --wrap: 1200px;
+  max-width: var(--wrap);
+  margin: 0 auto;
+  padding: 18px 28px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap: 16px;
+}
+
+.site-logo img {
+  display:block;
+  height:40px;
+}
+
+/* nav layout */
+.site-nav {
+  position:relative;
+  display:flex;
+  align-items:center;
+}
+
+.nav-list {
+  display:flex;
+  gap:20px;
+  list-style:none;
+  margin:0;
+  padding:0;
+  align-items:center;
+  font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  font-weight:600;
+  letter-spacing:0.2px;
+}
+
+/* nav links - base */
+.nav-link {
+  display:inline-block;
+  padding:8px 12px;
+  border-radius:14px;
+  color: #111;
+  text-decoration:none;
+  position:relative;
+  transition: color .18s ease, transform .12s ease;
+  z-index:2;
+  font-size:15px;
+}
+
+/* hover pill effect: a black rounded box that appears behind the link */
+.nav-link::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  border-radius: 14px;
+  background: #000;
+  opacity: 0;
+  transform: scaleX(0.95);
+  transition: opacity .18s ease, transform .22s cubic-bezier(.2,.9,.3,1);
+  z-index: -1;
+}
+
+/* when hovering, show the pill and white text */
+.nav-link:hover::before,
+.nav-link:focus::before {
+  opacity: 1;
+  transform: scaleX(1);
+}
+.nav-link:hover,
+.nav-link:focus {
+  color: #fff;
+  outline: none;
+}
+
+/* active state: collapsed pill -> underline */
+.nav-link.is-active {
+  color: #000; /* text returns to black when active (underline indicates current page) */
+}
+
+/* the underline element is controlled by JS (position & width) */
+.nav-underline {
+  position: absolute;
+  height: 4px;
+  background: #000;
+  bottom: -12px;
+  left: 0;
+  width: 0;
+  border-radius: 3px;
+  transition: left .32s cubic-bezier(.2,.9,.3,1), width .32s cubic-bezier(.2,.9,.3,1), opacity .18s;
+  opacity: 0;
+  z-index:1;
+}
+
+/* show underline when an item is active (JS will set dimensions) */
+.nav-underline.visible { opacity: 1; }
+
+/* keyboard focus visible */
+.nav-link:focus {
+  box-shadow: 0 0 0 3px rgba(0,0,0,0.06);
+  border-radius: 12px;
+}
+
+/* mobile responsiveness */
+@media (max-width:720px) {
+  .header-inner { padding:14px 18px; }
+  .nav-list { gap:12px; font-size:14px; }
+  .nav-link { padding:6px 8px; border-radius:10px; }
+  .site-logo img { height:34px; }
+}
+
+
+  /* ===== hero layout: text left, portrait right; photo grayscale -> color on hover ===== */
+.hero-hero { padding: 28px 0 0; background:#fff; overflow:visible; }
+.hero-inner {
+  max-width: 1280px;
+  margin: 32px auto;
+  padding: 18px 28px;
+  display: grid;
+  grid-template-columns: 1fr 24px 420px; /* text | divider | portrait */
+  align-items: center;
+  gap: 28px;
+}
+
+/* responsive collapse: stack on narrow screens */
+@media (max-width:1000px) {
+  .hero-inner { grid-template-columns: 1fr; padding: 20px; }
+  .hero-divider { display:none; order:2; }
+  .hero-leftcol { order:1; }
+  .hero-rightcol { order:3; margin-top:8px; }
+}
+
+/* text column (on left) */
+.hero-rightcol { padding-right: 8px; }
+.hero-title {
+  font-family: 'Bebas Neue', Impact, sans-serif;
+  font-size: 120px;
+  line-height: .88;
+  margin: 0 0 14px;
+  letter-spacing: -2px;
+  font-weight: 700;
+}
+@media (max-width:1000px){ .hero-title{ font-size:64px; text-align:left } }
+
+/* description & role list */
+.hero-sub { color:#666; max-width:720px; font-size:18px; line-height:1.7; margin-bottom:18px; }
+.hero-roles { list-style:none; padding:0; margin:0; font-family: 'Special Elite', monospace; font-weight:700; }
+.hero-roles li { margin:8px 0; }
+
+/* vertical divider */
+.hero-divider { width:4px; height:330px; background:#111; border-radius:2px; align-self:center; }
+@media (max-width:1200px){ .hero-divider { height:280px } }
+
+/* portrait column */
+.hero-leftcol { display:flex; justify-content:center; align-items:center; }
+.hero-photo-wrap { width:100%; max-width:420px; }
+.hero-photo {
+  width:100%;
+  height:auto;
+  aspect-ratio: 3/4;          /* forces 3:4 ratio */
+  object-fit: cover;
+  border-radius: 6px;
+  box-shadow: 0 28px 60px rgba(0,0,0,0.08);
+  filter: grayscale(100%) contrast(1) brightness(.98); /* black & white default */
+  transition: filter .56s cubic-bezier(.2,.9,.3,1), transform .6s cubic-bezier(.16,.9,.3,1), opacity .6s ease;
+  transform: translateY(6px) scale(.995);
+  opacity: 0;
+  display:block;
+  will-change: filter, transform, opacity;
+}
+
+/* reveal / loaded state (JS adds .visible) */
+.hero-photo.visible { opacity:1; transform: translateY(0) scale(1); }
+
+/* color on hover — either hover the image itself OR hover the photo-wrap */
+.hero-photo-wrap:hover .hero-photo,
+.hero-photo:hover { filter: none; }
+
+/* small touch-friendly tweak: on small screens remove hover color change and keep BW (or change as you prefer) */
+@media (hover: none) and (pointer: coarse) {
+  .hero-photo-wrap:hover .hero-photo, .hero-photo:hover { filter: grayscale(100%); }
+}
+
+/* fold prompt (black band at bottom of landing) — keeps your existing style */
+.hero-fold { position: fixed; left:0; right:0; bottom:0; background:#000; color:#fff; padding:16px 0; text-align:center; z-index:120; }
+.hero-fold.hidden { transform: translateY(100%); opacity:0; pointer-events:none; transition: transform .44s, opacity .28s; }
+
+/* responsive portrait size */
+@media (max-width:1100px) { .hero-leftcol .hero-photo-wrap { max-width:360px; } }
+@media (max-width:720px) { .hero-leftcol .hero-photo-wrap { max-width:320px; } .hero-title{ font-size:48px } }
+
+
+/* --- Projects layout tweaks (append to style.css) --- */
+
+/* Grid container for the project cards */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 28px;
+  margin: 28px 0 80px;
+}
+
+/* A single project card - keeps simple, clean look */
+.project-card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.04);
+  transition: transform .18s ease, box-shadow .18s ease;
+  box-shadow: 0 4px 14px rgba(10,10,10,0.03);
+  min-height: 320px;
+}
+
+/* hover lift */
+.project-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 30px rgba(10,10,10,0.06);
+}
+
+/* image area — use background-image so it always covers */
+.project-thumb {
+  width: 100%;
+  height: 220px;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: block;
+}
+
+/* meta area: title, category, year, small desc */
+.project-meta {
+  padding: 16px;
+  display: flex;
+  gap: 12px;
+  flex-direction: column;
+}
+
+.project-meta h4 {
+  margin: 0;
+  font-size: 1.05rem;
+  letter-spacing: 0.2px;
+  font-weight: 600;
+}
+
+.project-meta .meta-sub {
+  margin-top: 4px;
+  color: #777;
+  font-size: .92rem;
+}
+
+/* tabs (category buttons) */
+.project-tabs {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 12px 0 20px;
+}
+.project-tabs .tab {
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid rgba(0,0,0,0.08);
+  background: #fff;
+  cursor: pointer;
+  font-size: .92rem;
+  color: #333;
+}
+.project-tabs .tab.active {
+  background: #111;
+  color: #fff;
+  border-color: rgba(0,0,0,0.12);
+}
+
+/* small responsive tweaks */
+@media (max-width: 640px) {
+  .project-thumb { height: 180px; }
+  .projects-grid { gap: 18px; }
+}
+
+/* Page inner container to match overall site spacing */
+.page-inner {
+  max-width: 1180px;     /* same content width used across site */
+  margin: 0 auto;        /* center */
+  padding: 0 36px;       /* horizontal padding to match other pages */
+  box-sizing: border-box;
+}
+
+/* Ensure tabs and sort align inside the centered container */
+.page-inner .project-tabs {
+  margin-top: 12px;
+  margin-bottom: 18px;
+}
+
+/* Keep sort control aligned right but inside the container */
+.page-inner > div[style*="float:right"] {
+  float: right;
+  margin-top: 6px;
+}
+
+/* Make the projects grid fit inside the container nicely */
+.page-inner .projects-grid {
+  margin-top: 26px;
+  gap: 26px;
+}
+
+/* Keep previous card styles but ensure they don't stretch too wide on big screens */
+.page-inner .project-card {
+  min-height: 300px;
+}
+
+/* small screens - reduce horizontal padding */
+@media (max-width: 640px) {
+  .page-inner { padding: 0 18px; }
+  .project-thumb { height: 180px; }
+}
+
+/* projects spacing, card gap and consistent aspect ratio */
+.page-inner { max-width: 1180px; margin: 0 auto; padding: 0 36px; box-sizing: border-box; }
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 28px;
+  margin-top: 26px;
+}
+
+/* card */
+.project-card {
+  display: block;
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  border: 1px solid rgba(0,0,0,0.04);
+  transition: transform .16s ease, box-shadow .16s ease;
+}
+
+/* hover */
+.project-card:hover { transform: translateY(-6px); box-shadow: 0 10px 30px rgba(0,0,0,0.06); }
+
+/* aspect-ratio for consistent card thumbs (16:9). Change to 4/3 -> 4/3 if you prefer */
+.project-thumb {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  display:block;
+}
+
+/* meta area */
+.project-meta { padding: 16px; }
+.project-meta h4 { margin: 0 0 6px 0; font-size:1.05rem; font-weight:600; }
+.project-meta .meta-sub { color: #777; font-size: .95rem; }
+
+/* tabs */
+.project-tabs { display:flex; gap:10px; flex-wrap:wrap; margin: 12px 0; }
+.project-tabs .tab { padding:8px 12px; border-radius:8px; border:1px solid rgba(0,0,0,0.06); background:#fff; cursor:pointer; }
+.project-tabs .tab.active { background:#111; color:#fff; border-color:rgba(0,0,0,0.12); }
+
+/* small screens */
+@media (max-width: 640px) {
+  .page-inner { padding: 0 18px; }
+  .projects-grid { gap: 18px; }
+  .project-thumb { aspect-ratio: 4 / 3; }
+}
+
+/* --- Force clear spacing between project cards --- */
+.projects-grid {
+  /* ensure grid and gaps are enforced */
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)) !important;
+  gap: 42px !important;            /* horizontal & vertical gap between cards */
+  row-gap: 28px !important;        /* extra explicit row gap */
+  column-gap: 28px !important;
+  margin-top: 26px;
+  align-items: start;              /* keeps cards top-aligned */
+  padding-bottom: 18px;
+  box-sizing: border-box;
+}
+
+/* make sure no child margin collapse removes the gap */
+.projects-grid > * {
+  margin: 0 !important;
+}
+
+/* ensure card has internal padding (so content doesn't touch edges) */
+.project-card {
+  display: block;
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  border: 1px solid rgba(0,0,0,0.04);
+  box-sizing: border-box;
+  padding: 0;                       /* keep thumb flush */
+}
+
+/* add spacing inside the meta area (so thumb and text have breathing room) */
+.project-meta {
+  padding: 18px !important;
+}
+
+/* ensure the thumb uses the aspect-ratio but doesn't collapse adjacent spacing */
+.project-thumb {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+/* safety: on very small screens reduce gap */
+@media (max-width: 640px) {
+  .projects-grid { gap: 16px !important; }
+  .project-meta { padding: 14px !important; }
+}
+
+/* Project detail: vertical Behance-like stack */
+.project-gallery {
+  display: block !important;
+  width: 100%;
+  max-width: 1180px;         /* matches .page-inner width */
+  margin: 40px auto;         /* center in page-inner */
+  padding: 0 18px;
+  box-sizing: border-box;
+}
+
+.project-gallery .project-image {
+  width: 100%;
+  margin-bottom: 44px;       /* vertical space between stacked items */
+  background: transparent;
+  box-sizing: border-box;
+}
+
+/* Images scale to container width, keep aspect, and lazy-load friendly */
+.project-gallery .project-image img,
+.project-gallery .project-image video {
+  width: 100%;
+  height: auto;
+  display: block;
+  max-height: none;
+  border-radius: 12px;
+  box-shadow: 0 18px 40px rgba(10,10,10,0.05);
+  object-fit: contain;
+  background: #fafafa;
+}
+
+/* Slightly smaller spacing on small screens */
+@media (max-width: 640px) {
+  .project-gallery { padding: 0 14px; margin: 28px auto; }
+  .project-gallery .project-image { margin-bottom: 28px; }
+  .project-gallery .project-image img { border-radius: 10px; }
+}
+
+.project-gallery .project-image video {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 18px 40px rgba(10,10,10,0.05);
+}
+
+/* === Force-visible, Behance-style vertical gallery (paste at end of style.css) === */
+
+.project-gallery {
+  width: 100%;
+  max-width: 1180px;
+  margin: 40px auto;
+  box-sizing: border-box;
+  padding: 0 18px;
+  display: block !important;
+}
+
+/* each media item is a full-width block with spacing */
+.project-gallery .project-image {
+  width: 100%;
+  margin-bottom: 44px;
+  box-sizing: border-box;
+  overflow: visible;
+  background: transparent;
+}
+
+/* Images + videos: full width, visible, with nice shadow */
+.project-gallery .project-image img,
+.project-gallery .project-image video {
+  display: block !important;
+  width: 100% !important;
+  height: auto !important;
+  max-width: 100% !important;
+  object-fit: contain !important;
+  border-radius: 12px;
+  box-shadow: 0 22px 48px rgba(10,10,10,0.06);
+  background: #fff;           /* prevents white-on-white blending if any transparency exists */
+  z-index: 1;
+}
+
+/* ensure wrapper and gallery aren't collapsing */
+#projectBody, .project-gallery, .project-image {
+  min-height: 20px;
+}
+
+/* small screens: reduce spacing and radius */
+@media (max-width: 640px) {
+  .project-gallery { padding: 0 14px; margin: 28px auto; }
+  .project-gallery .project-image { margin-bottom: 28px; }
+  .project-gallery .project-image img,
+  .project-gallery .project-image video { border-radius: 10px; }
+}
+
+/* Force gallery visible & full-width (append to style.css) */
+.project-gallery { width: 100%; max-width: 1180px; margin: 40px auto; padding: 0 18px; box-sizing: border-box; display:block; }
+.project-gallery .project-image { width: 100%; margin-bottom: 40px; overflow:visible; }
+.project-gallery img, .project-gallery video { width:100% !important; height:auto !important; display:block !important; object-fit:contain !important; border-radius:12px; box-shadow: 0 20px 40px rgba(0,0,0,0.05); background:#fff; }
+#projectBody, .project-gallery, .project-image { min-height: 20px; }
+
+.project-gallery {
+  width: 100%;
+  max-width: 1180px;
+  margin: 40px auto;
+  padding: 0 18px;
+  box-sizing: border-box;
+}
+.project-gallery img {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-bottom: 40px;
+  border-radius: 12px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.06);
+  background: #fff;
+}

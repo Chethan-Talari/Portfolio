@@ -1,0 +1,121 @@
+{
+  "awara": {
+    "slug": "awara",
+    "title": "Awara — UI/UX Design",
+    "category": "UI/UX",
+    "year": "2025",
+    "thumb": "assets/projects/awara/thumb.jpg",
+    "cover": "assets/projects/awara/cover.jpg",
+    "media": [
+      "assets/projects/awara/01.jpg",
+      "assets/projects/awara/02.jpg",
+      "assets/projects/awara/03.mp4"
+    ],
+    "featured": true,
+    "feature_rank": 1
+  },
+
+"cookit": {
+  "slug": "cookit",
+  "title": "Cook It — Recipe App",
+  "category": "UI/UX",
+  "year": "2024",
+  "thumb": "assets/projects/cookit/01.jpg",
+  "cover": "assets/projects/cookit/Cover.jpg",
+  "media": [
+    "assets/projects/cookit/01.jpg",
+    "assets/projects/cookit/02.gif",
+    "assets/projects/cookit/03.jpg",
+    "assets/projects/cookit/04.jpg",
+    "assets/projects/cookit/05.jpg",
+    "assets/projects/cookit/06.jpg",
+    "assets/projects/cookit/07.jpg",
+    "assets/projects/cookit/08.jpg",
+    "assets/projects/cookit/09.jpg",
+    "assets/projects/cookit/10.jpg",
+    "assets/projects/cookit/11.jpg",
+    "assets/projects/cookit/12.jpg"
+  ],
+  "featured": false
+},
+"bookafe": {
+    "slug": "bookafe",
+    "title": "Bookafe — Reading App",
+    "category": "UI/UX",
+    "year": "2023",
+    "thumb": "assets/projects/bookafe/thumb.jpg",
+    "cover": "assets/projects/bookafe/cover.jpg",
+    "media": [
+      "assets/projects/bookafe/01.jpg",
+      "assets/projects/bookafe/02.jpg"
+    ],
+    "featured": false
+  },
+  "sparsha": {
+    "slug": "sparsha",
+    "title": "Sparsha — Brand Identity",
+    "category": "Brand Identity",
+    "year": "2024",
+    "thumb": "assets/projects/sparsha/thumb.jpg",
+    "cover": "assets/projects/sparsha/cover.jpg",
+    "media": [
+      "assets/projects/sparsha/01.jpg",
+      "assets/projects/sparsha/02.jpg"
+    ],
+    "featured": true,
+    "feature_rank": 1
+  },
+  "prachi": {
+    "slug": "prachi",
+    "title": "Prachi — Brand Identity",
+    "category": "Brand Identity",
+    "year": "2023",
+    "thumb": "assets/projects/prachi/thumb.jpg",
+    "cover": "assets/projects/prachi/cover.jpg",
+    "media": [
+      "assets/projects/prachi/01.jpg",
+      "assets/projects/prachi/02.jpg"
+    ],
+    "featured": false
+  },
+  "samarth": {
+    "slug": "samarth",
+    "title": "SAMARTH — Central Silk Board",
+    "category": "Documentaries",
+    "year": "2022",
+    "thumb": "assets/projects/samarth/thumb.jpg",
+    "cover": "assets/projects/samarth/cover.jpg",
+    "media": [
+      "assets/projects/samarth/01.jpg",
+      "assets/projects/samarth/02.mp4"
+    ],
+    "featured": true,
+    "feature_rank": 1
+  },
+  "editing1": {
+    "slug": "editing1",
+    "title": "Edit Project 1",
+    "category": "Editing",
+    "year": "2024",
+    "thumb": "assets/projects/editing1/thumb.jpg",
+    "cover": "assets/projects/editing1/cover.jpg",
+    "media": [
+      "assets/projects/editing1/01.jpg",
+      "assets/projects/editing1/02.mp4"
+    ],
+    "featured": false
+  },
+  "editing2": {
+    "slug": "editing2",
+    "title": "Edit Project 2",
+    "category": "Editing",
+    "year": "2024",
+    "thumb": "assets/projects/editing2/thumb.jpg",
+    "cover": "assets/projects/editing2/cover.jpg",
+    "media": [
+      "assets/projects/editing2/01.jpg",
+      "assets/projects/editing2/02.mp4"
+    ],
+    "featured": false
+  }
+}

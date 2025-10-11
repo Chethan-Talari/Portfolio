@@ -1,88 +1,963 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Chethan Talari — Visual Designer</title>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Special+Elite&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <meta name="description" content="Chethan Talari — Visual Designer. UI/UX, Brand Identity, Documentaries, Editing. Projects and case studies." />
+  <!-- main stylesheet -->
   <link rel="stylesheet" href="style.css">
+  <!-- fonts (you already used Bebas/ Special Elite) -->
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Special+Elite&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* Page-specific small layout helpers (keeps main style.css primary) */
+    :root { --wrap: 1200px; --muted: #6b6b6b; }
+
+    /* HERO */
+    /* ---- HERO: 2-column (text left, portrait right) ---- */
+.hero { padding: 40px 0 30px; background:#fff; }
+.hero-inner {
+  max-width: 1200px;
+  margin: 28px auto;
+  padding: 0 28px;
+  display: grid;
+  grid-template-columns: 1fr 420px; /* text | portrait */
+  gap: 60px;                        /* space between text and portrait */
+  align-items: center;
+}
+
+/* responsive: stack on small screens */
+@media (max-width:1000px) {
+  .hero-inner { grid-template-columns: 1fr; gap:28px; padding: 0 20px; }
+}
+
+/* text side */
+.hero-title { font-family: 'Bebas Neue', Impact, sans-serif; font-size:120px; line-height:.86; margin:0 0 16px; letter-spacing:-2px; }
+@media (max-width:1000px){ .hero-title{ font-size:64px } }
+.hero-desc { color:#6b6b6b; font-size:18px; line-height:1.7; max-width:760px; margin-bottom:18px; }
+.hero-slashes { list-style:none; padding:0; margin:8px 0 0; font-family:'Special Elite', monospace; font-weight:700; }
+
+/* portrait column */
+.hero-portrait-wrap { display:flex; justify-content:flex-end; align-items:center; }
+.hero-portrait {
+  width:100%;
+  max-width:420px;        /* portrait width */
+  aspect-ratio: 3/4;      /* enforces 3:4 ratio */
+  height:auto;
+  object-fit: cover;
+  border-radius:8px;
+  box-shadow: 0 28px 64px rgba(0,0,0,0.08);
+  filter: grayscale(100%) contrast(1.02) brightness(.98);
+  transform: translateX(40px) scale(.995);
+  opacity: 0;
+  transition: transform .9s cubic-bezier(.16,.9,.3,1), opacity .7s ease, filter .5s ease;
+  display:block;
+  will-change: transform, opacity;
+}
+/* visible after JS adds .entered */
+.hero-portrait.entered{ opacity:1; transform: translateX(0) scale(1); }
+
+/* color on hover */
+.hero-portrait:hover { filter:none; transform: translateX(0) scale(1.01); }
+
+/* small screens portrait adjustments */
+@media (max-width:1100px) { .hero-portrait { max-width:360px; } }
+@media (max-width:720px) { .hero-portrait { max-width:320px; } }
+
+    
+    
+    .hero-divider { width:4px; height:320px; background:#111; border-radius:2px; align-self:start; margin-top:8px; }
+    @media (max-width:1000px) { .hero-inner { grid-template-columns: 1fr; } .hero-divider{display:none;} }
+
+    /* portrait column (right) */
+
+    /* After load (JS adds .entered) */
+    .hero-portrait.entered { opacity:1; transform: translateX(0) scale(1); }
+
+    /* color on hover */
+    .hero-portrait:hover { filter:none; transform: translateX(0) scale(1.01); }
+
+    /* responsive portrait scaling */
+    @media (max-width:1100px) { .hero-portrait { max-width:360px; } }
+    @media (max-width:720px) { .hero-portrait { max-width:320px; } }
+
+    /* RECENT PROJECTS */
+    .section { max-width: var(--wrap); margin: 40px auto; padding: 0 28px 30px; }
+    .section h2 { font-family:'Bebas Neue', sans-serif; font-size:36px; margin:0 0 18px; }
+    .projects-grid { display:grid; grid-template-columns: repeat(3, 1fr); gap:28px; align-items:start; }
+    @media (max-width:1024px){ .projects-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width:640px){ .projects-grid { grid-template-columns: 1fr; } }
+
+    .project-card {
+      position:relative;
+      overflow:hidden;
+      border-radius:6px;
+      background:#fff;
+      border:1px solid #eee;
+      min-height:210px;
+      display:block;
+      text-decoration:none;
+      color:inherit;
+    }
+    .project-thumb { width:100%; display:block; height:0; padding-bottom:75%; background-size:cover; background-position:center; }
+    .project-meta {
+      position:absolute;
+      left:14px;
+      bottom:14px;
+      background: rgba(0,0,0,0.5);
+      color:#fff;
+      padding:8px 10px;
+      border-radius:4px;
+      font-weight:700;
+      font-size:14px;
+    }
+
+/* Recent projects header with right-aligned View All button */
+.section-head {
+  max-width: 1200px;
+  margin: 0 auto 18px;
+  padding: 0 28px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+}
+
+.section-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 36px;
+  margin: 0;
+  letter-spacing: -1px;
+}
+
+/* view all button */
+.view-all-btn{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  text-decoration:none;
+  padding:10px 16px;
+  border-radius:999px;
+  border: 2px solid #111;
+  color:#111;
+  font-weight:700;
+  font-family: Inter, system-ui, sans-serif;
+  background: transparent;
+  transition: background .22s ease, color .22s ease, transform .12s ease;
+  white-space:nowrap;
+}
+
+.view-all-btn .btn-text { font-size:14px; letter-spacing: .2px; }
+.view-all-btn .btn-arrow { display:block; transition: transform .22s ease; }
+
+.view-all-btn:hover{
+  background:#111;
+  color:#fff;
+  transform: translateY(-2px);
+}
+.view-all-btn:hover .btn-arrow { transform: translateX(4px); }
+
+/* responsive adjustments */
+@media (max-width:920px) {
+  .section-head { padding: 0 22px; }
+  .section-title { font-size: 30px; }
+}
+@media (max-width:640px) {
+  .section-head { flex-direction:column; align-items:flex-start; gap:12px; }
+  .view-all-btn { align-self:stretch; justify-content:center; }
+}
+
+/* ===== RECENT PROJECTS ===== */
+.recent-projects {
+  max-width: 1200px;
+  margin: 100px auto;
+  padding: 0 32px;
+  box-sizing: border-box;
+}
+
+.recent-projects .section-header {
+  margin-bottom: 40px;
+  text-align: left;
+}
+
+.recent-projects h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 54px;
+  letter-spacing: -0.5px;
+  margin: 0;
+}
+
+.recent-projects p {
+  color: #666;
+  margin-top: 8px;
+  font-size: 16px;
+  max-width: 600px;
+}
+
+/* Same grid + card style as projects.html */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 28px;
+  align-items: start;
+}
+
+
+/* --- FORCE UNIFORM PROJECT CARD SIZE --- */
+.project-card {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid rgba(0,0,0,0.05);
+  background: #fff;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  height: 100%; /* keep card consistent if content varies */
+}
+
+.project-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 50px rgba(0,0,0,0.08);
+}
+
+/* each thumbnail is exactly 16:9 */
+.project-thumb {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* guarantee aspect ratio support in older browsers */
+.project-thumb::before {
+  content: "";
+  display: block;
+  padding-top: calc(9 / 16 * 100%); /* 56.25% */
+}
+
+/* make sure background image fills */
+.project-thumb img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* consistent info block */
+.project-info {
+  flex-grow: 1;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+
+
+.project-info {
+  padding: 16px;
+}
+
+.project-info h4 {
+  margin: 0 0 6px;
+  font-weight: 600;
+  font-size: 17px;
+}
+
+.project-info p {
+  margin: 0;
+  color: #777;
+  font-size: 14px;
+}
+
+/* "View All" button */
+.view-all {
+  text-align: right;
+  margin-top: 32px;
+}
+
+.view-all-btn {
+  display: inline-block;
+  font-weight: 600;
+  color: #111;
+  text-decoration: none;
+  border-bottom: 2px solid #111;
+  transition: all 0.3s ease;
+}
+
+.view-all-btn:hover {
+  color: #fff;
+  background: #111;
+  padding: 6px 14px;
+  border-radius: 6px;
+  border-bottom: none;
+}
+
+
+/* ===== testimonials (single horizontal marquee row) ===== */
+.testimonials {
+  padding: 34px 0;
+  background: #fafafa;
+  border-top: 1px solid #f0f0f0;
+}
+
+.testimonials .title {
+  max-width: var(--wrap);
+  margin: 0 auto 18px;
+  padding: 0 28px;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 28px;
+}
+
+/* wrapper hides overflow */
+.testi-marquee-wrap {
+  overflow: hidden;
+  width: 100%;
+}
+
+/* the track is a wide flex row that will be duplicated */
+.testi-track {
+  display: flex;
+  gap: 20px;
+  align-items: stretch;
+  /* we will animate transform; pause on hover using :hover rule below */
+  animation: marquee-linear 28s linear infinite;
+  will-change: transform;
+}
+
+/* each inner list (we duplicate this list) must be a horizontal row */
+.testi-list {
+  display: flex;
+  gap: 20px;
+}
+
+/* single testimonial card */
+.testi-card {
+  min-width: 320px;
+  max-width: 320px;
+  background: #fff;
+  border-radius: 10px;
+  padding: 16px;
+  box-shadow: 0 18px 40px rgba(0,0,0,0.05);
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  flex-shrink: 0; /* critical: prevents shrinking when in a flex row */
+}
+
+/* small pieces */
+.testi-top { display:flex; gap:12px; align-items:center; }
+.testi-photo { width:52px; height:52px; border-radius:50%; object-fit:cover; }
+.testi-name { font-weight:700; }
+.testi-role { color:#777; font-size:13px; margin-top:3px; }
+.testi-text { color:#444; font-size:15px; line-height:1.6; }
+
+/* pause on hover or focus */
+.testi-marquee-wrap:hover .testi-track,
+.testi-marquee-wrap:focus-within .testi-track {
+  animation-play-state: paused;
+}
+
+/* marquee animation moves full width of one .testi-list block (we duplicate it to create seamless loop) */
+@keyframes marquee-linear {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* responsive */
+@media (max-width:900px) {
+  .testi-card { min-width:280px; max-width:280px; }
+}
+@media (max-width:640px) {
+  .testi-card { min-width:240px; max-width:240px; }
+}
+
+  
+
+    /* footer quick layout (inherits your style.css footer, but keep safe spacing) */
+    footer.site-footer { margin-top:36px; padding:24px 0; border-top:1px solid #efefef; background:#fff; }
+    footer .footer-inner { max-width:var(--wrap); margin:0 auto; padding:0 28px; display:flex; justify-content:space-between; align-items:center; gap:16px; }
+
+  </style>
 </head>
 <body>
-  <!-- HEADER -->
-  <header class="site-header">
-    <div class="container header-inner">
-      <a class="logo" href="index.html"><img src="assets/logo-black.png" alt="Chethan Talari logo"></a>
-      <nav class="main-nav">
-        <a href="index.html" class="nav-link active">Home</a>
-        <a href="about.html" class="nav-link">About</a>
-        <a href="connect.html" class="nav-link">Connect</a>
-      </nav>
-    </div>
-  </header>
 
-<!-- HERO SECTION -->
-<section class="home-hero">
-  <div class="container hero-container">
-    <div class="hero-text">
-      <h1 class="hero-title">VISUAL DESIGNER</h1>
-      <p class="hero-desc">
-        I design seamless digital experiences that balance usability and aesthetics. A fast learner and film enthusiast. I blend storytelling and craft to make products and projects that feel human and purposeful.
-      </p>
+<header class="site-header" style="
+  width:100%;
+  background:#fff;
+  border-bottom:1px solid rgba(0,0,0,0.05);
+  position:relative;
+  z-index:999;">
+  <style>
+    .header-inner {
+      max-width:1200px;
+      margin:0 auto;
+      padding:20px 32px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+    .site-logo img {
+      height:36px;
+      display:block;
+    }
+    .nav-list {
+      list-style:none;
+      display:flex;
+      gap:36px;
+      margin:0;
+      padding:0;
+      position:relative;
+    }
+    .nav-list a {
+      position:relative;
+      text-decoration:none;
+      font-weight:500;
+      color:#111;
+      padding:6px 0;
+      transition:color 0.3s ease;
+      z-index:1;
+    }
+    /* Hover black block */
+    .nav-list a::before {
+      content:"";
+      position:absolute;
+      left:50%;
+      top:50%;
+      width:0%;
+      height:100%;
+      transform:translate(-50%,-50%);
+      background:#111;
+      z-index:-1;
+      border-radius:4px;
+      transition:all 0.35s ease;
+    }
+    .nav-list a:hover::before {
+      width:120%;
+      height:120%;
+    }
+    .nav-list a:hover {
+      color:#fff;
+    }
+    /* Moving underline */
+    .nav-underline {
+      position:absolute;
+      bottom:-6px;
+      left:0;
+      height:2px;
+      width:0;
+      background:#111;
+      border-radius:1px;
+      pointer-events:none;
+      transition:left 0.35s cubic-bezier(.645,.045,.355,1),width 0.35s cubic-bezier(.645,.045,.355,1);
+    }
+    /* Active link persistent underline */
+    .nav-list a.active {
+      color:#111;
+      font-weight:600;
+    }
+    .nav-list a.active::after {
+      content:"";
+      position:absolute;
+      left:0;
+      bottom:-6px;
+      width:100%;
+      height:2px;
+      background:#111;
+      border-radius:1px;
+    }
+    @media(max-width:640px){
+      .header-inner{flex-direction:column;gap:10px;}
+      .nav-list{gap:24px;}
+    }
+  </style>
 
-      <div class="hero-slashes">
-        <span>/ Experience Designer</span>
-        <span>/ Photographer</span>
-        <span>/ Editor</span>
-        <span>/ Filmmaker</span>
-      </div>
-    </div>
+  <div class="header-inner">
+    <a href="index.html" class="site-logo">
+      <img src="assets/logo-black.png" alt="Chethan Talari">
+    </a>
 
-    <!-- Side portrait (revealed on scroll) -->
-    <div class="hero-photo">
-      <img src="assets/portrait.jpg" alt="Chethan Talari Portrait">
-    </div>
+    <nav class="site-nav">
+      <ul class="nav-list">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="connect.html">Connect</a></li>
+      </ul>
+      <span class="nav-underline"></span>
+    </nav>
   </div>
-</section>
 
-<!-- Fold design / scroll indicator -->
-<section class="fold-hint">
-  <div class="fold-inner">
-    <span class="fold-text">Scroll to see projects</span>
-    <div class="mouse-icon">
-      <div class="wheel"></div>
-    </div>
-  </div>
-</section>
+ <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const nav = document.querySelector(".nav-list");
+    const underline = document.querySelector(".nav-underline");
+    const links = nav.querySelectorAll("a");
+    const current = location.pathname.split("/").pop() || "index.html";
 
-<!-- keep your existing projects section below -->
+    // ----- Mark current page active -----
+    links.forEach(a => {
+      const file = (a.getAttribute("href") || "").split("/").pop();
+      if (file === current) a.classList.add("active");
+      else a.classList.remove("active");
+    });
 
-    <!-- thin fold divider -->
-    <div class="fold-divider" aria-hidden="true"></div>
+    function moveUnderline(link) {
+      const rect = link.getBoundingClientRect();
+      const navRect = nav.getBoundingClientRect();
+      underline.style.width = rect.width + "px";
+      underline.style.left = rect.left - navRect.left + "px";
+    }
 
-    <!-- PROJECTS (kept minimal here; script will populate) -->
-    <section class="projects">
-      <div class="container">
-        <div class="category-dock">
-          <button class="cat active" data-cat="uiux">UI/UX Design</button>
-          <button class="cat" data-cat="brand">Brand Identity</button>
-          <button class="cat" data-cat="docs">Documentaries</button>
-          <button class="cat" data-cat="edit">Editing</button>
-          <button class="cat" data-cat="all">View All</button>
+    function updateUnderline() {
+      const active = nav.querySelector(".active");
+      if (active) moveUnderline(active);
+    }
+
+    // ----- Hover animations -----
+    links.forEach(link => {
+      link.addEventListener("mouseenter", () => moveUnderline(link));
+      link.addEventListener("focus", () => moveUnderline(link));
+      link.addEventListener("click", () => {
+        // Save underline position before navigating
+        const rect = link.getBoundingClientRect();
+        const navRect = nav.getBoundingClientRect();
+        sessionStorage.setItem("underlineLeft", rect.left - navRect.left);
+        sessionStorage.setItem("underlineWidth", rect.width);
+      });
+    });
+
+    nav.addEventListener("mouseleave", updateUnderline);
+    window.addEventListener("resize", updateUnderline);
+
+    // ----- Animate underline from previous page -----
+    window.addEventListener("load", () => {
+      const prevLeft = sessionStorage.getItem("underlineLeft");
+      const prevWidth = sessionStorage.getItem("underlineWidth");
+      const active = nav.querySelector(".active");
+
+      if (prevLeft && prevWidth && active) {
+        // Start underline from previous position (same as last page)
+        underline.style.transition = "none";
+        underline.style.left = prevLeft + "px";
+        underline.style.width = prevWidth + "px";
+
+        // Force reflow before animating to current link
+        void underline.offsetWidth;
+
+        // Animate to new active link
+        underline.style.transition =
+          "left 0.35s cubic-bezier(.645,.045,.355,1), width 0.35s cubic-bezier(.645,.045,.355,1)";
+        updateUnderline();
+      } else {
+        updateUnderline();
+      }
+    });
+  });
+</script>
+
+</header>
+
+
+
+  <!-- HERO -->
+  <main role="main">
+    <section class="hero" id="hero">
+      <div class="hero-inner">
+        <!-- text (left) -->
+        <div>
+          <h1 class="hero-title">VISUAL<br>DESIGNER</h1>
+          <p class="hero-desc">
+            I design seamless digital experiences that balance usability and aesthetics.
+            A fast learner and film enthusiast. I blend storytelling and craft to make products and projects that feel human and purposeful.
+          </p>
+
+          <ul class="hero-slashes" aria-hidden="true">
+            <li>/ Experience Designer</li>
+            <li>/ Photographer</li>
+            <li>/ Editor</li>
+            <li>/ Filmmaker</li>
+          </ul>
         </div>
 
-        <div id="project-grid" class="project-grid"></div>
+        <!-- portrait (right) -->
+        <div class="hero-portrait-wrap">
+          <img src="assets/portrait.jpg" alt="portrait" class="hero-portrait" id="heroPortrait">
+        </div>
+      </div>
+    </section>
+
+<!-- ======= RECENT PROJECTS (REPLACE YOUR OLD RECENT SECTION WITH THIS ENTIRE BLOCK) ======= -->
+<section id="cc-recent-projects" style="max-width:1200px;margin:100px auto;padding:0 32px;box-sizing:border-box;">
+
+  <style>
+    /* Use unique prefixes (cc-) to avoid conflicting with global CSS */
+    #cc-recent-projects .cc-header {
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-end;
+      gap:20px;
+      margin-bottom:32px;
+      flex-wrap:wrap;
+    }
+
+    #cc-recent-projects .cc-left {
+      min-width:240px;
+      flex:1 1 60%;
+    }
+
+    #cc-recent-projects .cc-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size:56px;
+      margin:0 0 6px;
+      line-height:1;
+    }
+
+    #cc-recent-projects .cc-sub {
+      margin:0;
+      color:#666;
+      font-size:16px;
+    }
+
+    #cc-recent-projects .cc-right {
+      flex:0 0 auto;
+      text-align:right;
+      align-self:flex-end;
+    }
+
+    /* Button */
+    .cc-viewall-btn {
+      display:inline-block;
+      text-decoration:none;
+      color:#111;
+      font-weight:600;
+      border-bottom:2px solid #111;
+      transition: all .25s ease;
+      padding:6px 10px;
+      border-radius:6px;
+      background:transparent;
+      line-height:1;
+    }
+    .cc-viewall-btn:hover {
+      background:#111;
+      color:#fff;
+      border-bottom:none;
+      padding:6px 14px;
+    }
+
+    /* Grid */
+    #cc-recent-projects .cc-grid {
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:32px;
+      align-items:start;
+    }
+
+    /* Project card (16:9) */
+    .cc-card {
+      display:flex;
+      flex-direction:column;
+      background:#fff;
+      border-radius:12px;
+      overflow:hidden;
+      border:1px solid rgba(0,0,0,0.05);
+      box-shadow:0 12px 30px rgba(0,0,0,0.06);
+      transition: transform .28s ease, box-shadow .28s ease;
+    }
+    .cc-card:hover { transform:translateY(-6px); box-shadow:0 22px 60px rgba(0,0,0,0.10); }
+
+    .cc-thumb {
+      width:100%;
+      aspect-ratio:16/9;
+      background-size:cover;
+      background-position:center;
+      background-repeat:no-repeat;
+      flex-shrink:0;
+    }
+
+    .cc-info {
+      padding:14px 16px 18px;
+    }
+    .cc-info h4 { margin:0 0 6px; font-size:18px; font-weight:600; }
+    .cc-info p { margin:0; color:#777; font-size:14px; }
+
+    /* Responsive */
+    @media (max-width: 980px) {
+      #cc-recent-projects .cc-grid { grid-template-columns: repeat(2, 1fr); gap:24px; }
+    }
+    @media (max-width: 640px) {
+      #cc-recent-projects .cc-header { flex-direction:column; align-items:flex-start; gap:12px; }
+      #cc-recent-projects .cc-right { text-align:left; }
+      #cc-recent-projects .cc-grid { grid-template-columns: 1fr; gap:20px; }
+      #cc-recent-projects .cc-title { font-size:44px; }
+    }
+
+    /* IMPORTANT overrides in case global rules conflict (use sparingly) */
+    #cc-recent-projects .cc-title, #cc-recent-projects .cc-sub, #cc-recent-projects .cc-right { z-index:0; }
+    /* force button alignment if other styles interfere */
+    #cc-recent-projects .cc-right .cc-viewall-btn { display:inline-block !important; }
+  </style>
+
+  <!-- header row: left = title+subtitle, right = view-all -->
+  <div class="cc-header">
+    <div class="cc-left">
+      <h2 class="cc-title">Recent Projects</h2>
+      <p class="cc-sub">Selected highlights from my latest work — UI/UX, branding, and experience design.</p>
+    </div>
+
+    <div class="cc-right">
+      <a href="projects.html" class="cc-viewall-btn">View All Projects →</a>
+    </div>
+  </div>
+
+  <!-- grid placeholder -->
+  <div class="cc-grid" id="ccRecentGrid"></div>
+
+  <!-- JS to populate three cards (replace image/link text as needed) -->
+  <script>
+    (function () {
+      const items = [
+        { title: "Cook It — Recipe App", meta: "UI/UX · 2024", img: "assets/projects/cookit/Cover.jpg", href: "cookit.html" },
+        { title: "Awara — Travel UI/UX", meta: "UI/UX · 2025", img: "assets/projects/awara/cover.jpg", href: "awara.html" },
+        { title: "Sparsha — Brand Identity", meta: "Branding · 2024", img: "assets/projects/sparsha/cover.jpg", href: "sparsha.html" }
+      ];
+
+      const grid = document.getElementById("ccRecentGrid");
+      if (!grid) return;
+
+      grid.innerHTML = items.map(item => `
+        <a class="cc-card" href="${item.href}">
+          <div class="cc-thumb" style="background-image:url('${item.img}');"></div>
+          <div class="cc-info">
+            <h4>${item.title}</h4>
+            <p>${item.meta}</p>
+          </div>
+        </a>
+      `).join("");
+    })();
+  </script>
+</section>
+<!-- ======= END RECENT PROJECTS ======= -->
+
+
+
+
+    <!-- TESTIMONIALS (marquee) -->
+    <section class="testimonials" aria-label="Testimonials">
+      <div class="title">Testimonials</div>
+      <div class="testi-marquee-wrap" id="testiWrap" tabindex="0" aria-label="Client testimonials (marquee)">
+        <div class="testi-track" id="testiTrack">
+          <!-- We'll duplicate the set of cards via JS for continuous loop -->
+          <div class="testi-list" id="testiList">
+            <!-- 5 placeholder testimonial cards -->
+            <div class="testi-card">
+              <div class="testi-top">
+                <img src="assets/testi1.jpg" class="testi-photo" alt="Client 1">
+                <div>
+                  <div class="testi-name">Dr. E. Suresh Paul</div>
+                  <div class="testi-role">Dean, School of Media Technology and Communication, VelTech</div>
+                </div>
+              </div>
+              <div class="testi-text">Chethan has always stood out for his clarity of vision and depth of thought. He approaches every project with intent and originality, turning ideas into meaningful work that reflects both intellect and purpose.</div>
+            </div>
+
+            <div class="testi-card">
+              <div class="testi-top">
+                <img src="assets/testi2.jpg" class="testi-photo" alt="Client 2">
+                <div>
+                  <div class="testi-name">Dr. Nilanjana Bairagi</div>
+                  <div class="testi-role">Associate Professor, NIFT Bengaluru</div>
+                </div>
+              </div>
+              <div class="testi-text">Chethan is a <strong>wonderful and talented student, an absolute joy to work with.</strong> His dedication and creativity shine through everything he does. I have no doubt he's going to achieve great things.</div>
+            </div>
+
+            <div class="testi-card">
+              <div class="testi-top">
+                <img src="assets/testi3.jpg" class="testi-photo" alt="Client 3">
+                <div>
+                  <div class="testi-name">Dr. Siddique A. Ahmed</div>
+                  <div class="testi-role">Scientist-D, Central Silk Board</div>
+                </div>
+              </div>
+              <div class="testi-text">Chethan possesses exceptional skill and understanding in his field. His talent is undeniable, and I've always told him not to get distracted by other paths. He <strong>truly belongs here</strong> and has immense potential to grow.</div>
+            </div>
+
+            <div class="testi-card">
+              <div class="testi-top">
+                <img src="assets/testi4.jpg" class="testi-photo" alt="Client 4">
+                <div>
+                  <div class="testi-name">Selva Vinayagam</div>
+                  <div class="testi-role">Cinematographer, Asst. Professor</div>
+                </div>
+              </div>
+              <div class="testi-text">Chethan has an impressive technical grasp of the camera and visual storytelling.</strong> His ability to balance the creative and the technical sides of filmmaking sets him apart from most young professionals I've worked with.</div>
+            </div>
+
+            <div class="testi-card">
+              <div class="testi-top">
+                <img src="assets/testi5.jpg" class="testi-photo" alt="Client 5">
+                <div>
+                  <div class="testi-name">Govardhan Reddy</div>
+                  <div class="testi-role">Managing Director, Croplot Machine Learning Pvt. Ltd.</div>
+                </div>
+              </div>
+              <div class="testi-text">Chethan has an instinct for <strong>storytelling</strong> that goes beyond visuals. He approaches every stage from concept to final cut with <strong>clarity, discipline, and genuine empathy</strong> for the subject. His work captured both the emotion and the impact we wanted to convey.</div>
+            </div>
+          </div>
+          <!-- JS will duplicate the testi-list to create a seamless marquee -->
+        </div>
       </div>
     </section>
   </main>
 
-
-
+  <!-- FOOTER -->
   <footer class="site-footer">
-    <div class="container">
-      <p>© <span id="year"></span> Chethan Talari</p>
+    <div class="footer-inner">
+      <div class="footer-left">
+        <a href="index.html" aria-label="Home"><img src="assets/logo-black.png" alt="logo" style="height:36px;"></a>
+      </div>
+      <div class="footer-right">
+        <a href="https://instagram.com/c_celluloids" target="_blank" rel="noopener">Instagram</a>
+        <span style="padding:0 10px;color:#ddd">•</span>
+        <a href="#" target="_blank" rel="noopener">Dribbble</a>
+        <span style="padding:0 10px;color:#ddd">•</span>
+        <a href="https://www.linkedin.com/in/chethantalari/" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
     </div>
   </footer>
 
-  <script src="script.js" defer></script>
+  <!-- SCRIPTS -->
+  <!-- header active underline script -->
+  <script src="header-script.js" defer></script>
+
+  <!-- small home script:
+       - fetches manifest.json and renders 3 recent projects (featured || first 3)
+       - sets up hero portrait enter animation on load (only on refresh)
+       - duplicates testimonials for continuous marquee
+  -->
+  <script>
+    // HOME small script
+    document.addEventListener('DOMContentLoaded', () => {
+      // --- 1) Hero portrait enter (fade + slide from right on page load only) ---
+      const portrait = document.getElementById('heroPortrait');
+      if (portrait) {
+        // Ensure the image is visible and animate on page load only
+        // (we do not re-trigger on scroll)
+        // Small timeout so fonts/layout settle before animation
+        setTimeout(() => {
+          portrait.classList.add('entered');
+        }, 120);
+      }
+
+      // --- 2) Load top 3 projects from manifest.json ---
+      const projectsGrid = document.getElementById('projectsGrid');
+      const manifestPath = 'manifest.json';
+      function makeCard(p) {
+        const a = document.createElement('a');
+        a.className = 'project-card';
+        a.href = `project.html?slug=${encodeURIComponent(p.slug)}`;
+        const thumb = document.createElement('div');
+        thumb.className = 'project-thumb';
+        thumb.style.backgroundImage = `url("${p.thumb || 'assets/default-thumb.jpg'}")`;
+        a.appendChild(thumb);
+        const meta = document.createElement('div');
+        meta.className = 'project-meta';
+        meta.textContent = `${p.title} — ${p.category || ''}`;
+        a.appendChild(meta);
+        return a;
+      }
+
+      fetch(manifestPath).then(r => {
+        if (!r.ok) throw new Error('manifest not found');
+        return r.json();
+      }).then(data => {
+        // data is expected to be an array of project objects
+        if (!Array.isArray(data)) {
+          console.warn('manifest.json format unexpected (expected array).');
+          return;
+        }
+        // prefer featured items
+        let featured = data.filter(d => d.featured === true);
+        if (featured.length < 3) {
+          // fill from start of manifest (skip duplicates)
+          const needed = 3 - featured.length;
+          const fill = data.filter(d => !featured.includes(d)).slice(0, needed);
+          featured = featured.concat(fill);
+        } else {
+          featured = featured.slice(0,3);
+        }
+        // clear grid and append
+        projectsGrid.innerHTML = '';
+        featured.forEach(p => projectsGrid.appendChild(makeCard(p)));
+      }).catch(err => {
+        console.warn('Could not load manifest.json:', err);
+        // fallback: show 3 placeholder empty cards
+        projectsGrid.innerHTML = '';
+        for (let i=0;i<3;i++){
+          const ph = document.createElement('div');
+          ph.className = 'project-card';
+          ph.innerHTML = `<div class="project-thumb" style="background:#efefef;display:block;height:0;padding-bottom:75%"></div>
+                          <div class="project-meta">Project placeholder</div>`;
+          projectsGrid.appendChild(ph);
+        }
+      });
+
+      // testimonials: ensure horizontal layout and seamless duplication
+      (function setupTestimonialsMarquee() {
+    const track = document.getElementById('testiTrack');
+    const list = document.getElementById('testiList');
+    if (!track || !list) return;
+
+    // Ensure the list uses flex-row (if CSS failed to apply)
+    list.style.display = 'flex';
+    list.style.gap = '20px';
+
+    // clone the list and append it to the track
+    const clone = list.cloneNode(true);
+    // remove ids on clone to avoid duplicates
+    clone.id = '';
+    track.appendChild(clone);
+
+    // After images load, optionally adjust animation timing if content width is small
+    function adjustAnimation() {
+      // compute total width of the original list
+      const rect = list.getBoundingClientRect();
+      const totalWidth = rect.width;
+      // if the list width is less than track (rare), slow the animation a bit
+      // We keep CSS animation but could adjust duration via inline style if desired
+      if (totalWidth < window.innerWidth) {
+        // slower if narrow
+        track.style.animationDuration = '40s';
+      } else {
+        track.style.animationDuration = '28s';
+      }
+  }
+
+  // adjust after a small delay to let images load or use load events
+  setTimeout(adjustAnimation, 250);
+  window.addEventListener('resize', () => setTimeout(adjustAnimation, 120));
+})();
+
+
+    }); // DOMContentLoaded
+  </script>
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const p = document.getElementById('heroPortrait');
+    if (!p) return;
+    // small delay so layout & fonts settle, then add class once
+    setTimeout(()=> p.classList.add('entered'), 120);
+  });
+</script>
+
+
+<link rel="stylesheet" href="header-style.css">
+
+
 </body>
 </html>
