@@ -924,7 +924,7 @@ html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,Segoe U
 
 
   /* ===== hero layout: text left, portrait right; photo grayscale -> color on hover ===== */
-.hero-hero { padding: 28px 0 0; background:#fff; overflow:visible; }
+.hero-hero { padding: 25px 0 0; background:#fff; overflow:visible; }
 .hero-inner {
   max-width: 1280px;
   margin: 32px auto;

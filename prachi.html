@@ -229,15 +229,130 @@
 
   </main>
 
-  <!-- FOOTER -->
-  <footer class="site-footer" style="margin-top:60px;border-top:1px solid #efefef;padding:24px 0;">
-    <div style="max-width:1200px;margin:0 auto;padding:0 28px;display:flex;justify-content:space-between;align-items:center;">
-      <a href="index.html"><img src="assets/logo-black.png" alt="logo" style="height:36px;"></a>
-      <div>
-        <a href="https://instagram.com/c_celluloids">Instagram</a> · <a href="#">Dribbble</a> · <a href="https://www.linkedin.com/in/chethantalari/">LinkedIn</a>
+<!-- ======= SITE FOOTER (UPDATED ICONS) ======= -->
+<footer class="site-footer" role="contentinfo" style="border-top:1px solid rgba(0,0,0,0.06);background:#fff;">
+  <style>
+    .site-footer { width:100%; }
+    .site-footer .footer-inner {
+      max-width:1200px;
+      margin:0 auto;
+      padding:28px 32px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      box-sizing:border-box;
+      font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+
+    .site-footer .footer-left img {
+      height:42px;
+      display:block;
+      user-select:none;
+    }
+
+    .site-footer .footer-right {
+      display:flex;
+      align-items:center;
+      gap:14px;
+    }
+
+    .site-footer .social {
+      display:flex;
+      gap:12px;
+      align-items:center;
+    }
+
+    .site-footer .social a {
+      display:inline-flex;
+      width:40px;
+      height:40px;
+      align-items:center;
+      justify-content:center;
+      border-radius:10px;
+      text-decoration:none;
+      color:#111;                 /* icon color */
+      background:transparent;
+      transition: all .18s ease;
+      border:1px solid rgba(0,0,0,0.04);
+      box-shadow:0 6px 18px rgba(0,0,0,0.03);
+    }
+
+    /* nicer hover: invert to dark background with white icon */
+    .site-footer .social a:hover,
+    .site-footer .social a:focus {
+      background:#111;
+      color:#fff;
+      transform: translateY(-3px);
+      box-shadow:0 14px 40px rgba(0,0,0,0.08);
+      outline: none;
+    }
+
+    .site-footer .social img {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+  display: block;
+  filter: brightness(0);      /* makes black icons */
+  transition: all 0.2s ease;
+}
+
+.site-footer .social a:hover img {
+  filter: brightness(0) invert(1);  /* turns icons white when hovered */
+}
+
+
+    /* SVG icons inherit color */
+    .site-footer .social svg { width:18px; height:18px; display:block; fill:currentColor; }
+
+    .site-footer .copyright {
+      color:#666;
+      font-size:13px;
+      margin-left:16px;
+      white-space:nowrap;
+    }
+
+    @media (max-width:720px) {
+      .site-footer .footer-inner {
+        flex-direction:column;
+        align-items:center;
+        gap:12px;
+        padding:22px;
+      }
+      .site-footer .copyright { margin-left:50; }
+    }
+  </style>
+
+  <div class="footer-inner">
+    <div class="footer-left" style="display:flex;align-items:center;gap:16px;">
+      <a href="index.html" aria-label="Home" style="display:inline-block">
+        <img src="assets/logo-black.png" alt="Logo — Chethan Talari" />
+      </a>
+      <div class="copyright" id="footer-copyright">
+        © <span id="footer-year"></span> Chethan Talari
       </div>
     </div>
-  </footer>
+
+    <div class="footer-right">
+      <nav class="social" aria-label="Social links">
+        <!-- Instagram (filled camera glyph) -->
+  
+          <div class="social">
+  <a href="https://www.instagram.com/c_celluloids/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+    <img src="assets/icons/instagram.png" alt="Instagram" />
+  </a>
+  <a href="https://www.linkedin.com/in/chethan-talari-1a9613213/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+    <img src="assets/icons/linkedin.png" alt="LinkedIn" />
+  </a>
+
+  <a href="https://www.behance.net/chethantalari" target="_blank" rel="noopener noreferrer" aria-label="Behance">
+    <img src="assets/icons/behance.png" alt="Behance" />
+  </a>
+</div>
+      
+      </nav>
+    </div>
+  </div>
 
   <!-- NAV FIX -->
   <script>

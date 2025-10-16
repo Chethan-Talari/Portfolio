@@ -474,6 +474,67 @@
       .header-inner{flex-direction:column;gap:10px;}
       .nav-list{gap:24px;}
     }
+
+    .scroll-down {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  position: relative;
+  margin-top: 40px;
+  color: #111;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  opacity: 0.9;
+  animation: fadeIn 1.6s ease forwards;
+}
+
+.mouse {
+  width: 28px;
+  height: 45px;
+  border: 2px solid #111;
+  border-radius: 20px;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.wheel {
+  width: 4px;
+  height: 8px;
+  background: #111;
+  border-radius: 2px;
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: scrollWheel 1.4s infinite ease-in-out;
+}
+
+.scroll-down span {
+  font-family: 'Poppins', sans-serif;
+  color: #111;
+}
+
+@keyframes scrollWheel {
+  0% { opacity: 0; transform: translate(-50%, 0); }
+  40% { opacity: 1; transform: translate(-50%, 6px); }
+  80% { opacity: 0; transform: translate(-50%, 12px); }
+  100% { opacity: 0; transform: translate(-50%, 0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Optional hover effect */
+.scroll-down:hover .wheel {
+  animation-play-state: paused;
+  background: #555;
+}
+
   </style>
 
   <div class="header-inner">
@@ -582,6 +643,10 @@
             <li>/ Editor</li>
             <li>/ Filmmaker</li>
           </ul>
+          <br>
+          <br>
+          <a href="about.html" class="cc-viewall-btn"> Know more about me →</a>
+
         </div>
 
         <!-- portrait (right) -->
@@ -589,67 +654,71 @@
           <img src="assets/portrait.jpg" alt="portrait" class="hero-portrait" id="heroPortrait">
         </div>
       </div>
+      <div class="scroll-down">
+         <div class="mouse">
+         <div class="wheel"></div>
+       </div>
+  <span>Scroll Down</span>
+</div>
+
     </section>
 
-<!-- ======= RECENT PROJECTS (REPLACE YOUR OLD RECENT SECTION WITH THIS ENTIRE BLOCK) ======= -->
+
+
+<!-- ======= RECENT PROJECTS (UPDATED STYLES) ======= -->
 <section id="cc-recent-projects" style="max-width:1200px;margin:100px auto;padding:0 32px;box-sizing:border-box;">
 
   <style>
-    /* Use unique prefixes (cc-) to avoid conflicting with global CSS */
+    /* ===== CC RECENT PROJECTS - STYLES ===== */
+    /* container header */
     #cc-recent-projects .cc-header {
       display:flex;
       justify-content:space-between;
       align-items:flex-end;
       gap:20px;
-      margin-bottom:32px;
+      margin-bottom:28px;
       flex-wrap:wrap;
     }
 
-    #cc-recent-projects .cc-left {
-      min-width:240px;
-      flex:1 1 60%;
-    }
+    #cc-recent-projects .cc-left { min-width:240px; flex:1 1 60%; }
 
-    #cc-recent-projects .cc-title {
+    .cc-title {
       font-family: 'Bebas Neue', sans-serif;
       font-size:56px;
       margin:0 0 6px;
       line-height:1;
+      color:#111;
     }
 
-    #cc-recent-projects .cc-sub {
+    .cc-sub {
       margin:0;
-      color:#666;
+      color:#6b6b6b;
       font-size:16px;
+      max-width:720px;
     }
 
-    #cc-recent-projects .cc-right {
-      flex:0 0 auto;
-      text-align:right;
-      align-self:flex-end;
-    }
-
-    /* Button */
+    /* view all button (clean pill) */
     .cc-viewall-btn {
       display:inline-block;
       text-decoration:none;
       color:#111;
       font-weight:600;
-      border-bottom:2px solid #111;
-      transition: all .25s ease;
-      padding:6px 10px;
-      border-radius:6px;
+      border:1px solid rgba(0,0,0,0.08);
+      padding:8px 14px;
+      border-radius:999px;
       background:transparent;
-      line-height:1;
+      transition: all .22s ease;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.03);
     }
-    .cc-viewall-btn:hover {
+    .cc-viewall-btn:hover, .cc-viewall-btn:focus {
       background:#111;
       color:#fff;
-      border-bottom:none;
-      padding:6px 14px;
+      transform: translateY(-3px);
+      box-shadow: 0 14px 40px rgba(0,0,0,0.10);
+      outline: none;
     }
 
-    /* Grid */
+    /* grid */
     #cc-recent-projects .cc-grid {
       display:grid;
       grid-template-columns: repeat(3, 1fr);
@@ -657,7 +726,7 @@
       align-items:start;
     }
 
-    /* Project card (16:9) */
+    /* card: anchor element */
     .cc-card {
       display:flex;
       flex-direction:column;
@@ -665,11 +734,27 @@
       border-radius:12px;
       overflow:hidden;
       border:1px solid rgba(0,0,0,0.05);
-      box-shadow:0 12px 30px rgba(0,0,0,0.06);
-      transition: transform .28s ease, box-shadow .28s ease;
+      box-shadow:0 12px 30px rgba(12,12,12,0.04);
+      transition: transform .28s cubic-bezier(.22,.9,.32,1), box-shadow .28s ease;
+      text-decoration: none;        /* remove underline */
+      color: inherit;               /* neutralize default link color */
+      -webkit-tap-highlight-color: transparent;
     }
-    .cc-card:hover { transform:translateY(-6px); box-shadow:0 22px 60px rgba(0,0,0,0.10); }
+    /* ensure anchor states don't change text color */
+    .cc-card:link, .cc-card:visited, .cc-card:active { color: inherit; text-decoration:none; }
 
+    .cc-card:hover, .cc-card:focus {
+      transform: translateY(-8px);
+      box-shadow: 0 28px 70px rgba(12,12,12,0.08);
+      outline: none;
+    }
+
+    /* accessible focus style */
+    .cc-card:focus {
+      box-shadow: 0 28px 70px rgba(12,12,12,0.10), 0 0 0 4px rgba(17,17,17,0.06);
+    }
+
+    /* thumb with subtle zoom on hover */
     .cc-thumb {
       width:100%;
       aspect-ratio:16/9;
@@ -677,36 +762,53 @@
       background-position:center;
       background-repeat:no-repeat;
       flex-shrink:0;
+      transition: transform .9s cubic-bezier(.2,.9,.3,1);
+      will-change: transform;
+    }
+    .cc-card:hover .cc-thumb,
+    .cc-card:focus .cc-thumb {
+      transform: scale(1.03);
     }
 
+    /* info block styling (override default link color) */
     .cc-info {
       padding:14px 16px 18px;
+      background: #fff;
     }
-    .cc-info h4 { margin:0 0 6px; font-size:18px; font-weight:600; }
-    .cc-info p { margin:0; color:#777; font-size:14px; }
+    .cc-info h4 {
+      margin:0 0 6px;
+      font-size:18px;
+      font-weight:700;
+      color:#111;       /* force dark heading color */
+      text-decoration: none;
+    }
+    .cc-info p {
+      margin:0;
+      color:#777;
+      font-size:14px;
+    }
 
-    /* Responsive */
+    /* remove any stray underlines inside (strong override) */
+    .cc-card, .cc-card * { text-decoration: none !important; }
+
+    /* responsive */
     @media (max-width: 980px) {
       #cc-recent-projects .cc-grid { grid-template-columns: repeat(2, 1fr); gap:24px; }
     }
     @media (max-width: 640px) {
+      #cc-recent-projects { padding: 0 20px; }
       #cc-recent-projects .cc-header { flex-direction:column; align-items:flex-start; gap:12px; }
       #cc-recent-projects .cc-right { text-align:left; }
       #cc-recent-projects .cc-grid { grid-template-columns: 1fr; gap:20px; }
-      #cc-recent-projects .cc-title { font-size:44px; }
+      .cc-title { font-size:44px; }
     }
-
-    /* IMPORTANT overrides in case global rules conflict (use sparingly) */
-    #cc-recent-projects .cc-title, #cc-recent-projects .cc-sub, #cc-recent-projects .cc-right { z-index:0; }
-    /* force button alignment if other styles interfere */
-    #cc-recent-projects .cc-right .cc-viewall-btn { display:inline-block !important; }
   </style>
 
   <!-- header row: left = title+subtitle, right = view-all -->
   <div class="cc-header">
     <div class="cc-left">
       <h2 class="cc-title">Recent Projects</h2>
-      <p class="cc-sub">Selected highlights from my latest work — UI/UX, branding, and experience design.</p>
+      <p class="cc-sub">Highlights from my latest work — UI/UX, branding, and experience design.</p>
     </div>
 
     <div class="cc-right">
@@ -742,6 +844,7 @@
   </script>
 </section>
 <!-- ======= END RECENT PROJECTS ======= -->
+
 
 
 
@@ -815,21 +918,246 @@
     </section>
   </main>
 
-  <!-- FOOTER -->
-  <footer class="site-footer">
-    <div class="footer-inner">
-      <div class="footer-left">
-        <a href="index.html" aria-label="Home"><img src="assets/logo-black.png" alt="logo" style="height:36px;"></a>
-      </div>
-      <div class="footer-right">
-        <a href="https://instagram.com/c_celluloids" target="_blank" rel="noopener">Instagram</a>
-        <span style="padding:0 10px;color:#ddd">•</span>
-        <a href="#" target="_blank" rel="noopener">Dribbble</a>
-        <span style="padding:0 10px;color:#ddd">•</span>
-        <a href="https://www.linkedin.com/in/chethantalari/" target="_blank" rel="noopener">LinkedIn</a>
+<!-- ======= C CELLULOIDS BANNER ======= -->
+<section id="c-celluloids-banner"
+  style="position:relative;margin:100px 0;overflow:hidden;border-radius:16px;">
+
+  <style>
+    #c-celluloids-banner .banner-bg {
+      position:absolute;
+      inset:0;
+      background:url('assets/banner.png') center/cover no-repeat;
+      filter:blur(8px) brightness(0.8);
+      transform:scale(1);
+      transition:transform 0.8s ease;
+      z-index:1;
+    }
+
+    #c-celluloids-banner:hover .banner-bg {
+      transform:scale(1.08);
+    }
+
+    #c-celluloids-banner .banner-overlay {
+      position:relative;
+      z-index:2;
+      min-height:420px;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      color:#fff;
+      padding:60px 24px;
+      background:rgba(0,0,0,0.45);
+    }
+
+    #c-celluloids-banner .logo {
+      width:96px;
+      height:96px;
+      border-radius:50%;
+      object-fit:cover;
+      border:3px solid rgba(255,255,255,0.8);
+      margin-bottom:20px;
+      box-shadow:0 4px 20px rgba(0,0,0,0.4);
+      transition:transform .5s ease;
+    }
+
+    #c-celluloids-banner:hover .logo {
+      transform:scale(1.05);
+    }
+
+    #c-celluloids-banner h2 {
+      font-family:'Bebas Neue',sans-serif;
+      font-size:64px;
+      letter-spacing:-1px;
+      margin:0;
+    }
+
+    #c-celluloids-banner p.sub {
+      margin:10px 0 30px;
+      font-size:18px;
+      color:#ddd;
+      max-width:600px;
+    }
+
+    #c-celluloids-banner a.cta {
+      display:inline-block;
+      padding:12px 28px;
+      border-radius:999px;
+      background:#fff;
+      color:#111;
+      font-weight:600;
+      text-decoration:none;
+      transition:all .3s ease;
+      box-shadow:0 10px 30px rgba(0,0,0,0.25);
+    }
+
+    #c-celluloids-banner a.cta:hover {
+      background:#111;
+      color:#fff;
+      transform:translateY(-3px);
+      box-shadow:0 14px 40px rgba(0,0,0,0.35);
+    }
+
+    @media (max-width:640px){
+      #c-celluloids-banner .banner-overlay{min-height:320px;padding:40px 20px;}
+      #c-celluloids-banner h2{font-size:44px;}
+      #c-celluloids-banner p.sub{font-size:16px;}
+      #c-celluloids-banner .logo{width:80px;height:80px;}
+    }
+  </style>
+
+  <!-- background -->
+  <div class="banner-bg"></div>
+
+  <!-- overlay content -->
+  <div class="banner-overlay">
+    <img src="assets/logo-ccelluloids.jpg" alt="C Celluloids Logo" class="logo">
+    <h2>C Celluloids</h2>
+    <p class="sub">Photography & Visual Storytelling — documenting people, places, and experiences through the lens.</p>
+    <a href="https://ccelluloids.in" target="_blank" rel="noopener noreferrer" class="cta">View Website →</a>
+  </div>
+</section>
+<!-- ======= END C CELLULOIDS BANNER ======= -->
+
+
+  
+<!-- ======= SITE FOOTER (UPDATED ICONS) ======= -->
+<footer class="site-footer" role="contentinfo" style="border-top:1px solid rgba(0,0,0,0.06);background:#fff;">
+  <style>
+    .site-footer { width:100%; }
+    .site-footer .footer-inner {
+      max-width:1200px;
+      margin:0 auto;
+      padding:28px 32px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      box-sizing:border-box;
+      font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+
+    .site-footer .footer-left img {
+      height:42px;
+      display:block;
+      user-select:none;
+    }
+
+    .site-footer .footer-right {
+      display:flex;
+      align-items:center;
+      gap:14px;
+    }
+
+    .site-footer .social {
+      display:flex;
+      gap:12px;
+      align-items:center;
+    }
+
+    .site-footer .social a {
+      display:inline-flex;
+      width:40px;
+      height:40px;
+      align-items:center;
+      justify-content:center;
+      border-radius:10px;
+      text-decoration:none;
+      color:#111;                 /* icon color */
+      background:transparent;
+      transition: all .18s ease;
+      border:1px solid rgba(0,0,0,0.04);
+      box-shadow:0 6px 18px rgba(0,0,0,0.03);
+    }
+
+    /* nicer hover: invert to dark background with white icon */
+    .site-footer .social a:hover,
+    .site-footer .social a:focus {
+      background:#111;
+      color:#fff;
+      transform: translateY(-3px);
+      box-shadow:0 14px 40px rgba(0,0,0,0.08);
+      outline: none;
+    }
+
+    .site-footer .social img {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+  display: block;
+  filter: brightness(0);      /* makes black icons */
+  transition: all 0.2s ease;
+}
+
+.site-footer .social a:hover img {
+  filter: brightness(0) invert(1);  /* turns icons white when hovered */
+}
+
+
+    /* SVG icons inherit color */
+    .site-footer .social svg { width:18px; height:18px; display:block; fill:currentColor; }
+
+    .site-footer .copyright {
+      color:#666;
+      font-size:13px;
+      margin-left:16px;
+      white-space:nowrap;
+    }
+
+    @media (max-width:720px) {
+      .site-footer .footer-inner {
+        flex-direction:column;
+        align-items:center;
+        gap:12px;
+        padding:22px;
+      }
+      .site-footer .copyright { margin-left:50; }
+    }
+  </style>
+
+  <div class="footer-inner">
+    <div class="footer-left" style="display:flex;align-items:center;gap:16px;">
+      <a href="index.html" aria-label="Home" style="display:inline-block">
+        <img src="assets/logo-black.png" alt="Logo — Chethan Talari" />
+      </a>
+      <div class="copyright" id="footer-copyright">
+        © <span id="footer-year"></span> Chethan Talari
       </div>
     </div>
-  </footer>
+
+    <div class="footer-right">
+      <nav class="social" aria-label="Social links">
+        <!-- Instagram (filled camera glyph) -->
+  
+          <div class="social">
+  <a href="https://www.instagram.com/c_celluloids/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+    <img src="assets/icons/instagram.png" alt="Instagram" />
+  </a>
+  <a href="https://www.linkedin.com/in/chethan-talari-1a9613213/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+    <img src="assets/icons/linkedin.png" alt="LinkedIn" />
+  </a>
+
+  <a href="https://www.behance.net/chethantalari" target="_blank" rel="noopener noreferrer" aria-label="Behance">
+    <img src="assets/icons/behance.png" alt="Behance" />
+  </a>
+</div>
+      
+      </nav>
+    </div>
+  </div>
+
+  <script>
+    // set current year dynamically
+    (function () {
+      const yr = new Date().getFullYear();
+      const el = document.getElementById('footer-year');
+      if (el) el.textContent = yr;
+    })();
+  </script>
+</footer>
+<!-- ======= END SITE FOOTER (UPDATED ICONS) ======= -->
+
 
   <!-- SCRIPTS -->
   <!-- header active underline script -->
