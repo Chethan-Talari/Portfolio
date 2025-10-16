@@ -345,6 +345,7 @@
   box-shadow: 0 18px 40px rgba(0,0,0,0.05);
   display:flex;
   flex-direction:column;
+  border: 2px solid #111;
   gap:12px;
   flex-shrink: 0; /* critical: prevents shrinking when in a flex row */
 }
@@ -645,7 +646,7 @@
           </ul>
           <br>
           <br>
-          <a href="about.html" class="cc-viewall-btn"> Know more about me →</a>
+          <a href="about.html" class="cb-viewall-btn"> Know more about me →</a>
 
         </div>
 
@@ -654,16 +655,8 @@
           <img src="assets/portrait.jpg" alt="portrait" class="hero-portrait" id="heroPortrait">
         </div>
       </div>
-      <div class="scroll-down">
-         <div class="mouse">
-         <div class="wheel"></div>
-       </div>
-  <span>Scroll Down</span>
-</div>
 
-    </section>
-
-
+ 
 
 <!-- ======= RECENT PROJECTS (UPDATED STYLES) ======= -->
 <section id="cc-recent-projects" style="max-width:1200px;margin:100px auto;padding:0 32px;box-sizing:border-box;">
@@ -716,6 +709,27 @@
       transform: translateY(-3px);
       box-shadow: 0 14px 40px rgba(0,0,0,0.10);
       outline: none;
+    }
+
+        .cb-viewall-btn {
+      display:inline-block;
+      text-decoration:none;
+      color:#ffffff;
+      font-weight:600;
+      border:1px solid rgba(255, 255, 255, 0.08);
+      padding:8px 14px;
+      border-radius:999px;
+      background:#0b0a0a;
+      transition: all .22s ease;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.03);
+    }
+    .cb-viewall-btn:hover, .cb-viewall-btn:focus {
+      background:#ffffff;
+      color:#0b0a0a;
+      transform: translateY(-3px);
+      box-shadow: 0 14px 40px rgba(0,0,0,0.10);
+      outline: #0b0a0a;
+      border: 2px solid #111;
     }
 
     /* grid */
@@ -812,7 +826,7 @@
     </div>
 
     <div class="cc-right">
-      <a href="projects.html" class="cc-viewall-btn">View All Projects →</a>
+      <a href="projects.html" class="cb-viewall-btn">View All Projects →</a>
     </div>
   </div>
 
@@ -823,9 +837,10 @@
   <script>
     (function () {
       const items = [
-        { title: "Cook It — Recipe App", meta: "UI/UX · 2024", img: "assets/projects/cookit/Cover.jpg", href: "cookit.html" },
-        { title: "Awara — Travel UI/UX", meta: "UI/UX · 2025", img: "assets/projects/awara/cover.jpg", href: "awara.html" },
-        { title: "Sparsha — Brand Identity", meta: "Branding · 2024", img: "assets/projects/sparsha/cover.jpg", href: "sparsha.html" }
+        { title: "Awara - Itinerary Generator", meta: "UI/UX · 2025", img: "assets/projects/awara/cover.jpg", href: "awara.html" },
+        { title: "Prachi - Brand Identity", meta: "Branding · 2024", img: "assets/projects/prachi/cover.jpg", href: "prachi.html" },
+        { title: "Toda Embroidery - Research", meta: "Research · 2025", img: "assets/projects/toda/cover.jpg", href: "toda.html" }
+   
       ];
 
       const grid = document.getElementById("ccRecentGrid");
@@ -870,7 +885,7 @@
 
             <div class="testi-card">
               <div class="testi-top">
-                <img src="assets/testi2.jpg" class="testi-photo" alt="Client 2">
+                <img src="assets/testi2.jpeg" class="testi-photo" alt="Client 2">
                 <div>
                   <div class="testi-name">Dr. Nilanjana Bairagi</div>
                   <div class="testi-role">Associate Professor, NIFT Bengaluru</div>
@@ -892,7 +907,7 @@
 
             <div class="testi-card">
               <div class="testi-top">
-                <img src="assets/testi4.jpg" class="testi-photo" alt="Client 4">
+                <img src="assets/testi4.png" class="testi-photo" alt="Client 4">
                 <div>
                   <div class="testi-name">Selva Vinayagam</div>
                   <div class="testi-role">Cinematographer, Asst. Professor</div>
@@ -1146,6 +1161,7 @@
       </nav>
     </div>
   </div>
+    
 
   <script>
     // set current year dynamically
