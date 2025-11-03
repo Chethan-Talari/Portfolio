@@ -9,181 +9,105 @@
 </head>
 <body>
 
-<header class="site-header" style="
-  width:100%;
-  background:#fff;
-  border-bottom:1px solid rgba(0,0,0,0.05);
-  position:relative;
-  z-index:999;">
+<!-- ===== START: Responsive header (copy into each page) ===== -->
+<header class="site-header">
   <style>
-    .header-inner {
-      max-width:1200px;
-      margin:0 auto;
-      padding:20px 32px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
+    /* Minimal header styles (self-contained) */
+    :root {
+      --accent:#111;
+      --muted:#666;
+      --touch:48px;
     }
-    .site-logo img {
-      height:36px;
-      display:block;
-    }
-    .nav-list {
-      list-style:none;
-      display:flex;
-      gap:36px;
-      margin:0;
-      padding:0;
-      position:relative;
-    }
-    .nav-list a {
-      position:relative;
-      text-decoration:none;
-      font-weight:500;
-      color:#111;
-      padding:6px 0;
-      transition:color 0.3s ease;
-      z-index:1;
-    }
-    /* Hover black block */
-    .nav-list a::before {
-      content:"";
-      position:absolute;
-      left:50%;
-      top:50%;
-      width:0%;
-      height:100%;
-      transform:translate(-50%,-50%);
-      background:#111;
-      z-index:-1;
-      border-radius:4px;
-      transition:all 0.35s ease;
-    }
-    .nav-list a:hover::before {
-      width:120%;
-      height:120%;
-    }
-    .nav-list a:hover {
-      color:#fff;
-    }
-    /* Moving underline */
-    .nav-underline {
-      position:absolute;
-      bottom:-6px;
-      left:0;
-      height:2px;
-      width:0;
-      background:#111;
-      border-radius:1px;
-      pointer-events:none;
-      transition:left 0.35s cubic-bezier(.645,.045,.355,1),width 0.35s cubic-bezier(.645,.045,.355,1);
-    }
-    /* Active link persistent underline */
-    .nav-list a.active {
-      color:#111;
-      font-weight:600;
-    }
-    .nav-list a.active::after {
-      content:"";
-      position:absolute;
-      left:0;
-      bottom:-6px;
-      width:100%;
-      height:2px;
-      background:#111;
-      border-radius:1px;
-    }
-    @media(max-width:640px){
-      .header-inner{flex-direction:column;gap:10px;}
-      .nav-list{gap:24px;}
+    .site-header { border-bottom:1px solid rgba(0,0,0,0.06); background:#fff; }
+    .site-header .container { max-width:1200px; margin:0 auto; padding:18px 32px; display:flex; align-items:center; justify-content:space-between; gap:12px; box-sizing:border-box; }
+
+    .site-logo img { height:36px; display:block; }
+
+    .nav-list { list-style:none; margin:0; padding:0; display:flex; gap:28px; align-items:center; }
+    .nav-list a { text-decoration:none; color:var(--accent); font-weight:600; padding:6px 0; }
+
+    /* hamburger toggle (hidden on desktop) */
+    .nav-toggle { display:none; width:var(--touch); height:var(--touch); align-items:center; justify-content:center; border-radius:8px; border:1px solid rgba(0,0,0,0.04); background:transparent; cursor:pointer; }
+
+    /* mobile menu overlay (hidden by default) */
+    .mobile-menu { display:none; position:fixed; inset:0; background:#fff; padding:80px 20px 20px; z-index:9999; overflow:auto; }
+    .mobile-menu .nav-list { flex-direction:column; gap:18px; }
+
+    /* responsive breakpoints */
+    @media (max-width: 768px) {
+      .site-header .container { padding:14px 20px; }
+      .nav-list { display:none; }             /* hide desktop nav */
+      .nav-toggle { display:flex; }           /* show hamburger */
+      .site-logo img { height:32px; }
+      :root { --touch:44px; }
     }
   </style>
 
-  <div class="header-inner">
-    <a href="index.html" class="site-logo">
-      <img src="assets/logo-black.png" alt="Chethan Talari">
-    </a>
+  <div class="container">
+    <a href="index.html" class="site-logo" aria-label="Home"><img src="assets/logo-black.png" alt="Logo"></a>
 
-    <nav class="site-nav">
-      <ul class="nav-list">
+    <nav aria-label="Main navigation">
+      <ul class="nav-list" role="menubar">
         <li><a href="index.html">Home</a></li>
         <li><a href="projects.html">Projects</a></li>
         <li><a href="about.html">About</a></li>
         <li><a href="connect.html">Connect</a></li>
       </ul>
-      <span class="nav-underline"></span>
+
+      <button class="nav-toggle" aria-controls="mobile-menu" aria-expanded="false" aria-label="Open menu">
+        <!-- hamburger icon -->
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="#111" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </button>
     </nav>
   </div>
 
- <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const nav = document.querySelector(".nav-list");
-    const underline = document.querySelector(".nav-underline");
-    const links = nav.querySelectorAll("a");
-    const current = location.pathname.split("/").pop() || "index.html";
+  <div id="mobile-menu" class="mobile-menu" aria-hidden="true" role="dialog" aria-modal="true">
+    <button class="close-btn" aria-label="Close menu" style="position:absolute;right:14px;top:18px;border:none;background:#fff;">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" aria-hidden="true"><path d="M6 6l12 12M6 18L18 6" stroke="#111" stroke-width="1.6" stroke-linecap="round"/></svg>
+    </button>
 
-    // ----- Mark current page active -----
-    links.forEach(a => {
-      const file = (a.getAttribute("href") || "").split("/").pop();
-      if (file === current) a.classList.add("active");
-      else a.classList.remove("active");
-    });
+    <nav aria-label="Mobile navigation">
+      <ul class="nav-list" role="menu" style="margin-top:8px;">
+        <li><a role="menuitem" href="index.html">Home</a></li>
+        <li><a role="menuitem" href="projects.html">Projects</a></li>
+        <li><a role="menuitem" href="about.html">About</a></li>
+        <li><a role="menuitem" href="connect.html">Connect</a></li>
+      </ul>
+    </nav>
+  </div>
 
-    function moveUnderline(link) {
-      const rect = link.getBoundingClientRect();
-      const navRect = nav.getBoundingClientRect();
-      underline.style.width = rect.width + "px";
-      underline.style.left = rect.left - navRect.left + "px";
-    }
+  <script>
+    // Simple accessible hamburger behaviour
+    (function(){
+      const toggle = document.querySelector('.nav-toggle');
+      const mobile = document.getElementById('mobile-menu');
+      const closeBtn = mobile.querySelector('.close-btn');
+      const links = mobile.querySelectorAll('.nav-list a');
 
-    function updateUnderline() {
-      const active = nav.querySelector(".active");
-      if (active) moveUnderline(active);
-    }
-
-    // ----- Hover animations -----
-    links.forEach(link => {
-      link.addEventListener("mouseenter", () => moveUnderline(link));
-      link.addEventListener("focus", () => moveUnderline(link));
-      link.addEventListener("click", () => {
-        // Save underline position before navigating
-        const rect = link.getBoundingClientRect();
-        const navRect = nav.getBoundingClientRect();
-        sessionStorage.setItem("underlineLeft", rect.left - navRect.left);
-        sessionStorage.setItem("underlineWidth", rect.width);
-      });
-    });
-
-    nav.addEventListener("mouseleave", updateUnderline);
-    window.addEventListener("resize", updateUnderline);
-
-    // ----- Animate underline from previous page -----
-    window.addEventListener("load", () => {
-      const prevLeft = sessionStorage.getItem("underlineLeft");
-      const prevWidth = sessionStorage.getItem("underlineWidth");
-      const active = nav.querySelector(".active");
-
-      if (prevLeft && prevWidth && active) {
-        // Start underline from previous position (same as last page)
-        underline.style.transition = "none";
-        underline.style.left = prevLeft + "px";
-        underline.style.width = prevWidth + "px";
-
-        // Force reflow before animating to current link
-        void underline.offsetWidth;
-
-        // Animate to new active link
-        underline.style.transition =
-          "left 0.35s cubic-bezier(.645,.045,.355,1), width 0.35s cubic-bezier(.645,.045,.355,1)";
-        updateUnderline();
-      } else {
-        updateUnderline();
+      function openMenu(){
+        mobile.style.display = 'block';
+        mobile.setAttribute('aria-hidden','false');
+        toggle.setAttribute('aria-expanded','true');
+        document.body.style.overflow = 'hidden';
+        setTimeout(()=> mobile.querySelector('.nav-list a')?.focus(), 50);
       }
-    });
-  });
-</script>
+      function closeMenu(){
+        mobile.style.display = 'none';
+        mobile.setAttribute('aria-hidden','true');
+        toggle.setAttribute('aria-expanded','false');
+        document.body.style.overflow = '';
+        toggle.focus();
+      }
 
+      toggle.addEventListener('click', openMenu);
+      closeBtn.addEventListener('click', closeMenu);
+      links.forEach(a => a.addEventListener('click', closeMenu));
+      document.addEventListener('keydown', e => { if(e.key === 'Escape') closeMenu(); });
+    })();
+  </script>
 </header>
+<!-- ===== END: Responsive header ===== -->
+
 
 
 

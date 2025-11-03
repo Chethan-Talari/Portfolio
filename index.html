@@ -62,7 +62,30 @@
 
 /* small screens portrait adjustments */
 @media (max-width:1100px) { .hero-portrait { max-width:360px; } }
-@media (max-width:720px) { .hero-portrait { max-width:320px; } }
+@media (max-width:1000px) {
+  .hero-portrait-wrap {
+    display: none;
+  }
+}
+
+@media (max-width: 1000px) {
+  .hero-inner {
+    text-align: center;
+    margin: 0 auto;
+  }
+
+  .hero-title {
+    text-align: center;
+    margin: 0 auto;
+  }
+
+  .hero-slashes{
+    text-align: center;
+    margin: 0;
+  }
+  
+}
+
 
     
     
@@ -363,6 +386,49 @@
   animation-play-state: paused;
 }
 
+/* ----- Header / mobile menu fixes ----- */
+/* hide only the header's desktop nav on small screens */
+@media (max-width: 768px) {
+  /* target the desktop nav inside the header container only */
+  .site-header .container > nav > .nav-list {
+    display: none;
+  }
+
+  /* show hamburger toggle */
+  .nav-toggle { display: inline-flex; }
+
+  /* ensure mobile menu list is visible when overlay opens */
+  .mobile-menu .nav-list {
+    display: flex;            /* make links visible */
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  /* make mobile overlay full-screen center layout */
+  .mobile-menu {
+    display: none;            /* default hidden */
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: #fff;
+    justify-content: center;
+  }
+  .mobile-menu.open { display: flex; }
+
+  /* mobile link styles */
+  .mobile-menu .nav-list a {
+    font-size: 18px;
+    padding: 8px 12px;
+    display: inline-block;
+    color: #111;
+  }
+}
+
+
 /* marquee animation moves full width of one .testi-list block (we duplicate it to create seamless loop) */
 @keyframes marquee-linear {
   0% { transform: translateX(0); }
@@ -387,242 +453,136 @@
 </head>
 <body>
 
-<header class="site-header" style="
-  width:100%;
-  background:#fff;
-  border-bottom:1px solid rgba(0,0,0,0.05);
-  position:relative;
-  z-index:999;">
+<!-- ===== START: Responsive header (copy into each page) ===== -->
+<header class="site-header">
   <style>
-    .header-inner {
-      max-width:1200px;
-      margin:0 auto;
-      padding:20px 32px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
+    /* Minimal header styles (self-contained) */
+    :root {
+      --accent:#111;
+      --muted:#666;
+      --touch:48px;
     }
-    .site-logo img {
-      height:36px;
-      display:block;
-    }
-    .nav-list {
-      list-style:none;
-      display:flex;
-      gap:36px;
-      margin:0;
-      padding:0;
-      position:relative;
-    }
-    .nav-list a {
-      position:relative;
-      text-decoration:none;
-      font-weight:500;
-      color:#111;
-      padding:6px 0;
-      transition:color 0.3s ease;
-      z-index:1;
-    }
-    /* Hover black block */
-    .nav-list a::before {
-      content:"";
-      position:absolute;
-      left:50%;
-      top:50%;
-      width:0%;
-      height:100%;
-      transform:translate(-50%,-50%);
-      background:#111;
-      z-index:-1;
-      border-radius:4px;
-      transition:all 0.35s ease;
-    }
-    .nav-list a:hover::before {
-      width:120%;
-      height:120%;
-    }
-    .nav-list a:hover {
-      color:#fff;
-    }
-    /* Moving underline */
-    .nav-underline {
-      position:absolute;
-      bottom:-6px;
-      left:0;
-      height:2px;
-      width:0;
-      background:#111;
-      border-radius:1px;
-      pointer-events:none;
-      transition:left 0.35s cubic-bezier(.645,.045,.355,1),width 0.35s cubic-bezier(.645,.045,.355,1);
-    }
-    /* Active link persistent underline */
-    .nav-list a.active {
-      color:#111;
-      font-weight:600;
-    }
-    .nav-list a.active::after {
-      content:"";
-      position:absolute;
-      left:0;
-      bottom:-6px;
-      width:100%;
-      height:2px;
-      background:#111;
-      border-radius:1px;
-    }
-    @media(max-width:640px){
-      .header-inner{flex-direction:column;gap:10px;}
-      .nav-list{gap:24px;}
+    .site-header { border-bottom:1px solid rgba(0,0,0,0.06); background:#fff; }
+    .site-header .container { max-width:1200px; margin:0 auto; padding:18px 32px; display:flex; align-items:center; justify-content:space-between; gap:12px; box-sizing:border-box; }
+
+    .site-logo img { height:36px; display:block; }
+
+    .nav-list { list-style:none; margin:0; padding:0; display:flex; gap:28px; align-items:center; }
+    .nav-list a { text-decoration:none; color:var(--accent); font-weight:600; padding:6px 0; }
+
+    /* hamburger toggle (hidden on desktop) */
+    .nav-toggle { display:none; width:var(--touch); height:var(--touch); align-items:center; justify-content:center; border-radius:8px; border:1px solid rgba(0,0,0,0.04); background:transparent; cursor:pointer; }
+
+    /* mobile menu overlay (hidden by default) */
+    .mobile-menu { display:none; position:fixed; inset:0; background:#fff; padding:80px 20px 20px; z-index:9999; overflow:auto; }
+    .mobile-menu .nav-list { flex-direction:column; gap:18px; }
+
+    /* responsive breakpoints */
+    @media (max-width: 768px) {
+      .site-header .container { padding:14px 20px; }
+      .nav-list { display:none; }             /* hide desktop nav */
+      .nav-toggle { display:flex; }           /* show hamburger */
+      .site-logo img { height:32px; }
+      :root { --touch:44px; }
     }
 
-    .scroll-down {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 5px;
-  position: relative;
-  margin-top: 40px;
-  color: #111;
-  font-size: 14px;
-  font-weight: 500;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  opacity: 0.9;
-  animation: fadeIn 1.6s ease forwards;
+   /* Desktop nav visible by default */
+.nav-list--desktop { display: flex; gap: 28px; }
+
+/* Mobile navigation: hidden on desktop, shown in overlay */
+.nav-list--mobile { display: none; }
+
+/* Small screens: hide desktop nav, show hamburger */
+@media (max-width: 768px) {
+  .nav-list--desktop { display: none !important; }
+  .nav-toggle { display: inline-flex; }
+
+  /* mobile overlay settings */
+  .mobile-menu { display: none; justify-content: center; align-items: center; }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu .nav-list--mobile {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+  .mobile-menu .nav-list--mobile a { font-size: 18px; padding: 8px 12px; }
 }
-
-.mouse {
-  width: 28px;
-  height: 45px;
-  border: 2px solid #111;
-  border-radius: 20px;
-  position: relative;
-  box-sizing: border-box;
-}
-
-.wheel {
-  width: 4px;
-  height: 8px;
-  background: #111;
-  border-radius: 2px;
-  position: absolute;
-  top: 8px;
-  left: 50%;
-  transform: translateX(-50%);
-  animation: scrollWheel 1.4s infinite ease-in-out;
-}
-
-.scroll-down span {
-  font-family: 'Poppins', sans-serif;
-  color: #111;
-}
-
-@keyframes scrollWheel {
-  0% { opacity: 0; transform: translate(-50%, 0); }
-  40% { opacity: 1; transform: translate(-50%, 6px); }
-  80% { opacity: 0; transform: translate(-50%, 12px); }
-  100% { opacity: 0; transform: translate(-50%, 0); }
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* Optional hover effect */
-.scroll-down:hover .wheel {
-  animation-play-state: paused;
-  background: #555;
-}
-
+ 
   </style>
 
-  <div class="header-inner">
-    <a href="index.html" class="site-logo">
-      <img src="assets/logo-black.png" alt="Chethan Talari">
-    </a>
+  <div class="container">
+  <a href="index.html" class="site-logo" aria-label="Home">
+    <img src="assets/logo-black.png" alt="Logo">
+  </a>
 
-    <nav class="site-nav">
-      <ul class="nav-list">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="projects.html">Projects</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="connect.html">Connect</a></li>
-      </ul>
-      <span class="nav-underline"></span>
-    </nav>
-  </div>
+  <nav aria-label="Main navigation">
+    <ul class="nav-list nav-list--desktop" role="menubar">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="connect.html">Connect</a></li>
+    </ul>
 
- <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const nav = document.querySelector(".nav-list");
-    const underline = document.querySelector(".nav-underline");
-    const links = nav.querySelectorAll("a");
-    const current = location.pathname.split("/").pop() || "index.html";
+    <button class="nav-toggle" id="navToggle" aria-controls="mobile-menu" aria-expanded="false" aria-label="Open menu">
+      <!-- hamburger icon -->
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="#111" stroke-width="1.6" stroke-linecap="round"/></svg>
+    </button>
+  </nav>
+</div>
 
-    // ----- Mark current page active -----
-    links.forEach(a => {
-      const file = (a.getAttribute("href") || "").split("/").pop();
-      if (file === current) a.classList.add("active");
-      else a.classList.remove("active");
-    });
+<div id="mobile-menu" class="mobile-menu" aria-hidden="true" role="dialog" aria-modal="true">
+  <button class="close-btn" aria-label="Close menu" style="position:absolute;right:14px;top:18px;border:none;background:#fff;">
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" aria-hidden="true"><path d="M6 6l12 12M6 18L18 6" stroke="#111" stroke-width="1.6" stroke-linecap="round"/></svg>
+  </button>
 
-    function moveUnderline(link) {
-      const rect = link.getBoundingClientRect();
-      const navRect = nav.getBoundingClientRect();
-      underline.style.width = rect.width + "px";
-      underline.style.left = rect.left - navRect.left + "px";
-    }
+  <nav aria-label="Mobile navigation">
+    <ul class="nav-list nav-list--mobile" role="menu" style="margin-top:8px;">
+      <!-- If you keep these, fine; JS will only clone desktop links if this list is empty -->
+      <li><a role="menuitem" href="index.html">Home</a></li>
+      <li><a role="menuitem" href="projects.html">Projects</a></li>
+      <li><a role="menuitem" href="about.html">About</a></li>
+      <li><a role="menuitem" href="connect.html">Connect</a></li>
+    </ul>
+  </nav>
+</div>
 
-    function updateUnderline() {
-      const active = nav.querySelector(".active");
-      if (active) moveUnderline(active);
-    }
 
-    // ----- Hover animations -----
-    links.forEach(link => {
-      link.addEventListener("mouseenter", () => moveUnderline(link));
-      link.addEventListener("focus", () => moveUnderline(link));
-      link.addEventListener("click", () => {
-        // Save underline position before navigating
-        const rect = link.getBoundingClientRect();
-        const navRect = nav.getBoundingClientRect();
-        sessionStorage.setItem("underlineLeft", rect.left - navRect.left);
-        sessionStorage.setItem("underlineWidth", rect.width);
-      });
-    });
+  <script>
+    // Simple accessible hamburger behaviour
+    (function(){
+      const toggle = document.querySelector('.nav-toggle');
+      const mobile = document.getElementById('mobile-menu');
+      const closeBtn = mobile.querySelector('.close-btn');
+      const links = mobile.querySelectorAll('.nav-list a');
 
-    nav.addEventListener("mouseleave", updateUnderline);
-    window.addEventListener("resize", updateUnderline);
-
-    // ----- Animate underline from previous page -----
-    window.addEventListener("load", () => {
-      const prevLeft = sessionStorage.getItem("underlineLeft");
-      const prevWidth = sessionStorage.getItem("underlineWidth");
-      const active = nav.querySelector(".active");
-
-      if (prevLeft && prevWidth && active) {
-        // Start underline from previous position (same as last page)
-        underline.style.transition = "none";
-        underline.style.left = prevLeft + "px";
-        underline.style.width = prevWidth + "px";
-
-        // Force reflow before animating to current link
-        void underline.offsetWidth;
-
-        // Animate to new active link
-        underline.style.transition =
-          "left 0.35s cubic-bezier(.645,.045,.355,1), width 0.35s cubic-bezier(.645,.045,.355,1)";
-        updateUnderline();
-      } else {
-        updateUnderline();
+      function openMenu(){
+        mobile.style.display = 'block';
+        mobile.setAttribute('aria-hidden','false');
+        toggle.setAttribute('aria-expanded','true');
+        document.body.style.overflow = 'hidden';
+        setTimeout(()=> mobile.querySelector('.nav-list a')?.focus(), 50);
       }
-    });
-  });
-</script>
+      function closeMenu(){
+        mobile.style.display = 'none';
+        mobile.setAttribute('aria-hidden','true');
+        toggle.setAttribute('aria-expanded','false');
+        document.body.style.overflow = '';
+        toggle.focus();
+      }
 
+      toggle.addEventListener('click', openMenu);
+      closeBtn.addEventListener('click', closeMenu);
+      links.forEach(a => a.addEventListener('click', closeMenu));
+      document.addEventListener('keydown', e => { if(e.key === 'Escape') closeMenu(); });
+    })();
+  </script>
 </header>
+<!-- ===== END: Responsive header ===== -->
+
 
 
 
@@ -632,7 +592,7 @@
       <div class="hero-inner">
         <!-- text (left) -->
         <div>
-          <h1 class="hero-title">VISUAL<br>DESIGNER</h1>
+          <h1 class="hero-title">VISUAL DESIGNER</h1>
           <p class="hero-desc">
             I design seamless digital experiences that balance usability and aesthetics.
             A fast learner and film enthusiast. I blend storytelling and craft to make products and projects that feel human and purposeful.
@@ -816,6 +776,21 @@
       #cc-recent-projects .cc-grid { grid-template-columns: 1fr; gap:20px; }
       .cc-title { font-size:44px; }
     }
+
+    @media (max-width: 1000px) {
+  .cc-right{
+    text-align: center;
+    margin: 0 auto;
+  }
+    .cc-title{
+    text-align: center;
+    margin: 0 auto;
+  }
+    .cc-sub{
+    text-align: center;
+    margin: 0 auto;
+  }
+}
   </style>
 
   <!-- header row: left = title+subtitle, right = view-all -->
@@ -1301,6 +1276,50 @@
 
 
 <link rel="stylesheet" href="header-style.css">
+<script>
+(function () {
+  // safe references
+  const desktopNav = document.querySelector('.site-header .nav-list');
+  const mobileMenu = document.querySelector('.mobile-menu');
+  const mobileNav = mobileMenu ? mobileMenu.querySelector('.nav-list') : null;
+  const toggle = document.querySelector('.nav-toggle');
+  const closeBtn = mobileMenu ? mobileMenu.querySelector('.close-btn') : null;
+
+  // If mobile menu list exists but is empty, clone desktop links
+  if (desktopNav && mobileNav && mobileNav.children.length === 0) {
+    // clone nodes to avoid moving them from desktop
+    mobileNav.innerHTML = desktopNav.innerHTML;
+  }
+
+  // Ensure mobile menu shows/hides correctly (with guards)
+  function openMenu() {
+    if (!mobileMenu) return;
+    mobileMenu.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeMenu() {
+    if (!mobileMenu) return;
+    mobileMenu.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  if (toggle) toggle.addEventListener('click', openMenu);
+  if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+
+  // Close when clicking any mobile link (good UX)
+  if (mobileNav) {
+    mobileNav.addEventListener('click', (e) => {
+      // if a link was clicked (or a child of link), close menu
+      if (e.target && e.target.closest('a')) closeMenu();
+    });
+  }
+
+  // Close on escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeMenu();
+  });
+})();
+</script>
 
 
 </body>

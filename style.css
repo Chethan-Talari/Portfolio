@@ -1346,3 +1346,46 @@ html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,Segoe U
   box-shadow: 0 20px 40px rgba(0,0,0,0.06);
   background: #fff;
 }
+
+/* ===== Responsive helpers (paste at end of style.css) ===== */
+
+/* fluid base font */
+:root {
+  --fs-base: 16px;
+}
+html { font-size: var(--fs-base); }
+body { font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial; color:#111; }
+
+/* fluid font sizes using clamp */
+h1 { font-size: clamp(28px, 4.2vw, 48px); }
+h2 { font-size: clamp(22px, 3.2vw, 36px); }
+p, a, li { font-size: clamp(13px, 1.6vw, 16px); }
+
+/* projects grid responsive */
+.projects-grid {
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap:28px;
+}
+@media (max-width:980px){ .projects-grid{ grid-template-columns: repeat(2, 1fr); gap:20px; } }
+@media (max-width:640px){ .projects-grid{ grid-template-columns: 1fr; gap:16px; } }
+
+/* make thumbnails preserve 16:9 */
+.project-thumb { width:100%; aspect-ratio:16/9; background-size:cover; background-position:center; }
+
+/* make buttons and icons comfortable touch size on small screens */
+.icon-btn, .nav-toggle, .btn { min-width:44px; min-height:44px; }
+
+/* Shrink typography and icons on mobile for compact view */
+@media (max-width:768px) {
+  :root { --fs-base:14px; }
+  .site-logo img { height:32px; }
+  .nav-list a { font-size:15px; }
+  .btn { padding:10px 16px; font-size:14px; }
+}
+
+/* very small phones */
+@media (max-width:420px) {
+  :root { --fs-base:13px; }
+  .nav-list a { font-size:14px; }
+}
