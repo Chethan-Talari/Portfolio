@@ -38,27 +38,56 @@
 .hero-slashes { list-style:none; padding:0; margin:8px 0 0; font-family:'Special Elite', monospace; font-weight:700; }
 
 /* portrait column */
-.hero-portrait-wrap { display:flex; justify-content:flex-end; align-items:center; }
+.hero-portrait-wrap {
+  display:flex;
+  justify-content:flex-end;
+  align-items:center;
+  position: relative;
+  perspective: 1100px;
+  transform-style: preserve-3d;
+  isolation: isolate;
+  overflow: hidden;
+  border-radius: 10px;
+}
+.hero-portrait-wrap::after {
+  content: "";
+  position: absolute;
+  inset: -18% -34%;
+  background: linear-gradient(112deg,
+    rgba(255,255,255,0) 34%,
+    rgba(255,255,255,0.34) 50%,
+    rgba(255,255,255,0) 66%);
+  transform: translateX(var(--sweepX, -160%)) skewX(-18deg);
+  opacity: 0;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  transition: transform .55s cubic-bezier(.2,.9,.3,1), opacity .35s ease;
+  z-index: 2;
+}
+.hero-portrait-wrap.is-interacting::after { opacity: 1; }
+
 .hero-portrait {
   width:100%;
-  max-width:420px;        /* portrait width */
-  aspect-ratio: 3/4;      /* enforces 3:4 ratio */
+  max-width:420px;
+  aspect-ratio: 3/4;
   height:auto;
   object-fit: cover;
   border-radius:8px;
   box-shadow: 0 28px 64px rgba(0,0,0,0.08);
-  filter: grayscale(100%) contrast(1.02) brightness(.98);
-  transform: translateX(40px) scale(.995);
+  filter: none;
+  transform: translateX(40px) rotateX(0deg) rotateY(0deg) scale(1);
   opacity: 0;
-  transition: transform .9s cubic-bezier(.16,.9,.3,1), opacity .7s ease, filter .5s ease;
+  transition: transform .48s cubic-bezier(.16,.9,.3,1), opacity .45s ease;
   display:block;
   will-change: transform, opacity;
 }
-/* visible after JS adds .entered */
-.hero-portrait.entered{ opacity:1; transform: translateX(0) scale(1); }
-
-/* color on hover */
-.hero-portrait:hover { filter:none; transform: translateX(0) scale(1.01); }
+.hero-portrait.entered{
+  opacity:1;
+  transform: translateX(0)
+    rotateX(var(--tiltX, 0deg))
+    rotateY(var(--tiltY, 0deg))
+    scale(var(--heroScale, 1));
+}
 
 /* small screens portrait adjustments */
 @media (max-width:1100px) { .hero-portrait { max-width:360px; } }
@@ -94,13 +123,7 @@
 
     /* portrait column (right) */
 
-    /* After load (JS adds .entered) */
-    .hero-portrait.entered { opacity:1; transform: translateX(0) scale(1); }
-
-    /* color on hover */
-    .hero-portrait:hover { filter:none; transform: translateX(0) scale(1.01); }
-
-    /* responsive portrait scaling */
+/* responsive portrait scaling */
     @media (max-width:1100px) { .hero-portrait { max-width:360px; } }
     @media (max-width:720px) { .hero-portrait { max-width:320px; } }
 
@@ -893,7 +916,7 @@
 
             <div class="testi-card">
               <div class="testi-top">
-                <img src="assets/testi4.png" class="testi-photo" alt="Client 5">
+                <img src="assets/testi5.png" class="testi-photo" alt="Client 5">
                 <div>
                   <div class="testi-name">Govardhan Reddy</div>
                   <div class="testi-role">Managing Director, Croplot Machine Learning Pvt. Ltd.</div>
@@ -1163,12 +1186,45 @@
       // --- 1) Hero portrait enter (fade + slide from right on page load only) ---
       const portrait = document.getElementById('heroPortrait');
       if (portrait) {
-        // Ensure the image is visible and animate on page load only
-        // (we do not re-trigger on scroll)
-        // Small timeout so fonts/layout settle before animation
+        const wrap = portrait.closest('.hero-portrait-wrap');
+
+        // small delay so fonts/layout settle before intro animation
         setTimeout(() => {
           portrait.classList.add('entered');
         }, 120);
+
+        if (wrap) {
+          const maxTilt = 7; // degrees
+
+          const reset = () => {
+            portrait.style.setProperty('--tiltX', '0deg');
+            portrait.style.setProperty('--tiltY', '0deg');
+            portrait.style.setProperty('--heroScale', '1');
+            wrap.style.setProperty('--sweepX', '-160%');
+            wrap.classList.remove('is-interacting');
+          };
+
+          wrap.addEventListener('pointermove', (e) => {
+            const r = wrap.getBoundingClientRect();
+            const px = (e.clientX - r.left) / r.width;
+            const py = (e.clientY - r.top) / r.height;
+
+            const ry = (px - 0.5) * (maxTilt * 2);
+            const rx = (0.5 - py) * (maxTilt * 1.6);
+
+            portrait.style.setProperty('--tiltX', rx.toFixed(2) + 'deg');
+            portrait.style.setProperty('--tiltY', ry.toFixed(2) + 'deg');
+            portrait.style.setProperty('--heroScale', '1.03');
+
+            // move shimmer with cursor
+            const sweep = -120 + (px * 260);
+            wrap.style.setProperty('--sweepX', sweep.toFixed(1) + '%');
+            wrap.classList.add('is-interacting');
+          });
+
+          wrap.addEventListener('pointerleave', reset);
+          wrap.addEventListener('pointercancel', reset);
+        }
       }
 
       // --- 2) Load top 3 projects from manifest.json ---
@@ -1319,5 +1375,6 @@
 
 </body>
 </html>
+
 
 
