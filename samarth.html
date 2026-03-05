@@ -1,32 +1,276 @@
-﻿<!DOCTYPE html>
+﻿<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Samarth - Project</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Samarth - Visual Story telling | Chethan Talari</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
   <style>
-    :root { --bg:#f7f6f3; --ink:#161616; --muted:#6a6a6a; }
-    * { box-sizing: border-box; }
-    body { margin: 0; font-family: "Poppins", sans-serif; background: var(--bg); color: var(--ink); }
-    .wrap { max-width: 980px; margin: 0 auto; padding: 56px 24px; }
-    .back { display: inline-block; margin-bottom: 24px; color: var(--ink); text-decoration: none; border-bottom: 1px solid transparent; }
-    .back:hover { border-color: var(--ink); }
-    h1 { margin: 0 0 8px; font-size: clamp(28px, 5vw, 48px); }
-    p { margin: 0; color: var(--muted); line-height: 1.7; max-width: 70ch; }
-    .card { margin-top: 28px; background: #fff; border: 1px solid rgba(0,0,0,0.08); border-radius: 14px; padding: 22px; }
+    .project-header {
+      max-width: 1200px;
+      margin: 24px auto;
+      padding: 0 28px;
+    }
+    .project-header h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 48px;
+      margin: 24px 0;
+    }
+    .project-header .meta {
+      color: #777;
+      margin: 8px 0 24px;
+      font-size: 1.05rem;
+    }
+
+    .doc-main {
+      max-width: 1200px;
+      margin: 24px auto 48px;
+      padding: 0 28px;
+      box-sizing: border-box;
+    }
+
+    .video-shell {
+      background: #0e1d24;
+      border-radius: 18px;
+      padding: clamp(12px, 2vw, 20px);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.16);
+    }
+
+    .video-shell video {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 12px;
+      background: #000;
+    }
+
+    .video-caption {
+      margin-top: 14px;
+      color: #5f6c73;
+      font-size: 0.95rem;
+      line-height: 1.55;
+    }
+
+    .info-card {
+      margin-top: 18px;
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 12px;
+      background: #fff;
+      padding: 16px 18px;
+      color: #3f474c;
+    }
+
+    @media (max-width: 768px) {
+      .project-header,
+      .doc-main {
+        padding: 0 20px;
+      }
+
+      .project-header h1 {
+        font-size: 40px;
+      }
+    }
   </style>
 </head>
 <body>
-  <main class="wrap">
-    <a class="back" href="projects.html">Back to Projects</a>
-    <h1>Samarth</h1>
-    <p>Project page is being prepared. A detailed case study and media gallery will be published soon.</p>
-    <section class="card" aria-label="Status update">
-      <p>This placeholder prevents broken navigation while content is in progress.</p>
-    </section>
-  </main>
+
+<header class="site-header">
+  <style>
+    :root { --accent:#111; --touch:48px; }
+    .site-header { border-bottom:1px solid rgba(0,0,0,0.06); background:#fff; }
+    .site-header .container { max-width:1200px; margin:0 auto; padding:18px 32px; display:flex; align-items:center; justify-content:space-between; gap:12px; box-sizing:border-box; }
+    .site-logo img { height:36px; display:block; }
+    .nav-list { list-style:none; margin:0; padding:0; display:flex; gap:28px; align-items:center; }
+    .nav-list a { text-decoration:none; color:var(--accent); font-weight:600; padding:6px 0; }
+    .nav-toggle { display:none; width:var(--touch); height:var(--touch); align-items:center; justify-content:center; border-radius:8px; border:1px solid rgba(0,0,0,0.04); background:transparent; cursor:pointer; }
+    .mobile-menu { display:none; position:fixed; inset:0; background:#fff; padding:80px 20px 20px; z-index:9999; overflow:auto; }
+    .mobile-menu .nav-list { flex-direction:column; gap:18px; }
+    @media (max-width: 768px) {
+      .site-header .container { padding:14px 20px; }
+      .nav-list { display:none; }
+      .nav-toggle { display:flex; }
+      .site-logo img { height:32px; }
+      :root { --touch:44px; }
+    }
+  </style>
+
+  <div class="container">
+    <a href="index.html" class="site-logo" aria-label="Home"><img src="assets/logo-black.png" alt="Logo"></a>
+    <nav aria-label="Main navigation">
+      <ul class="nav-list" role="menubar">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="connect.html">Connect</a></li>
+      </ul>
+      <button class="nav-toggle" aria-controls="mobile-menu" aria-expanded="false" aria-label="Open menu">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="#111" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </button>
+    </nav>
+  </div>
+
+  <div id="mobile-menu" class="mobile-menu" aria-hidden="true" role="dialog" aria-modal="true">
+    <button class="close-btn" aria-label="Close menu" style="position:absolute;right:14px;top:18px;border:none;background:#fff;">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" aria-hidden="true"><path d="M6 6l12 12M6 18L18 6" stroke="#111" stroke-width="1.6" stroke-linecap="round"/></svg>
+    </button>
+    <nav aria-label="Mobile navigation">
+      <ul class="nav-list" role="menu" style="margin-top:8px;">
+        <li><a role="menuitem" href="index.html">Home</a></li>
+        <li><a role="menuitem" href="projects.html">Projects</a></li>
+        <li><a role="menuitem" href="about.html">About</a></li>
+        <li><a role="menuitem" href="connect.html">Connect</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <script>
+    (function(){
+      const toggle = document.querySelector('.nav-toggle');
+      const mobile = document.getElementById('mobile-menu');
+      const closeBtn = mobile.querySelector('.close-btn');
+      const links = mobile.querySelectorAll('.nav-list a');
+
+      function openMenu(){
+        mobile.style.display = 'block';
+        mobile.setAttribute('aria-hidden','false');
+        toggle.setAttribute('aria-expanded','true');
+        document.body.style.overflow = 'hidden';
+      }
+      function closeMenu(){
+        mobile.style.display = 'none';
+        mobile.setAttribute('aria-hidden','true');
+        toggle.setAttribute('aria-expanded','false');
+        document.body.style.overflow = '';
+      }
+
+      toggle.addEventListener('click', openMenu);
+      closeBtn.addEventListener('click', closeMenu);
+      links.forEach(a => a.addEventListener('click', closeMenu));
+      document.addEventListener('keydown', e => { if(e.key === 'Escape') closeMenu(); });
+    })();
+  </script>
+</header>
+
+<section class="project-header">
+  <h1>Samarth - Visual Story telling</h1>
+  <p class="meta">Visual Story telling - 2025 - Documentary direction, edit rhythm, and narrative continuity.</p>
+  <p>A documentary-focused project page that prioritizes motion content first. Viewers get context, then can immediately watch the featured film in-page.</p>
+</section>
+
+<main class="doc-main">
+  <section class="video-shell" aria-label="Documentary film">
+    <video id="samarthVideo" controls preload="metadata" poster="assets/projects/samarth/cover.jpg">
+      <source src="assets/projects/samarth/samarth-documentary.mp4" type="video/mp4">
+      <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <p class="video-caption">Featured film - Samarth (Documentary Cut).</p>
+  </section>
+
+  <section class="info-card" aria-label="Video notes">
+    <p>Drop your final video file at <strong>assets/projects/samarth/samarth-documentary.mp4</strong> to render it here automatically.</p>
+  </section>
+</main>
+
+<footer class="site-footer" role="contentinfo" style="border-top:1px solid rgba(0,0,0,0.06);background:#fff;">
+  <style>
+    .site-footer { width:100%; }
+    .site-footer .footer-inner {
+      max-width:1200px;
+      margin:0 auto;
+      padding:28px 32px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      box-sizing:border-box;
+      font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    .site-footer .footer-left img { height:42px; display:block; user-select:none; }
+    .site-footer .footer-right { display:flex; align-items:center; gap:14px; }
+    .site-footer .social { display:flex; gap:12px; align-items:center; }
+    .site-footer .social a {
+      display:inline-flex;
+      width:40px;
+      height:40px;
+      align-items:center;
+      justify-content:center;
+      border-radius:10px;
+      text-decoration:none;
+      color:#111;
+      background:transparent;
+      transition: all .18s ease;
+      border:1px solid rgba(0,0,0,0.04);
+      box-shadow:0 6px 18px rgba(0,0,0,0.03);
+    }
+    .site-footer .social a:hover,
+    .site-footer .social a:focus {
+      background:#111;
+      color:#fff;
+      transform: translateY(-3px);
+      box-shadow:0 14px 40px rgba(0,0,0,0.08);
+      outline:none;
+    }
+    .site-footer .social img {
+      width:30px;
+      height:30px;
+      object-fit:contain;
+      display:block;
+      filter:brightness(0);
+      transition:all 0.2s ease;
+    }
+    .site-footer .social a:hover img { filter: brightness(0) invert(1); }
+    .site-footer .copyright { color:#666; font-size:13px; margin-left:16px; white-space:nowrap; }
+    @media (max-width:720px) {
+      .site-footer .footer-inner { flex-direction:column; align-items:center; gap:12px; padding:22px; }
+      .site-footer .copyright { margin-left:0; }
+    }
+  </style>
+
+  <div class="footer-inner">
+    <div class="footer-left" style="display:flex;align-items:center;gap:16px;">
+      <a href="index.html" aria-label="Home" style="display:inline-block">
+        <img src="assets/logo-black.png" alt="Logo - Chethan Talari" />
+      </a>
+      <div class="copyright" id="footer-copyright">
+        <span id="footer-year"></span> Chethan Talari
+      </div>
+    </div>
+
+    <div class="footer-right">
+      <nav class="social" aria-label="Social links">
+        <div class="social">
+          <a href="https://www.instagram.com/c_celluloids/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+            <img src="assets/icons/instagram.png" alt="Instagram" />
+          </a>
+          <a href="https://www.linkedin.com/in/chethan-talari-1a9613213/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+            <img src="assets/icons/linkedin.png" alt="LinkedIn" />
+          </a>
+          <a href="https://www.behance.net/chethantalari" target="_blank" rel="noopener noreferrer" aria-label="Behance">
+            <img src="assets/icons/behance.png" alt="Behance" />
+          </a>
+        </div>
+      </nav>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const fy = document.getElementById('footer-year');
+  if (fy) fy.textContent = new Date().getFullYear();
+
+  const sv = document.getElementById('samarthVideo');
+  if (sv) {
+    sv.addEventListener('error', () => {
+      if (sv.dataset.fallback === '1') return;
+      sv.dataset.fallback = '1';
+      sv.src = 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4';
+      sv.load();
+    });
+  }
+</script>
+
 </body>
 </html>
+
