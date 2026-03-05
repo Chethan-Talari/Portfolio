@@ -74,6 +74,47 @@
   </style>
 </head>
 <body>
+  <a class="project-back-btn" href="projects.html" aria-label="Back to Projects">&#8592; Back to Projects</a>
+  <style>
+    .project-back-btn {
+      position: fixed;
+      top: 14px;
+      left: 14px;
+      z-index: 12000;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 12px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      color: #111;
+      background: rgba(255,255,255,0.95);
+      border: 1px solid rgba(0,0,0,0.12);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+    }
+    .project-back-btn:hover,
+    .project-back-btn:focus {
+      transform: translateY(-1px);
+      box-shadow: 0 12px 28px rgba(0,0,0,0.16);
+      background: #fff;
+      outline: none;
+    }
+    @media (max-width: 768px) {
+      .project-back-btn {
+        top: 10px;
+        left: 10px;
+        padding: 8px 11px;
+        font-size: 12px;
+      }
+    }
+  </style>
 
 <header class="site-header">
   <style>
@@ -161,15 +202,15 @@
 <main class="doc-main">
   <section class="video-shell" aria-label="Documentary film">
     <video id="samarthVideo" controls preload="metadata" poster="assets/projects/samarth/cover.jpg">
-      <source src="assets/projects/samarth/samarth-documentary.mp4" type="video/mp4">
+      <source src="assets/projects/samarth/Samarth-Documentary%20Promo.mp4" type="video/mp4">
       <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4" type="video/mp4">
       Your browser does not support the video tag.
     </video>
-    <p class="video-caption">Featured film - Samarth (Documentary Cut).</p>
+    <p class="video-caption">Trailer - Samarth.</p>
   </section>
 
   <section class="info-card" aria-label="Video notes">
-    <p>Drop your final video file at <strong>assets/projects/samarth/samarth-documentary.mp4</strong> to render it here automatically.</p>
+    <p>Watch the full video here: <a href="#" target="_blank" rel="noopener noreferrer">Samarth</a></p>
   </section>
 </main>
 
@@ -273,4 +314,7 @@
 
 </body>
 </html>
+
+
+
 
