@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Samarth - Visual Story telling | Chethan Talari</title>
+  <title>Samarth - Visual Stories | Chethan Talari</title>
   <link rel="stylesheet" href="style.css">
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
   <style>
@@ -36,13 +36,15 @@
       padding: clamp(12px, 2vw, 20px);
       box-shadow: 0 20px 50px rgba(0,0,0,0.16);
     }
-
     .video-shell video {
       display: block;
       width: 100%;
-      height: auto;
+      aspect-ratio: 16 / 9;
+      height: clamp(240px, 52vw, 640px);
       border-radius: 12px;
       background: #000;
+      object-fit: cover;
+      object-position: center;
     }
 
     .video-caption {
@@ -71,51 +73,27 @@
         font-size: 40px;
       }
     }
-  </style>
-</head>
-<body>
-  <a class="project-back-btn" href="projects.html" aria-label="Back to Projects">&#8592; Back to Projects</a>
-  <style>
-    .project-back-btn {
-      position: fixed;
-      top: 14px;
-      left: 14px;
-      z-index: 12000;
+
+    .project-back-link {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      padding: 9px 12px;
-      border-radius: 999px;
       text-decoration: none;
-      font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-      font-size: 13px;
-      font-weight: 600;
-      letter-spacing: 0.01em;
       color: #111;
-      background: rgba(255,255,255,0.95);
-      border: 1px solid rgba(0,0,0,0.12);
-      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
-      backdrop-filter: blur(4px);
-      -webkit-backdrop-filter: blur(4px);
-      transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      line-height: 1;
+      margin: 6px 0 10px;
+      transition: transform .16s ease, opacity .16s ease;
     }
-    .project-back-btn:hover,
-    .project-back-btn:focus {
-      transform: translateY(-1px);
-      box-shadow: 0 12px 28px rgba(0,0,0,0.16);
-      background: #fff;
+    .project-back-link:hover,
+    .project-back-link:focus {
+      transform: translateX(-2px);
+      opacity: 0.85;
       outline: none;
-    }
-    @media (max-width: 768px) {
-      .project-back-btn {
-        top: 10px;
-        left: 10px;
-        padding: 8px 11px;
-        font-size: 12px;
-      }
-    }
-  </style>
-
+    }</style>
+</head>
+<body>
 <header class="site-header">
   <style>
     :root { --accent:#111; --touch:48px; }
@@ -134,7 +112,7 @@
       .site-logo img { height:32px; }
       :root { --touch:44px; }
     }
-  </style>
+</style>
 
   <div class="container">
     <a href="index.html" class="site-logo" aria-label="Home"><img src="assets/logo-black.png" alt="Logo"></a>
@@ -194,14 +172,15 @@
 </header>
 
 <section class="project-header">
-  <h1>Samarth - Visual Story telling</h1>
-  <p class="meta">Visual Story telling - 2025 - Documentary direction, edit rhythm, and narrative continuity.</p>
+  <a class="project-back-link" href="projects.html" aria-label="Back to projects">&#8592;</a>
+<h1>Samarth - Visual Stories</h1>
+  <p class="meta">Visual Stories - 2025 - Documentary direction, edit rhythm, and narrative continuity.</p>
   <p>A documentary-focused project page that prioritizes motion content first. Viewers get context, then can immediately watch the featured film in-page.</p>
 </section>
 
 <main class="doc-main">
   <section class="video-shell" aria-label="Documentary film">
-    <video id="samarthVideo" controls preload="metadata" poster="assets/projects/samarth/cover.jpg">
+    <video id="samarthVideo" controls autoplay muted playsinline loop preload="metadata" poster="assets/projects/samarth/cover.jpg">
       <source src="assets/projects/samarth/Samarth-Documentary%20Promo.mp4" type="video/mp4">
       <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4" type="video/mp4">
       Your browser does not support the video tag.
@@ -210,7 +189,7 @@
   </section>
 
   <section class="info-card" aria-label="Video notes">
-    <p>Watch the full video here: <a href="#" target="_blank" rel="noopener noreferrer">Samarth</a></p>
+    <p>Watch the full video here: <a id="fullVideoLink" href="#" target="_blank" rel="noopener noreferrer">Samarth</a></p>
   </section>
 </main>
 
@@ -267,7 +246,7 @@
       .site-footer .footer-inner { flex-direction:column; align-items:center; gap:12px; padding:22px; }
       .site-footer .copyright { margin-left:0; }
     }
-  </style>
+</style>
 
   <div class="footer-inner">
     <div class="footer-left" style="display:flex;align-items:center;gap:16px;">
@@ -301,19 +280,46 @@
   const fy = document.getElementById('footer-year');
   if (fy) fy.textContent = new Date().getFullYear();
 
+    // Visual Stories page config (change these two values when duplicating this page)
+  const projectTitle = 'Samarth';
+  const fullVideoUrl = '#';
+
+  const fullLink = document.getElementById('fullVideoLink');
+  if (fullLink) {
+    fullLink.textContent = projectTitle;
+    fullLink.href = fullVideoUrl;
+  }
   const sv = document.getElementById('samarthVideo');
   if (sv) {
+    sv.muted = true;
+    sv.autoplay = true;
+
+    const tryAutoplay = () => {
+      sv.play().catch(() => {});
+    };
+
+    tryAutoplay();
+
     sv.addEventListener('error', () => {
       if (sv.dataset.fallback === '1') return;
       sv.dataset.fallback = '1';
       sv.src = 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4';
       sv.load();
+      tryAutoplay();
     });
   }
 </script>
 
 </body>
 </html>
+
+
+
+
+
+
+
+
 
 
 
