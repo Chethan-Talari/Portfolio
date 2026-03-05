@@ -4,21 +4,21 @@ document.getElementById('year').textContent = new Date().getFullYear();
 /* simple project dataset (replace images/titles/links as needed) */
 const projects = {
   uiux: [
-    { title: "UI Case Study — Travel App", img: "assets/uiux1.jpg", link: "#" },
-    { title: "UI Case Study — Music Platform", img: "assets/uiux2.jpg", link: "#" },
-    { title: "UI Case Study — E-commerce", img: "assets/uiux3.jpg", link: "#" }
+    { title: "UI Case Study - Travel App", img: "assets/uiux1.jpg", link: "#" },
+    { title: "UI Case Study - Music Platform", img: "assets/uiux2.jpg", link: "#" },
+    { title: "UI Case Study - E-commerce", img: "assets/uiux3.jpg", link: "#" }
   ],
   brand: [
-    { title: "Brand — Café Identity", img: "assets/brand1.jpg", link: "#" },
-    { title: "Brand — Clothing Label", img: "assets/brand2.jpg", link: "#" }
+    { title: "Brand - Café Identity", img: "assets/brand1.jpg", link: "#" },
+    { title: "Brand - Clothing Label", img: "assets/brand2.jpg", link: "#" }
   ],
   docs: [
-    { title: "Documentary — Stitching Program", img: "assets/doc1.jpg", link: "#" },
-    { title: "Documentary — Local Musicians", img: "assets/doc2.jpg", link: "#" }
+    { title: "Documentary - Stitching Program", img: "assets/doc1.jpg", link: "#" },
+    { title: "Documentary - Local Musicians", img: "assets/doc2.jpg", link: "#" }
   ],
   edit: [
-    { title: "Editing Reel — Concert Montage", img: "assets/edit1.jpg", link: "#" },
-    { title: "Editing — Short Film Grade", img: "assets/edit2.jpg", link: "#" }
+    { title: "Editing Reel - Concert Montage", img: "assets/edit1.jpg", link: "#" },
+    { title: "Editing - Short Film Grade", img: "assets/edit2.jpg", link: "#" }
   ]
 };
 
@@ -116,7 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
       window.addEventListener('scroll', onScroll, { passive: true });
       window.addEventListener('resize', () => {
         // update threshold on resize
-        // (avoid heavy work — just recompute threshold)
+        // (avoid heavy work - just recompute threshold)
       }, { passive: true });
 
       // optional: hide cue after first user scroll or any touchstart (for mobile)

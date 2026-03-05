@@ -92,7 +92,7 @@ if (marqueeA) {
     reveals.forEach(el => el.classList.add('visible'));
   }
 
-  // 5) Timeline dots + descriptions: optional highlight on scroll — just ensure visible
+  // 5) Timeline dots + descriptions: optional highlight on scroll - just ensure visible
   // We'll sequentially reveal descs using same reveals class
   const descs = Array.from(document.querySelectorAll('.tl-desc'));
   descs.forEach((d, i) => {

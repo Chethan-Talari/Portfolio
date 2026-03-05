@@ -117,7 +117,7 @@
     const thumb = document.createElement('div');
     thumb.className = 'project-thumb';
     if (img) {
-      // set background image — escape single quotes
+      // set background image - escape single quotes
       thumb.style.backgroundImage = `url("${img.replace(/"/g,'\\"')}")`;
       // test image existence to fall back gracefully
       const tester = new Image();

@@ -296,7 +296,7 @@ html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,Segoe U
   .scroll-cue { transition: none; }
 }
 
-/* responsive — slightly lower on small screens or hide entirely */
+/* responsive - slightly lower on small screens or hide entirely */
 @media (max-width:860px) {
   .scroll-cue { bottom: 24vh; }
   .cue-text { font-size:14px; }
@@ -524,7 +524,7 @@ html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,Segoe U
 @media (max-width:760px) { .skill-wrap img{ max-width:520px; width:94%; } }
  
 
-/* TIMELINE — grid layout */
+/* TIMELINE - grid layout */
 .timeline-area {
   width:100%;
   padding: 28px 0 12px;
@@ -985,7 +985,7 @@ html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,Segoe U
 /* reveal / loaded state (JS adds .visible) */
 .hero-photo.visible { opacity:1; transform: translateY(0) scale(1); }
 
-/* color on hover — either hover the image itself OR hover the photo-wrap */
+/* color on hover - either hover the image itself OR hover the photo-wrap */
 .hero-photo-wrap:hover .hero-photo,
 .hero-photo:hover { filter: none; }
 
@@ -994,7 +994,7 @@ html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,Segoe U
   .hero-photo-wrap:hover .hero-photo, .hero-photo:hover { filter: grayscale(100%); }
 }
 
-/* fold prompt (black band at bottom of landing) — keeps your existing style */
+/* fold prompt (black band at bottom of landing) - keeps your existing style */
 .hero-fold { position: fixed; left:0; right:0; bottom:0; background:#000; color:#fff; padding:16px 0; text-align:center; z-index:120; }
 .hero-fold.hidden { transform: translateY(100%); opacity:0; pointer-events:none; transition: transform .44s, opacity .28s; }
 
@@ -1033,7 +1033,7 @@ html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,Segoe U
   box-shadow: 0 10px 30px rgba(10,10,10,0.06);
 }
 
-/* image area — use background-image so it always covers */
+/* image area - use background-image so it always covers */
 .project-thumb {
   width: 100%;
   height: 220px;
