@@ -1389,3 +1389,27 @@ p, a, li { font-size: clamp(13px, 1.6vw, 16px); }
   :root { --fs-base:13px; }
   .nav-list a { font-size:14px; }
 }
+/* ===== UI Interactions: page transition + magnetic buttons ===== */
+@media (prefers-reduced-motion: no-preference) {
+  html.ui-page-transition body {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 520ms ease, transform 520ms cubic-bezier(.2,.8,.2,1);
+    will-change: opacity, transform;
+  }
+
+  html.ui-page-transition.ui-page-ready body {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  html.ui-page-transition.ui-page-leaving body {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+.magnetic-btn {
+  will-change: transform;
+  transition: transform 320ms cubic-bezier(.2,.8,.2,1);
+}
