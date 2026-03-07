@@ -932,104 +932,220 @@
   </main>
 
 <!-- ======= C CELLULOIDS BANNER ======= -->
-<section id="c-celluloids-banner"
-  style="position:relative;margin:100px 0;overflow:hidden;border-radius:16px;">
-
+<section id="c-celluloids-banner" aria-label="Photography website">
   <style>
-    #c-celluloids-banner .banner-bg {
-      position:absolute;
-      inset:0;
-      background:url('assets/banner.png') center/cover no-repeat;
-      filter:blur(8px) brightness(0.8);
-      transform:scale(1);
-      transition:transform 0.8s ease;
-      z-index:1;
+    #c-celluloids-banner {
+      max-width: 1200px;
+      margin: 90px auto 50px;
+      padding: 0 32px;
+      box-sizing: border-box;
     }
 
-    #c-celluloids-banner:hover .banner-bg {
-      transform:scale(1.08);
+    #c-celluloids-banner .banner-link {
+      position: relative;
+      display: block;
+      overflow: hidden;
+      border-radius: 14px;
+      min-height: 340px;
+      text-decoration: none;
+      border: 1px solid rgba(255,255,255,0.14);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.22);
+      background: #0f1626;
+      isolation: isolate;
+      transition: transform .42s cubic-bezier(.2,.8,.2,1), box-shadow .42s ease;
+    }
+
+    #c-celluloids-banner .banner-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(95deg, rgba(6,10,24,0.9) 8%, rgba(9,19,44,0.56) 45%, rgba(4,17,46,0.88) 100%),
+        url('assets/banner.png') center/cover no-repeat;
+      transform: scale(1.02);
+      transition: transform .56s cubic-bezier(.2,.8,.2,1), filter .56s ease;
+      filter: saturate(1.05) contrast(1.02);
+      z-index: 1;
+    }
+
+    #c-celluloids-banner .banner-bg::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, rgba(255,255,255,0) 38%, rgba(255,255,255,0.22) 50%, rgba(255,255,255,0) 62%);
+      transform: translateX(-145%) skewX(-16deg);
+      opacity: .6;
+      transition: transform .75s cubic-bezier(.2,.8,.2,1);
+    }
+
+    #c-celluloids-banner .corner-logo {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid rgba(255,255,255,0.72);
+      background: rgba(255,255,255,0.08);
+      box-shadow: 0 10px 24px rgba(0,0,0,0.3);
+      z-index: 3;
     }
 
     #c-celluloids-banner .banner-overlay {
-      position:relative;
-      z-index:2;
-      min-height:420px;
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:center;
-      text-align:center;
-      color:#fff;
-      padding:60px 24px;
-      background:rgba(0,0,0,0.45);
+      position: relative;
+      z-index: 2;
+      min-height: 340px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      text-align: left;
+      color: #fff;
+      padding: 44px clamp(20px, 4vw, 52px);
+      max-width: 760px;
     }
 
-    #c-celluloids-banner .logo {
-      width:96px;
-      height:96px;
-      border-radius:50%;
-      object-fit:cover;
-      border:3px solid rgba(255,255,255,0.8);
-      margin-bottom:20px;
-      box-shadow:0 4px 20px rgba(0,0,0,0.4);
-      transition:transform .5s ease;
-    }
-
-    #c-celluloids-banner:hover .logo {
-      transform:scale(1.05);
+    #c-celluloids-banner .brand-kicker {
+      color: rgba(255,255,255,0.94);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0 0 14px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.2);
+      font-size: 12px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      font-weight: 600;
     }
 
     #c-celluloids-banner h2 {
-      font-family:'Bebas Neue',sans-serif;
-      font-size:64px;
-      letter-spacing:-1px;
-      margin:0;
+      text-transform: uppercase;
+
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(44px, 7vw, 78px);
+      line-height: .95;
+      letter-spacing: -.5px;
+      margin: 0;
+      max-width: 16ch;
+    }
+
+    #c-celluloids-banner .brand-name {
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Arial;
+
+      margin: 10px 0 0;
+      font-size: 13px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.84);
+      font-weight: 700;
     }
 
     #c-celluloids-banner p.sub {
-      margin:10px 0 30px;
-      font-size:18px;
-      color:#ddd;
-      max-width:600px;
+      margin: 14px 0 18px;
+      font-size: 18px;
+      line-height: 1.55;
+      color: rgba(255,255,255,0.92);
+      max-width: 55ch;
     }
 
-    #c-celluloids-banner a.cta {
-      display:inline-block;
-      padding:12px 28px;
-      border-radius:999px;
-      background:#fff;
-      color:#111;
-      font-weight:600;
-      text-decoration:none;
-      transition:all .3s ease;
-      box-shadow:0 10px 30px rgba(0,0,0,0.25);
+    #c-celluloids-banner .proof-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 22px;
     }
 
-    #c-celluloids-banner a.cta:hover {
-      background:#111;
-      color:#fff;
-      transform:translateY(-3px);
-      box-shadow:0 14px 40px rgba(0,0,0,0.35);
+    #c-celluloids-banner .proof-row span {
+      font-size: 12px;
+      color: rgba(255,255,255,0.95);
+      border: 1px solid rgba(255,255,255,0.22);
+      background: rgba(255,255,255,0.08);
+      border-radius: 999px;
+      padding: 6px 10px;
+      letter-spacing: .02em;
     }
 
-    @media (max-width:640px){
-      #c-celluloids-banner .banner-overlay{min-height:320px;padding:40px 20px;}
-      #c-celluloids-banner h2{font-size:44px;}
-      #c-celluloids-banner p.sub{font-size:16px;}
-      #c-celluloids-banner .logo{width:80px;height:80px;}
+    #c-celluloids-banner .cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 11px 18px;
+      border-radius: 999px;
+      background: #fff;
+      color: #111;
+      font-weight: 700;
+      font-size: 14px;
+      box-shadow: 0 12px 32px rgba(0,0,0,0.24);
+      transition: transform .32s cubic-bezier(.2,.8,.2,1), box-shadow .32s ease;
+    }
+
+    #c-celluloids-banner .cta .arrow {
+      transition: transform .32s cubic-bezier(.2,.8,.2,1);
+    }
+
+    #c-celluloids-banner .banner-link:hover,
+    #c-celluloids-banner .banner-link:focus-visible {
+      transform: translateY(-4px);
+      box-shadow: 0 28px 70px rgba(0,0,0,0.3);
+      outline: none;
+    }
+
+    #c-celluloids-banner .banner-link:hover .banner-bg,
+    #c-celluloids-banner .banner-link:focus-visible .banner-bg {
+      transform: scale(1.06);
+      filter: saturate(1.1) contrast(1.05);
+    }
+
+    #c-celluloids-banner .banner-link:hover .banner-bg::after,
+    #c-celluloids-banner .banner-link:focus-visible .banner-bg::after {
+      transform: translateX(135%) skewX(-16deg);
+    }
+
+    #c-celluloids-banner .banner-link:hover .cta,
+    #c-celluloids-banner .banner-link:focus-visible .cta {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 36px rgba(0,0,0,0.28);
+    }
+
+    #c-celluloids-banner .banner-link:hover .cta .arrow,
+    #c-celluloids-banner .banner-link:focus-visible .cta .arrow {
+      transform: translateX(4px);
+    }
+
+    @media (max-width: 760px) {
+      #c-celluloids-banner { padding: 0 20px; margin: 70px auto 40px; }
+      #c-celluloids-banner .banner-link { min-height: 300px; }
+      #c-celluloids-banner .corner-logo { width: 58px; height: 58px; top: 12px; right: 12px; }
+
+    #c-celluloids-banner .banner-overlay { min-height: 300px; padding: 28px 18px; }
+      #c-celluloids-banner p.sub { font-size: 15px; margin: 12px 0 16px; }
+      #c-celluloids-banner .proof-row { margin-bottom: 16px; }
     }
   </style>
 
-  <!-- background -->
-  <div class="banner-bg"></div>
+  <a href="https://ccelluloids.in" target="_blank" rel="noopener noreferrer" class="banner-link" aria-label="Open C Celluloids photography website">
+    <div class="banner-bg" aria-hidden="true"></div>
+    <img src="assets/logo-ccelluloids.jpg" alt="C Celluloids logo" class="corner-logo">
 
-  <!-- overlay content -->
-  <div class="banner-overlay">
-    <img src="assets/logo-ccelluloids.jpg" alt="C Celluloids Logo" class="logo">
-    <h2>C Celluloids</h2>
-    <p class="sub">Photography & Visual Storytelling - documenting people, places, and experiences through the lens.</p>
-    <a href="https://ccelluloids.in" target="_blank" rel="noopener noreferrer" class="cta">View Website →</a>
-  </div>
+    <div class="banner-overlay">
+      <p class="brand-kicker">Photography Studio</p>
+      <h2>C Celluloids</h2>
+      <p class="brand-name">Photography & Visual Storytelling</p>
+      <p class="sub">A dedicated photography space for portraits, travel frames, and documentary visuals that feel honest, cinematic, and alive.</p>
+
+      <div class="proof-row" aria-hidden="true">
+        <span>50+ Shoots</span>
+        <span>Cinematic Stories</span>
+        <span>Portraits</span>
+        <span>Travel & Culture</span>
+      </div>
+
+      <span class="cta">Enter C Celluloids <span class="arrow">&rarr;</span></span>
+    </div>
+  </a>
 </section>
 <!-- ======= END C CELLULOIDS BANNER ======= -->
 
@@ -1373,8 +1489,12 @@
 </script>
 
 
-  <script src="ui-interactions.js" defer></script>`r`n</body>
+  <script src="ui-interactions.js" defer></script>
+</body>
 </html>
+
+
+
 
 
 
