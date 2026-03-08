@@ -93,7 +93,19 @@
 @media (max-width:1100px) { .hero-portrait { max-width:360px; } }
 @media (max-width:1000px) {
   .hero-portrait-wrap {
-    display: none;
+    display: flex;
+    justify-content: center;
+    margin-top: 8px;
+  }
+
+  .hero-portrait {
+    max-width: min(78vw, 340px);
+    opacity: 1;
+    transform: none;
+  }
+
+  .hero-portrait.entered {
+    transform: none;
   }
 }
 
@@ -466,6 +478,37 @@
   .testi-card { min-width:240px; max-width:240px; }
 }
 
+@media (max-width:768px) {
+  .testi-marquee-wrap {
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 0 16px 10px;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+  }
+
+  .testi-track {
+    animation: none !important;
+    transform: none !important;
+    width: max-content;
+    gap: 14px;
+  }
+
+  .testi-track .testi-list:nth-child(n+2) {
+    display: none;
+  }
+
+  .testi-list {
+    gap: 14px;
+  }
+
+  .testi-card {
+    min-width: 82vw;
+    max-width: 82vw;
+    scroll-snap-align: start;
+  }
+}
+
   
 
     /* footer quick layout (inherits your style.css footer, but keep safe spacing) */
@@ -629,13 +672,13 @@
           </ul>
           <br>
           <br>
-          <a href="about.html" class="cb-viewall-btn"> Know more about me →</a>
+          <a href="about.html" class="cb-viewall-btn"> Know more about me &rarr;</a>
 
         </div>
 
         <!-- portrait (right) -->
         <div class="hero-portrait-wrap">
-          <img src="assets/portrait-desktop.jpg" srcset="assets/portrait-mobile.jpg 700w, assets/portrait-desktop.jpg 1200w" sizes="(max-width: 1000px) 0px, (max-width: 1400px) 360px, 420px" alt="portrait" class="hero-portrait" id="heroPortrait" loading="eager" decoding="async">
+          <img src="assets/portrait-desktop.jpg" srcset="assets/portrait-mobile.jpg 700w, assets/portrait-desktop.jpg 1200w" sizes="(max-width: 700px) 76vw, (max-width: 1000px) 340px, (max-width: 1400px) 360px, 420px" alt="portrait" class="hero-portrait" id="heroPortrait" loading="eager" decoding="async">
         </div>
       </div>
 
@@ -824,7 +867,7 @@
     </div>
 
     <div class="cc-right">
-      <a href="projects.html" class="cb-viewall-btn">View All Projects →</a>
+      <a href="projects.html" class="cb-viewall-btn">View All Projects &rarr;</a>
     </div>
   </div>
 
@@ -835,9 +878,9 @@
   <script>
     (function () {
       const items = [
-        { title: "Awara - Itinerary Generator", meta: "UI/UX · 2025", img: "assets/projects/awara/cover.jpg", href: "awara.html" },
-        { title: "Prachi - Brand Identity", meta: "Branding · 2024", img: "assets/projects/prachi/cover.jpg", href: "prachi.html" },
-        { title: "Toda Embroidery - Research", meta: "Research · 2025", img: "assets/projects/toda/cover.jpg", href: "toda.html" }
+        { title: "Awara - Itinerary Generator", meta: "UI/UX � 2025", img: "assets/projects/awara/cover.jpg", href: "awara.html" },
+        { title: "Prachi - Brand Identity", meta: "Branding � 2024", img: "assets/projects/prachi/cover.jpg", href: "prachi.html" },
+        { title: "Toda Embroidery - Research", meta: "Research � 2025", img: "assets/projects/toda/cover.jpg", href: "toda.html" }
    
       ];
 
@@ -1251,7 +1294,7 @@
         <img src="assets/logo-black.png" alt="Logo - Chethan Talari" />
       </a>
       <div class="copyright" id="footer-copyright">
-        © <span id="footer-year"></span> Chethan Talari
+        � <span id="footer-year"></span> Chethan Talari
       </div>
     </div>
 
@@ -1492,6 +1535,8 @@
   <script src="ui-interactions.js" defer></script>
 </body>
 </html>
+
+
 
 
 

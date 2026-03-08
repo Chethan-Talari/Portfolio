@@ -599,9 +599,55 @@ html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,Segoe U
   .timeline-grid { grid-template-columns: repeat(3, 1fr); }
 }
 @media (max-width: 640px) {
-  .timeline-grid { grid-template-columns: repeat(1, 1fr); }
-  .timeline-base-line { top: 28px; left: 10%; right: 10%; }
-  .tl-text { text-align: left; }
+  .timeline-inner {
+    padding: 0 16px;
+  }
+
+  .timeline-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .timeline-base-line {
+    top: 8px;
+    bottom: 8px;
+    left: 22px;
+    right: auto;
+    width: 0;
+    height: auto;
+    border-left: 2px dotted #c7c7c7;
+    background: transparent;
+  }
+
+  .tl-item {
+    align-items: flex-start;
+    text-align: left;
+    padding: 0 0 0 44px;
+    position: relative;
+  }
+
+  .tl-dot {
+    position: absolute;
+    left: 15px;
+    top: 2px;
+    margin-bottom: 0;
+    width: 14px;
+    height: 14px;
+    background: #fff;
+  }
+
+  .tl-year {
+    margin-bottom: 4px;
+    font-size: 17px;
+    line-height: 1.1;
+  }
+
+  .tl-text {
+    text-align: left;
+    max-width: none;
+    font-size: 14px;
+    line-height: 1.45;
+  }
 }
 
 
@@ -1425,3 +1471,4 @@ p, a, li { font-size: clamp(13px, 1.6vw, 16px); }
   will-change: transform;
   transition: transform 320ms cubic-bezier(.2,.8,.2,1);
 }
+

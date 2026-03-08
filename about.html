@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -36,8 +36,10 @@
     /* responsive breakpoints */
     @media (max-width: 768px) {
       .site-header .container { padding:14px 20px; }
-      .nav-list { display:none; }             /* hide desktop nav */
-      .nav-toggle { display:flex; }           /* show hamburger */
+      .site-header .container > nav > .nav-list { display:none; }
+      .nav-toggle { display:flex; }
+      .mobile-menu .nav-list { display:flex; flex-direction:column; gap:18px; }
+      .mobile-menu.open { display:block; }
       .site-logo img { height:32px; }
       :root { --touch:44px; }
     }
@@ -85,14 +87,14 @@
       const links = mobile.querySelectorAll('.nav-list a');
 
       function openMenu(){
-        mobile.style.display = 'block';
+        mobile.classList.add('open');
         mobile.setAttribute('aria-hidden','false');
         toggle.setAttribute('aria-expanded','true');
         document.body.style.overflow = 'hidden';
         setTimeout(()=> mobile.querySelector('.nav-list a')?.focus(), 50);
       }
       function closeMenu(){
-        mobile.style.display = 'none';
+        mobile.classList.remove('open');
         mobile.setAttribute('aria-hidden','true');
         toggle.setAttribute('aria-expanded','false');
         document.body.style.overflow = '';
@@ -350,7 +352,7 @@
         <img src="assets/logo-black.png" alt="Logo - Chethan Talari" />
       </a>
       <div class="copyright" id="footer-copyright">
-        © <span id="footer-year"></span> Chethan Talari
+        � <span id="footer-year"></span> Chethan Talari
       </div>
     </div>
 
@@ -379,6 +381,8 @@
   <script src="ui-interactions.js" defer></script>
 </body>
 </html>
+
+
 
 
 
