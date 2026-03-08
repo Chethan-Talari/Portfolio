@@ -93,4 +93,38 @@
       el.addEventListener('touchstart', reset, { passive: true });
     });
   }
+
+  // ---------- Mobile bottom navigation ----------
+  const mountBottomNav = () => {
+    if (!window.matchMedia('(max-width: 768px)').matches) return;
+    if (document.querySelector('.mobile-bottom-nav')) return;
+
+    const currentFile = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
+    const topLevel = new Set(['index.html', 'projects.html', 'about.html', 'connect.html']);
+    const current = topLevel.has(currentFile) ? currentFile : 'projects.html';
+    const links = [
+      { href: 'index.html', label: 'Home', icon: '<path d="M3 10.5L12 3l9 7.5"/><path d="M5.5 9.5V21h13V9.5"/>' },
+      { href: 'projects.html', label: 'Projects', icon: '<rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 10h16"/><path d="M10 4v16"/>' },
+      { href: 'about.html', label: 'About', icon: '<circle cx="12" cy="7.5" r="3"/><path d="M6 20c0-3.2 2.7-5.5 6-5.5s6 2.3 6 5.5"/>' },
+      { href: 'connect.html', label: 'Connect', icon: '<path d="M3.5 6.5h17v11h-17z"/><path d="M4.5 7.5L12 13l7.5-5.5"/>' }
+    ];
+
+    const nav = document.createElement('nav');
+    nav.className = 'mobile-bottom-nav';
+    nav.setAttribute('aria-label', 'Primary mobile navigation');
+
+    nav.innerHTML = links.map((item) => {
+      const active = current === item.href ? ' is-active' : '';
+      return `<a href="${item.href}" class="${active.trim()}"><svg viewBox="0 0 24 24" aria-hidden="true">${item.icon}</svg><span>${item.label}</span></a>`;
+    }).join('');
+
+    document.body.appendChild(nav);
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', mountBottomNav, { once: true });
+  } else {
+    mountBottomNav();
+  }
 })();
+

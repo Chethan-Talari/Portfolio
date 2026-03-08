@@ -107,6 +107,9 @@
   .hero-portrait.entered {
     transform: none;
   }
+
+  .hero-copy { order: 2; }
+  .hero-portrait-wrap { order: 1; }
 }
 
 @media (max-width: 1000px) {
@@ -657,7 +660,7 @@
     <section class="hero" id="hero">
       <div class="hero-inner">
         <!-- text (left) -->
-        <div>
+        <div class="hero-copy">
           <h1 class="hero-title">VISUAL DESIGNER</h1>
           <p class="hero-desc">
             I design seamless digital experiences that balance usability and aesthetics.
@@ -878,9 +881,9 @@
   <script>
     (function () {
       const items = [
-        { title: "Awara - Itinerary Generator", meta: "UI/UX � 2025", img: "assets/projects/awara/cover.jpg", href: "awara.html" },
-        { title: "Prachi - Brand Identity", meta: "Branding � 2024", img: "assets/projects/prachi/cover.jpg", href: "prachi.html" },
-        { title: "Toda Embroidery - Research", meta: "Research � 2025", img: "assets/projects/toda/cover.jpg", href: "toda.html" }
+        { title: "Awara - Itinerary Generator", meta: "UI/UX &middot; 2025", img: "assets/projects/awara/cover.jpg", href: "awara.html" },
+        { title: "Prachi - Brand Identity", meta: "Branding &middot; 2024", img: "assets/projects/prachi/cover.jpg", href: "prachi.html" },
+        { title: "Toda Embroidery - Research", meta: "Research &middot; 2025", img: "assets/projects/toda/cover.jpg", href: "toda.html" }
    
       ];
 
@@ -1294,7 +1297,7 @@
         <img src="assets/logo-black.png" alt="Logo - Chethan Talari" />
       </a>
       <div class="copyright" id="footer-copyright">
-        � <span id="footer-year"></span> Chethan Talari
+        &copy; <span id="footer-year"></span> Chethan Talari
       </div>
     </div>
 
@@ -1535,6 +1538,10 @@
   <script src="ui-interactions.js" defer></script>
 </body>
 </html>
+
+
+
+
 
 
 
