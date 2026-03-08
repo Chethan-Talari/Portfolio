@@ -608,7 +608,19 @@ html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,Segoe U
 
     /* center resume CTA and animated icon above */
     .resume-wrap { display:flex; flex-direction:column; align-items:center; gap:10px; margin-top:32px; }
-    .resume-icon { font-size:36px; display:block; animation: floaty 2200ms ease-in-out infinite; }
+    .resume-icon {
+      width: 56px;
+      height: 56px;
+      display: grid;
+      place-items: center;
+      color: var(--black);
+      animation: floaty 2200ms ease-in-out infinite;
+    }
+    .resume-icon-svg {
+      width: 34px;
+      height: 34px;
+      display: block;
+    }
     @keyframes floaty { 0%{ transform:translateY(0)} 50%{ transform:translateY(-8px)} 100%{ transform:translateY(0)} }
     .btn-resume { padding:12px 20px; border:2px solid var(--black); border-radius:10px; text-decoration:none; color:var(--black); font-weight:700; transition:all .28s; }
     .btn-resume:hover { background:var(--black); color:var(--white); transform:translateY(-3px); box-shadow:0 18px 40px rgba(0,0,0,0.08); }
