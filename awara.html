@@ -4,7 +4,16 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Awara - UI/UX Design | Chethan Talari</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="canonical" href="https://chethantalari.me/awara.html" />
+  <meta property="og:title" content="Awara - UI/UX Design | Chethan Talari" />
+  <meta property="og:description" content="Awara project by Chethan Talari - UI/UX design case study." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://chethantalari.me/assets/projects/awara/cover.jpg" />
+  <meta property="og:url" content="https://chethantalari.me/awara.html" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Awara - UI/UX Design | Chethan Talari" />
+  <meta name="twitter:description" content="Awara project by Chethan Talari - UI/UX design case study." />
+  <meta name="twitter:image" content="https://chethantalari.me/assets/projects/awara/cover.jpg" /><link rel="stylesheet" href="style.css">
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
   <style>
     .project-gallery {
@@ -49,7 +58,50 @@
       transform: translateX(-2px);
       opacity: 0.85;
       outline: none;
-    }</style>
+    }
+    .project-top-actions {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      margin: 6px 0 12px;
+    }
+
+    .project-top-actions .project-back-link {
+      margin: 0;
+    }
+
+    .project-share-btn {
+      border:1px solid rgba(0,0,0,0.14);
+      background:#fff;
+      color:#111;
+      border-radius:999px;
+      padding:8px 13px;
+      font-size:13px;
+      font-weight:700;
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      cursor:pointer;
+      transition: transform .16s ease, background .16s ease, color .16s ease;
+    }
+
+    .project-share-btn:hover,
+    .project-share-btn:focus-visible {
+      transform: translateY(-1px);
+      background:#111;
+      color:#fff;
+      outline:none;
+    }
+
+    .project-share-btn svg {
+      width:14px;
+      height:14px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.9;
+    }
+</style>
 </head>
 <body>
 <!-- ===== START: Responsive header (copy into each page) ===== -->
@@ -84,8 +136,7 @@
       .mobile-menu .nav-list { display:flex; flex-direction:column; gap:18px; }
       .site-logo img { height:32px; }
       :root { --touch:44px; }
-    }
-</style>
+    }</style>
 
   <div class="container">
     <a href="index.html" class="site-logo" aria-label="Home"><img src="assets/logo-black.png" alt="Logo"></a>
@@ -155,7 +206,13 @@
 
   <!-- PROJECT HEADER -->
   <section class="project-header">
-  <a class="project-back-link" href="projects.html" aria-label="Back to projects">&#8592;</a>
+    <div class="project-top-actions">
+    <a class="project-back-link" href="projects.html" aria-label="Back to projects">&#8592;</a>
+    <button type="button" class="project-share-btn" id="projectShareBtn" aria-label="Share this project">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 5h5v5"/><path d="M10 14L19 5"/><rect x="5" y="9" width="10" height="10" rx="2"/></svg>
+      Share
+    </button>
+  </div>
 <h1 style="font-family:'Bebas Neue',sans-serif;font-size:48px;margin:24px 0;">Awara - UI/UX Design</h1>
     <p style="color:#777;margin:8px 0 24px;">UI/UX · 2025 - Designing a smooth digital travel experience for a new-age wanderer.</p>
     <p>An intuitive app experience created to inspire travelers through personalized itineraries, quick bookings, and aesthetic minimalism.</p>
@@ -277,8 +334,7 @@
         padding:22px;
       }
       .site-footer .copyright { margin-left:50; }
-    }
-</style>
+    }</style>
 
   <div class="footer-inner">
     <div class="footer-left" style="display:flex;align-items:center;gap:16px;">
@@ -312,9 +368,44 @@
   </div>
 
 
+    <script>
+    (() => {
+      const btn = document.getElementById('projectShareBtn');
+      if (!btn) return;
+      const label = btn.innerHTML;
+      const toast = (msg) => {
+        btn.textContent = msg;
+        setTimeout(() => { btn.innerHTML = label; }, 1200);
+      };
+      const copyLink = async () => {
+        try {
+          await navigator.clipboard.writeText(location.href);
+          toast('Copied');
+        } catch {
+          toast('Share');
+        }
+      };
+      btn.addEventListener('click', async () => {
+        if (navigator.share) {
+          try {
+            await navigator.share({ title: document.title, text: 'Check out this project', url: location.href });
+            return;
+          } catch (err) {
+            if (err && err.name === 'AbortError') return;
+          }
+        }
+        await copyLink();
+      });
+    })();
+  </script>
   <script src="ui-interactions.js" defer></script>
 </body>
 </html>
+
+
+
+
+
 
 
 
