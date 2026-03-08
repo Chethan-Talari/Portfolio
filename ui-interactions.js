@@ -94,14 +94,21 @@
     });
   }
 
+  const isMobile = () => window.matchMedia('(max-width: 768px)').matches;
+
   // ---------- Mobile bottom navigation ----------
   const mountBottomNav = () => {
-    if (!window.matchMedia('(max-width: 768px)').matches) return;
-    if (document.querySelector('.mobile-bottom-nav')) return;
+    const existing = document.querySelector('.mobile-bottom-nav');
+    if (!isMobile()) {
+      if (existing) existing.remove();
+      return;
+    }
+    if (existing) return;
 
     const currentFile = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
     const topLevel = new Set(['index.html', 'projects.html', 'about.html', 'connect.html']);
     const current = topLevel.has(currentFile) ? currentFile : 'projects.html';
+
     const links = [
       { href: 'index.html', label: 'Home', icon: '<path d="M3 10.5L12 3l9 7.5"/><path d="M5.5 9.5V21h13V9.5"/>' },
       { href: 'projects.html', label: 'Projects', icon: '<rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 10h16"/><path d="M10 4v16"/>' },
@@ -112,7 +119,6 @@
     const nav = document.createElement('nav');
     nav.className = 'mobile-bottom-nav';
     nav.setAttribute('aria-label', 'Primary mobile navigation');
-
     nav.innerHTML = links.map((item) => {
       const active = current === item.href ? ' is-active' : '';
       return `<a href="${item.href}" class="${active.trim()}"><svg viewBox="0 0 24 24" aria-hidden="true">${item.icon}</svg><span>${item.label}</span></a>`;
@@ -121,10 +127,55 @@
     document.body.appendChild(nav);
   };
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', mountBottomNav, { once: true });
-  } else {
+  // ---------- Mobile floating actions ----------
+  const mountFab = () => {
+    const existing = document.querySelector('.mobile-fab-stack');
+    if (!isMobile()) {
+      if (existing) existing.remove();
+      return;
+    }
+    if (existing) return;
+
+    const contactHref = 'connect.html';
+
+    const wrap = document.createElement('div');
+    wrap.className = 'mobile-fab-stack';
+    wrap.innerHTML = `
+      <a href="${contactHref}" aria-label="Quick contact" title="Quick contact">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 6.5h17v11h-17z"/><path d="M4.5 7.5L12 13l7.5-5.5"/></svg>
+      </a>
+      <button type="button" class="fab-top" aria-label="Back to top" title="Back to top">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5"/><path d="M6 11l6-6 6 6"/></svg>
+      </button>
+    `;
+
+    const topBtn = wrap.querySelector('.fab-top');
+    const onScroll = () => {
+      if (window.scrollY > 420) topBtn.classList.add('visible');
+      else topBtn.classList.remove('visible');
+    };
+
+    topBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+    document.body.appendChild(wrap);
+  };
+
+  const mountMobileEnhancements = () => {
     mountBottomNav();
+    mountFab();
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', mountMobileEnhancements, { once: true });
+  } else {
+    mountMobileEnhancements();
   }
+
+  window.addEventListener('resize', mountMobileEnhancements, { passive: true });
 })();
+
 

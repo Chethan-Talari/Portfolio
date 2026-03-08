@@ -1537,3 +1537,153 @@ p, a, li { font-size: clamp(13px, 1.6vw, 16px); }
     background: rgba(17, 17, 17, 0.08);
   }
 }
+
+/* ===== Phase 2 Mobile Comfort ===== */
+@media (max-width: 768px) {
+  .nav-toggle {
+    display: none !important;
+  }
+
+  .mobile-menu {
+    display: none !important;
+  }
+
+  .tab,
+  .project-back-link,
+  .social a,
+  .cb-viewall-btn,
+  .cc-viewall-btn,
+  .btn,
+  .btn-send {
+    min-height: 48px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    touch-action: manipulation;
+  }
+
+  .projects-grid {
+    gap: 14px !important;
+  }
+
+  .project-info h4,
+  .cc-info h4 {
+    font-size: 18px;
+    line-height: 1.25;
+    margin-bottom: 6px;
+  }
+
+  .project-info p,
+  .cc-info p {
+    font-size: 13px;
+    line-height: 1.4;
+    color: #666;
+  }
+}
+
+.mobile-fab-stack {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .mobile-fab-stack {
+    position: fixed;
+    right: 12px;
+    bottom: calc(88px + env(safe-area-inset-bottom));
+    z-index: 10001;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .mobile-fab-stack a,
+  .mobile-fab-stack button {
+    width: 52px;
+    height: 52px;
+    border: 0;
+    border-radius: 999px;
+    display: grid;
+    place-items: center;
+    text-decoration: none;
+    color: #fff;
+    background: #111;
+    box-shadow: 0 12px 26px rgba(0, 0, 0, 0.22);
+  }
+
+  .mobile-fab-stack a svg,
+  .mobile-fab-stack button svg {
+    width: 22px;
+    height: 22px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 1.9;
+  }
+
+  .mobile-fab-stack .fab-top {
+    background: #222;
+    opacity: 0;
+    transform: translateY(10px);
+    pointer-events: none;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+
+  .mobile-fab-stack .fab-top.visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+}
+
+.testi-controls {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .testi-controls {
+    margin: 10px 16px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .testi-nav-btn {
+    width: 42px;
+    height: 42px;
+    border-radius: 999px;
+    border: 1px solid rgba(0, 0, 0, 0.18);
+    background: #fff;
+    color: #111;
+    display: grid;
+    place-items: center;
+  }
+
+  .testi-nav-btn svg {
+    width: 18px;
+    height: 18px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2;
+  }
+
+  .testi-dots {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    flex: 1;
+  }
+
+  .testi-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 999px;
+    background: #c6c6c6;
+    border: 0;
+    padding: 0;
+  }
+
+  .testi-dot.is-active {
+    width: 18px;
+    background: #111;
+  }
+}

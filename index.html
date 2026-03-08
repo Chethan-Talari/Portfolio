@@ -974,6 +974,15 @@
           <!-- JS will duplicate the testi-list to create a seamless marquee -->
         </div>
       </div>
+      <div class="testi-controls" id="testiControls" aria-label="Testimonial controls">
+        <button type="button" class="testi-nav-btn" id="testiPrev" aria-label="Previous testimonial">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>
+        </button>
+        <div class="testi-dots" id="testiDots" aria-hidden="true"></div>
+        <button type="button" class="testi-nav-btn" id="testiNext" aria-label="Next testimonial">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+        </button>
+      </div>
     </section>
   </main>
 
@@ -1446,36 +1455,66 @@
       (function setupTestimonialsMarquee() {
     const track = document.getElementById('testiTrack');
     const list = document.getElementById('testiList');
-    if (!track || !list) return;
+    const wrap = document.getElementById('testiWrap');
+    const prevBtn = document.getElementById('testiPrev');
+    const nextBtn = document.getElementById('testiNext');
+    const dotsWrap = document.getElementById('testiDots');
+    if (!track || !list || !wrap) return;
 
-    // Ensure the list uses flex-row (if CSS failed to apply)
+    const mobile = window.matchMedia('(max-width: 768px)').matches;
+    const cards = Array.from(list.querySelectorAll('.testi-card'));
+
     list.style.display = 'flex';
-    list.style.gap = '20px';
+    list.style.gap = mobile ? '14px' : '20px';
 
-    // clone the list and append it to the track
-    const clone = list.cloneNode(true);
-    // remove ids on clone to avoid duplicates
-    clone.id = '';
-    track.appendChild(clone);
+    if (!mobile) {
+      const clone = list.cloneNode(true);
+      clone.id = '';
+      track.appendChild(clone);
 
-    // After images load, optionally adjust animation timing if content width is small
-    function adjustAnimation() {
-      // compute total width of the original list
-      const rect = list.getBoundingClientRect();
-      const totalWidth = rect.width;
-      // if the list width is less than track (rare), slow the animation a bit
-      // We keep CSS animation but could adjust duration via inline style if desired
-      if (totalWidth < window.innerWidth) {
-        // slower if narrow
-        track.style.animationDuration = '40s';
-      } else {
-        track.style.animationDuration = '28s';
-      }
-  }
+      const adjustAnimation = () => {
+        const totalWidth = list.getBoundingClientRect().width;
+        track.style.animationDuration = totalWidth < window.innerWidth ? '40s' : '28s';
+      };
 
-  // adjust after a small delay to let images load or use load events
-  setTimeout(adjustAnimation, 250);
-  window.addEventListener('resize', () => setTimeout(adjustAnimation, 120));
+      setTimeout(adjustAnimation, 250);
+      window.addEventListener('resize', () => setTimeout(adjustAnimation, 120));
+      return;
+    }
+
+    // Mobile: manual controls + dots
+    if (prevBtn && nextBtn && dotsWrap && cards.length) {
+      dotsWrap.innerHTML = cards.map((_, i) => `<button class="testi-dot${i === 0 ? ' is-active' : ''}" type="button" data-index="${i}" aria-label="Go to testimonial ${i + 1}"></button>`).join('');
+
+      const dots = Array.from(dotsWrap.querySelectorAll('.testi-dot'));
+      const cardStep = () => {
+        const c = cards[0].getBoundingClientRect().width;
+        return c + 14;
+      };
+
+      const currentIndex = () => {
+        const idx = Math.round(wrap.scrollLeft / cardStep());
+        return Math.max(0, Math.min(cards.length - 1, idx));
+      };
+
+      const setActiveDot = (idx) => {
+        dots.forEach((d, i) => d.classList.toggle('is-active', i === idx));
+      };
+
+      const goTo = (idx) => {
+        wrap.scrollTo({ left: idx * cardStep(), behavior: 'smooth' });
+        setActiveDot(idx);
+      };
+
+      prevBtn.addEventListener('click', () => goTo(Math.max(0, currentIndex() - 1)));
+      nextBtn.addEventListener('click', () => goTo(Math.min(cards.length - 1, currentIndex() + 1)));
+
+      dots.forEach((dot) => {
+        dot.addEventListener('click', () => goTo(Number(dot.dataset.index || 0)));
+      });
+
+      wrap.addEventListener('scroll', () => setActiveDot(currentIndex()), { passive: true });
+    }
 })();
 
 
@@ -1538,6 +1577,10 @@
   <script src="ui-interactions.js" defer></script>
 </body>
 </html>
+
+
+
+
 
 
 
