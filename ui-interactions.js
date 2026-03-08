@@ -1,9 +1,17 @@
 ﻿(() => {
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const navDuration = 480;
+  const navDuration = 340;
+
+  const getCurrentTopLevel = () => {
+    const file = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
+    const topLevel = new Set(['index.html', 'projects.html', 'about.html', 'connect.html']);
+    return topLevel.has(file) ? file : 'projects.html';
+  };
+
+  const isMobileViewport = () => window.matchMedia('(max-width: 1024px)').matches;
 
   // ---------- Page transition ----------
-  if (!prefersReduced) {
+  if (!prefersReduced && !isMobileViewport()) {
     document.documentElement.classList.add('ui-page-transition');
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
@@ -42,8 +50,49 @@
     }, { passive: false });
   }
 
+  // ---------- Desktop nav active indicator ----------
+  const mountDesktopNavIndicator = () => {
+    const navList = document.querySelector('.site-header .container > nav > .nav-list');
+    if (!navList || isMobileViewport()) {
+      const old = document.querySelector('.nav-indicator');
+      if (old) old.remove();
+      return;
+    }
+
+    const links = Array.from(navList.querySelectorAll('a[href]'));
+    if (!links.length) return;
+
+    let indicator = navList.querySelector('.nav-indicator');
+    if (!indicator) {
+      indicator = document.createElement('span');
+      indicator.className = 'nav-indicator';
+      navList.appendChild(indicator);
+    }
+
+    const current = getCurrentTopLevel();
+    let active = links.find((a) => (a.getAttribute('href') || '').toLowerCase() === current);
+    if (!active) active = links[0];
+
+    const moveIndicator = (target) => {
+      if (!target) return;
+      links.forEach((a) => a.classList.toggle('is-current', a === target));
+
+      const listRect = navList.getBoundingClientRect();
+      const rect = target.getBoundingClientRect();
+      const x = rect.left - listRect.left;
+      indicator.style.width = `${rect.width}px`;
+      indicator.style.transform = `translate3d(${x}px, 0, 0)`;
+      indicator.classList.add('visible');
+    };
+
+    moveIndicator(active);    links.forEach((link) => {
+      link.addEventListener('click', () => moveIndicator(link));
+    });
+    window.addEventListener('resize', () => moveIndicator(active), { passive: true });
+  };
+
   // ---------- Magnetic buttons ----------
-  if (!prefersReduced) {
+  if (!prefersReduced && !isMobileViewport()) {
     const selector = [
       'button',
       '[role="button"]',
@@ -94,21 +143,16 @@
     });
   }
 
-  const isMobile = () => window.matchMedia('(max-width: 768px)').matches;
-
   // ---------- Mobile bottom navigation ----------
   const mountBottomNav = () => {
     const existing = document.querySelector('.mobile-bottom-nav');
-    if (!isMobile()) {
+    if (!isMobileViewport()) {
       if (existing) existing.remove();
       return;
     }
     if (existing) return;
 
-    const currentFile = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
-    const topLevel = new Set(['index.html', 'projects.html', 'about.html', 'connect.html']);
-    const current = topLevel.has(currentFile) ? currentFile : 'projects.html';
-
+    const current = getCurrentTopLevel();
     const links = [
       { href: 'index.html', label: 'Home', icon: '<path d="M3 10.5L12 3l9 7.5"/><path d="M5.5 9.5V21h13V9.5"/>' },
       { href: 'projects.html', label: 'Projects', icon: '<rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 10h16"/><path d="M10 4v16"/>' },
@@ -130,20 +174,15 @@
   // ---------- Mobile floating actions ----------
   const mountFab = () => {
     const existing = document.querySelector('.mobile-fab-stack');
-    if (!isMobile()) {
+    if (!isMobileViewport()) {
       if (existing) existing.remove();
       return;
     }
     if (existing) return;
 
-    const contactHref = 'connect.html';
-
     const wrap = document.createElement('div');
     wrap.className = 'mobile-fab-stack';
     wrap.innerHTML = `
-      <a href="${contactHref}" aria-label="Quick contact" title="Quick contact">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 6.5h17v11h-17z"/><path d="M4.5 7.5L12 13l7.5-5.5"/></svg>
-      </a>
       <button type="button" class="fab-top" aria-label="Back to top" title="Back to top">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5"/><path d="M6 11l6-6 6 6"/></svg>
       </button>
@@ -164,18 +203,19 @@
     document.body.appendChild(wrap);
   };
 
-  const mountMobileEnhancements = () => {
+  const mountResponsiveUI = () => {
+    mountDesktopNavIndicator();
     mountBottomNav();
     mountFab();
   };
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', mountMobileEnhancements, { once: true });
+    document.addEventListener('DOMContentLoaded', mountResponsiveUI, { once: true });
   } else {
-    mountMobileEnhancements();
+    mountResponsiveUI();
   }
 
-  window.addEventListener('resize', mountMobileEnhancements, { passive: true });
+  window.addEventListener('resize', mountResponsiveUI, { passive: true });
 })();
 
 
