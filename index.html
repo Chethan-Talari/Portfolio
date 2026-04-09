@@ -33,7 +33,7 @@
   display: grid;
   grid-template-columns: 1fr 420px; /* text | portrait */
   gap: 60px;                        /* space between text and portrait */
-  align-items: center;
+  align-items: stretch;
 }
 
 /* responsive: stack on small screens */
@@ -42,10 +42,102 @@
 }
 
 /* text side */
-.hero-title { font-family: 'Bebas Neue', Impact, sans-serif; font-size:120px; line-height:.86; margin:0 0 16px; letter-spacing:-2px; }
-@media (max-width:1000px){ .hero-title{ font-size:64px } }
+.hero-disciplines {
+  --hero-word-gap: 26px;
+  display:flex;
+  gap: var(--hero-word-gap);
+  align-items:center;
+  justify-content: flex-start;
+  width: 100%;
+  margin: 0 0 10px;
+  font-family: 'Bebas Neue', Impact, sans-serif;
+  font-size: 42px;
+  line-height: .92;
+  letter-spacing: -.8px;
+  text-transform: uppercase;
+}
+.hero-disciplines span {
+  display:inline-block;
+  flex: 0 0 auto;
+  white-space: nowrap;
+  position: relative;
+  transform-origin: center bottom;
+  transform: translateY(-4px) scale(1.08) rotate(-1deg);
+  text-shadow: 4px 4px 0 rgba(255, 106, 61, 0.14);
+  transition: transform .28s cubic-bezier(.2,.8,.2,1), text-shadow .28s ease, color .28s ease, letter-spacing .28s ease, opacity .28s ease;
+  isolation: isolate;
+}
+.hero-disciplines span::before{
+  content: attr(data-text);
+  position:absolute;
+  inset:0;
+  color:#ff6a3d;
+  opacity:0;
+  transform: translate3d(0, 0, 0) skewX(0deg);
+  z-index:-1;
+  transition: transform .28s cubic-bezier(.2,.8,.2,1), opacity .28s ease;
+}
+.hero-disciplines span:hover{
+  transform: translateY(-7px) scale(1.12) rotate(-1.5deg);
+  letter-spacing: -.02em;
+  text-shadow: 7px 7px 0 rgba(255, 106, 61, 0.12);
+  color:#ff6a3d;
+}
+.hero-disciplines span:hover::before{
+  opacity:.95;
+  transform: translate3d(7px, 5px, 0) skewX(-10deg);
+}
+.hero-disciplines:hover span:not(:hover){
+  opacity:.55;
+}
+.hero-heading-lockup{
+  width: 100%;
+}
+.hero-title {
+  font-family: 'Bebas Neue', Impact, sans-serif;
+  font-size:170px;
+  line-height: .92;
+  margin:0 0 16px;
+  width: 100%;
+  display:block;
+  --hero-char-gap: 0.08em;
+  white-space: nowrap;
+}
+@media (max-width:1000px){
+  .hero-disciplines{
+    display:grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px 28px;
+    font-size: 30px;
+  }
+  .hero-title{ font-size:92px }
+}
+@media (max-width:640px){
+  .hero-disciplines{
+    grid-template-columns: repeat(2, minmax(0, max-content));
+    font-size: 24px;
+  }
+  .hero-title{ font-size:72px }
+}
 .hero-desc { color:#6b6b6b; font-size:18px; line-height:1.7; max-width:760px; margin-bottom:18px; }
 .hero-slashes { list-style:none; padding:0; margin:8px 0 0; font-family:'Special Elite', monospace; font-weight:700; }
+.hero-copy{
+  min-height: 100%;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+}
+.hero-copy-top{
+  display:flex;
+  flex-direction:column;
+  gap: 14px;
+}
+.hero-copy-bottom{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  gap: 20px;
+}
 
 /* portrait column */
 .hero-portrait-wrap {
@@ -356,16 +448,16 @@
   font-weight: 600;
   color: #111;
   text-decoration: none;
-  border-bottom: 2px solid #111;
+  border: 2px solid #111;
+  border-radius: 999px;
+  padding: 10px 16px;
   transition: all 0.3s ease;
 }
 
 .view-all-btn:hover {
   color: #fff;
   background: #111;
-  padding: 6px 14px;
-  border-radius: 6px;
-  border-bottom: none;
+  box-shadow: 4px 4px 0 rgba(255, 106, 61, 0.25);
 }
 
 
@@ -529,6 +621,7 @@
     footer .footer-inner { max-width:var(--wrap); margin:0 auto; padding:0 28px; display:flex; justify-content:space-between; align-items:center; gap:16px; }
 
   </style>
+  <link rel="stylesheet" href="theme-imperfect.css?v=4">
 </head>
 <body>
 
@@ -671,22 +764,30 @@
       <div class="hero-inner">
         <!-- text (left) -->
         <div class="hero-copy">
-          <h1 class="hero-title">VISUAL DESIGNER</h1>
-          <p class="hero-desc">
-            I design seamless digital experiences that balance usability and aesthetics.
-            A fast learner and film enthusiast. I blend storytelling and craft to make products and projects that feel human and purposeful.
-          </p>
+          <div class="hero-copy-top">
+            <div class="hero-heading-lockup">
+              <div class="hero-disciplines" aria-hidden="true">
+                <span data-text="EXPERIENCE">EXPERIENCE</span>
+                <span data-text="BRAND">BRAND</span>
+                <span data-text="VISUAL">VISUAL</span>
+                <span data-text="GRAPHIC">GRAPHIC</span>
+              </div>
+              <h1 class="hero-title">DESIGNER</h1>
+            </div>
+            <p class="hero-desc">
+              I design seamless digital experiences that balance usability and aesthetics.
+              A fast learner and film enthusiast. I blend storytelling and craft to make products and projects that feel human and purposeful.
+            </p>
+          </div>
 
-          <ul class="hero-slashes" aria-hidden="true">
-            <li>/ Experience Designer</li>
-            <li>/ Photographer</li>
-            <li>/ Editor</li>
-            <li>/ Filmmaker</li>
-          </ul>
-          <br>
-          <br>
-          <a href="about.html" class="cb-viewall-btn"> Know more about me &rarr;</a>
-
+          <div class="hero-copy-bottom">
+            <ul class="hero-slashes" aria-hidden="true">
+              <li>/ Photographer</li>
+              <li>/ Editor</li>
+              <li>/ Filmmaker</li>
+            </ul>
+            <a href="about.html" class="cb-viewall-btn"> Know more about me &rarr;</a>
+          </div>
         </div>
 
         <!-- portrait (right) -->
@@ -1583,27 +1684,6 @@
 })();
 </script>
 
-
-  <script src="ui-interactions.js" defer></script>
+  <script src="ui-interactions.js?v=6" defer></script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

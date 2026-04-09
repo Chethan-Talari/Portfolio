@@ -114,6 +114,7 @@
       h1 { font-size:46px; }
     }
   </style>
+  <link rel="stylesheet" href="theme-imperfect.css?v=3">
 </head>
 <body>
 
@@ -223,15 +224,16 @@
   <!-- MAIN -->
   <main>
     <h1>PROJECTS</h1>
-    <p class="subtitle">Browse projects by category - UX Design, Brand Design, Research, and Visual Stories.</p>
+    <p class="subtitle">Browse projects by category - UX Design, Brand Design, Graphic Design, Research, and Visual Stories.</p>
 
-    <!-- Tab order: UX Design, Brand Design, Research, Visual Stories, View All -->
+    <!-- Tab order: View All, UX Design, Brand Design, Graphic Design, Research, Visual Stories -->
     <div class="project-tabs" role="tablist" aria-label="Project categories">
+      <button class="tab" data-cat="all">View All</button>
       <button class="tab" data-cat="UX Design">UX Design</button>
       <button class="tab" data-cat="Brand Design">Brand Design</button>
+      <button class="tab" data-cat="Graphic Design">Graphic Design</button>
       <button class="tab" data-cat="Research">Research</button>
       <button class="tab" data-cat="Visual Stories">Visual Stories</button>
-      <button class="tab" data-cat="all">View All</button>
     </div>
 
     <div id="projectsGrid" class="projects-grid" aria-live="polite"></div>
@@ -414,11 +416,9 @@
       });
     }
 
-    // Set UI/UX as the default active tab and ensure View All is last visually (we already arranged order in markup)
+    // Set View All as the default active tab so the first category is shown on load.
     function activateDefault() {
-      // find UI/UX tab or fallback to 'all'
-      const uiux = tabs.find(t => normalizeCat(t.dataset.cat) === 'ui/ux' || normalizeCat(t.dataset.cat).includes('ui'));
-      const defaultTab = uiux || tabs.find(t => t.dataset.cat === 'all');
+      const defaultTab = tabs.find(t => t.dataset.cat === 'all') || tabs[0];
       tabs.forEach(t => t.classList.remove('active'));
       if (defaultTab) {
         defaultTab.classList.add('active');
@@ -444,12 +444,9 @@
     // Initialize
     activateDefault();
   </script>
-  <script src="ui-interactions.js" defer></script>
+  <script src="ui-interactions.js?v=3" defer></script>
 </body>
 </html>
-
-
-
 
 
 
