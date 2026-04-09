@@ -468,10 +468,19 @@ html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,Segoe U
     .about-desc{max-width:900px;text-align:center;color:var(--grey);font-size:18px;line-height:1.6;margin:6px 0 0}
 
     /* counters */
-    .counters{display:flex;gap:50px;align-items:center;justify-content:center;margin-top:6px;margin-bottom:6px}
-    .counter{text-align:center}
-    .counter .num{font-family:'Bebas Neue',sans-serif;font-size:44px;display:block}
-    .counter .label{font-size:12px;color:var(--grey);text-transform:uppercase;letter-spacing:1px;margin-top:6px;display:block}
+    .counters{display:flex;gap:50px;align-items:center;justify-content:center;margin-top:10px;margin-bottom:10px;flex-wrap:wrap}
+    .counter{
+      min-width: 124px;
+      min-height: 110px;
+      padding: 18px 20px;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      text-align:center
+    }
+    .counter .num{font-family:'Bebas Neue',sans-serif;font-size:52px;line-height:.95;display:block}
+    .counter .label{font-size:13px;color:var(--grey);text-transform:uppercase;letter-spacing:1.2px;margin-top:8px;display:block}
 
 /* Marquee: full-width, seamless loop */
 .marquee-full { width:100%; margin:44px 0; background:transparent; overflow:hidden; justify-content: center; }
@@ -483,12 +492,31 @@ html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,Segoe U
   display:flex;
   gap:48px;
   align-items:center;
+  width:max-content;
   /* animate via CSS, JS sets duration */
+  animation: marquee 22s linear infinite;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
   will-change: transform;
 }
-.marquee-item img { height:60px; display:block; filter:grayscale(100%); opacity:0.9; transition: filter .22s, opacity .22s; }
+.marquee-item{
+  flex:0 0 auto;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-width:110px;
+}
+.marquee-item img {
+  width:auto;
+  height:60px;
+  max-width:140px;
+  object-fit:contain;
+  flex:0 0 auto;
+  display:block;
+  filter:grayscale(100%);
+  opacity:0.9;
+  transition: filter .22s, opacity .22s;
+}
 .marquee-item img:hover { filter:grayscale(0); opacity:1; }
 
 /* keyframes for marquee: move left by 50% (because we duplicated sequence) */
@@ -501,7 +529,10 @@ html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,Segoe U
 .marquee-clip:hover .marquee-track { animation-play-state: paused; }
 
 /* responsive tweak */
-@media (max-width:520px) { .marquee-item img{height:28px} }
+@media (max-width:520px) {
+  .marquee-item{ min-width:72px; }
+  .marquee-item img{ height:28px; max-width:88px; }
+}
 
 
     /* duplicate track wrapper for seamless loop */
@@ -1415,8 +1446,8 @@ html { font-size: var(--fs-base); }
 body { font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial; color:#111; }
 
 /* fluid font sizes using clamp */
-h1 { font-size: clamp(28px, 4.2vw, 48px); }
-h2 { font-size: clamp(22px, 3.2vw, 36px); }
+h1 { font-size: clamp(24px, 4.2vw, 36px); }
+h2 { font-size: clamp(18px, 3.2vw, 24px); }
 p, a, li { font-size: clamp(13px, 1.6vw, 16px); }
 
 /* projects grid responsive */

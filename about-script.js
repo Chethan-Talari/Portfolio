@@ -56,23 +56,70 @@
     counters.forEach(c => c.textContent = c.dataset.target || '0');
   }
 
-// MARQUEE control (set animationDuration & pause on hover)
+// MARQUEE control (manual horizontal loop for reliability)
 const marqueeA = document.getElementById('marqueeA');
 if (marqueeA) {
-  const visibleItems = marqueeA.querySelectorAll('.marquee-item').length;
-  // we duplicated sequence so visible unique items = visibleItems / 2
-  const uniqueItems = Math.max(1, Math.floor(visibleItems / 2));
-  // duration = items * baseSpeed (tweak baseSpeed to make it faster/slower)
-  const baseSpeed = 1.5; // seconds per logo
-  const duration = Math.max(14, uniqueItems * baseSpeed);
-  marqueeA.style.animation = `marquee ${duration}s linear infinite`;
-  // pause/resume on hover
   const clip = marqueeA.closest('.marquee-clip');
+  let offset = 0;
+  let rafId = 0;
+  let paused = false;
+  let lastTime = 0;
+  let loopWidth = 0;
+  const speed = 42; // px per second
+
+  const measure = () => {
+    loopWidth = marqueeA.scrollWidth / 2;
+    if (!Number.isFinite(loopWidth) || loopWidth <= 0) {
+      loopWidth = 0;
+    }
+  };
+
+  const tick = (time) => {
+    if (!lastTime) lastTime = time;
+    const delta = (time - lastTime) / 1000;
+    lastTime = time;
+
+    if (!paused && loopWidth > 0) {
+      offset -= speed * delta;
+      if (Math.abs(offset) >= loopWidth) {
+        offset = 0;
+      }
+      marqueeA.style.transform = `translate3d(${offset}px, 0, 0)`;
+    }
+
+    rafId = window.requestAnimationFrame(tick);
+  };
+
+  marqueeA.style.animation = 'none';
+  marqueeA.style.willChange = 'transform';
+
+  const start = () => {
+    if (rafId) window.cancelAnimationFrame(rafId);
+    lastTime = 0;
+    rafId = window.requestAnimationFrame(tick);
+  };
+
+  const reflow = () => {
+    offset = 0;
+    marqueeA.style.transform = 'translate3d(0, 0, 0)';
+    measure();
+  };
+
+  window.addEventListener('load', reflow, { passive: true });
+  window.addEventListener('resize', reflow, { passive: true });
+
   if (clip) {
-    clip.addEventListener('mouseenter', () => marqueeA.style.animationPlayState = 'paused');
-    clip.addEventListener('mouseleave', () => marqueeA.style.animationPlayState = 'running');
+    clip.addEventListener('mouseenter', () => { paused = true; });
+    clip.addEventListener('mouseleave', () => { paused = false; });
   }
-  if (prefersReduced) marqueeA.style.animationPlayState = 'paused';
+
+  if (prefersReduced) {
+    paused = true;
+    reflow();
+  } else {
+    reflow();
+    start();
+  }
 }
 
 
@@ -131,5 +178,4 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 });
-
 

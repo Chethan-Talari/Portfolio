@@ -20,6 +20,151 @@
 </head>
 <body>
 
+<style>
+  .about-section-title{
+    margin: 0 0 18px;
+    text-align:center;
+    font-family:'Bebas Neue', sans-serif;
+    font-size:34px;
+    line-height:1;
+    letter-spacing:-0.5px;
+    color:#111;
+    text-transform:uppercase;
+  }
+
+  @media (max-width:640px){
+    .about-section-title{
+      font-size:26px;
+      margin-bottom:14px;
+    }
+  }
+
+  .about-logo-wall{
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 8px 0 0;
+  }
+
+  .about-logo-board{
+    position: relative;
+    overflow: hidden;
+    padding: 48px 42px 38px;
+    border: 2px solid #111;
+    border-radius: 10px;
+    background:
+      radial-gradient(circle at 22% 34%, rgba(113, 164, 255, 0.16), transparent 16%),
+      radial-gradient(circle at 68% 64%, rgba(255, 170, 92, 0.14), transparent 18%),
+      radial-gradient(circle at 48% 48%, rgba(255,255,255,0.92), rgba(255,255,255,0.98) 58%, rgba(249,249,249,0.98) 100%);
+    box-shadow: 0 18px 40px rgba(17,17,17,0.08);
+    isolation: isolate;
+  }
+
+  .about-logo-board::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    opacity:.14;
+    pointer-events:none;
+    background-image:
+      radial-gradient(rgba(17,17,17,0.9) 0.45px, transparent 0.6px),
+      radial-gradient(rgba(17,17,17,0.55) 0.35px, transparent 0.55px);
+    background-size: 9px 9px, 13px 13px;
+    background-position: 0 0, 5px 4px;
+    mix-blend-mode: multiply;
+  }
+
+  .about-logo-copy{
+    position: relative;
+    z-index: 1;
+    margin: 0 auto 30px;
+    max-width: 420px;
+    text-align: center;
+  }
+
+  .about-logo-kicker{
+    display:block;
+    margin-bottom: 4px;
+    font-family: "Times New Roman", Georgia, serif;
+    font-size: 28px;
+    font-style: italic;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+  }
+
+  .about-logo-copy p{
+    margin:0;
+    color:#111;
+    font-family:'Bebas Neue', sans-serif;
+    font-size:32px;
+    line-height:.95;
+    letter-spacing:-0.03em;
+    text-transform: uppercase;
+  }
+
+  .about-logo-grid{
+    position: relative;
+    z-index: 1;
+    display:grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 20px 26px;
+    align-items:center;
+  }
+
+  .about-logo-item{
+    min-height: 40px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+
+  .about-logo-item img{
+    width: auto;
+    max-width: 100%;
+    height: 26px;
+    object-fit: contain;
+    display:block;
+    filter: none;
+    opacity: .96;
+  }
+
+  @media (max-width:900px){
+    .about-logo-board{
+      padding: 40px 28px 30px;
+    }
+    .about-logo-grid{
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width:640px){
+    .about-logo-board{
+      padding: 34px 18px 24px;
+    }
+
+    .about-logo-copy{
+      margin-bottom: 22px;
+    }
+
+    .about-logo-kicker{
+      font-size: 20px;
+    }
+
+    .about-logo-copy p{
+      font-size:24px;
+    }
+
+    .about-logo-grid{
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px 14px;
+    }
+
+    .about-logo-item img{
+      height: 80px;
+    }
+  }
+</style>
+
 <!-- ===== START: Responsive header (copy into each page) ===== -->
 <header class="site-header">
   <style>
@@ -148,40 +293,30 @@
 <!-- MARQUEE: full-width with Trusted by label -->
 <section class="marquee-full" aria-label="Trusted by">
   <div class="marquee-inner">
-    <div class="trusted-label" style="text-align:center;font-family:Special Elite,monospace;color:var(--grey);letter-spacing:1px;margin-bottom:10px;">
-      Trusted by:
-    </div>
-<br>
-    <div class="marquee-clip" aria-hidden="false">
-      <div id="marqueeA" class="marquee-track">
-        <!-- 8 logos (exact filenames in /assets/) -->
-        <div class="marquee-item"><img src="assets/client9.png" alt="client 9"></div>
-        <div class="marquee-item"><img src="assets/client8.svg" alt="client 3"></div>
-        <div class="marquee-item"><img src="assets/client7.jpeg" alt="client 7"></div>
-        <div class="marquee-item"><img src="assets/client6.png" alt="client 6"></div>
-        <div class="marquee-item"><img src="assets/client5.png" alt="client 5"></div>
-        <div class="marquee-item"><img src="assets/client4.jpeg" alt="client 4"></div>
-        <div class="marquee-item"><img src="assets/client3.png" alt="client 3"></div>
-        <div class="marquee-item"><img src="assets/client2.png" alt="client 2"></div>
-        <div class="marquee-item"><img src="assets/client1.png" alt="client 1"></div>
-
-        <!-- duplicate for smooth loop -->
-        <div class="marquee-item"><img src="assets/client9.png" alt="client 9"></div>
-        <div class="marquee-item"><img src="assets/client8.svg" alt="client 8"></div>
-        <div class="marquee-item"><img src="assets/client7.jpeg" alt="client 7"></div>
-        <div class="marquee-item"><img src="assets/client6.png" alt="client 6"></div>
-        <div class="marquee-item"><img src="assets/client5.png" alt="client 5"></div>
-        <div class="marquee-item"><img src="assets/client4.jpeg" alt="client 4"></div>
-        <div class="marquee-item"><img src="assets/client3.png" alt="client 3"></div>
-        <div class="marquee-item"><img src="assets/client2.png" alt="client 2"></div>
-        <div class="marquee-item"><img src="assets/client1.png" alt="client 1"></div>
+    <div class="about-logo-wall" aria-label="Trusted by logos">
+      <div class="about-logo-board">
+        <div class="about-logo-copy">
+          <span class="about-logo-kicker">Brands that TRUSTED me for</span>
+          <p style="font-size: 52px;">DESIGN &amp; DEV</p>
+        </div>
+        <div class="about-logo-grid">
+          <div class="about-logo-item"><img src="assets/client9.png" alt="Central Silk Board"></div>
+          <div class="about-logo-item"><img src="assets/client8.svg" alt="NIFT"></div>
+          <div class="about-logo-item"><img src="assets/client7.jpeg" alt="Client logo"></div>
+          <div class="about-logo-item"><img src="assets/client6.png" alt="Nologo Communications"></div>
+          <div class="about-logo-item"><img src="assets/client5.png" alt="Mahindra Rise"></div>
+          <div class="about-logo-item"><img src="assets/client4.jpeg" alt="Client logo"></div>
+          <div class="about-logo-item"><img src="assets/client3.png" alt="Client logo"></div>
+          <div class="about-logo-item"><img src="assets/client2.png" alt="Client logo"></div>
+          <div class="about-logo-item"><img src="assets/client1.png" alt="Client logo"></div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
     <!-- SKILL IMAGE -->
-    <div class="trusted-label" style="text-align:center;height:48px;font-family:Special Elite,monospace;color:var(--grey);letter-spacing:1px;margin-bottom:10px;">
+    <div class="about-section-title">
       Skills & Tools
     </div>
 
@@ -193,7 +328,7 @@
 <br>
 <br>
     <!-- SKILL IMAGE -->
-    <div class="trusted-label" style="text-align:center;height:48px;font-family:Special Elite,monospace;color:var(--grey);letter-spacing:1px;margin-bottom:10px;">
+    <div class="about-section-title">
       My Timeline
     </div>
 
@@ -392,9 +527,3 @@
   <script src="ui-interactions.js?v=3" defer></script>
 </body>
 </html>
-
-
-
-
-
-

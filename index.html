@@ -22,10 +22,11 @@
   <style>
     /* Page-specific small layout helpers (keeps main style.css primary) */
     :root { --wrap: 1200px; --muted: #6b6b6b; }
+    html, body { overflow-x: hidden; }
 
     /* HERO */
     /* ---- HERO: 2-column (text left, portrait right) ---- */
-.hero { padding: 40px 0 30px; background:#fff; }
+.hero { padding: 32px 0 18px; background:#fff; }
 .hero-inner {
   max-width: 1200px;
   margin: 28px auto;
@@ -491,7 +492,7 @@
 
 /* ===== testimonials (single horizontal marquee row) ===== */
 .testimonials {
-  padding: 34px 0;
+  padding: 22px 0;
   background: #fafafa;
   border-top: 1px solid #f0f0f0;
 }
@@ -501,7 +502,10 @@
   margin: 0 auto 18px;
   padding: 0 28px;
   font-family: 'Bebas Neue', sans-serif;
-  font-size: 28px;
+  font-size: 34px;
+  line-height: 1;
+  letter-spacing: -.5px;
+  color: #111;
 }
 
 /* wrapper hides overflow */
@@ -513,6 +517,7 @@
 /* the track is a wide flex row that will be duplicated */
 .testi-track {
   display: flex;
+  flex-wrap: nowrap;
   gap: 20px;
   align-items: stretch;
   /* we will animate transform; pause on hover using :hover rule below */
@@ -523,7 +528,10 @@
 /* each inner list (we duplicate this list) must be a horizontal row */
 .testi-list {
   display: flex;
+  flex-wrap: nowrap;
   gap: 20px;
+  align-items: stretch;
+  flex: 0 0 auto;
 }
 
 /* single testimonial card */
@@ -609,6 +617,7 @@
 }
 @media (max-width:640px) {
   .testi-card { min-width:240px; max-width:240px; }
+  .testimonials .title { font-size: 26px; }
 }
 
 @media (max-width:768px) {
@@ -789,6 +798,11 @@
   <!-- HERO -->
   <main role="main">
     <section class="hero" id="hero">
+      <div class="hero-atmosphere" aria-hidden="true">
+        <span class="hero-orb hero-orb-1"></span>
+        <span class="hero-orb hero-orb-2"></span>
+        <span class="hero-gridlines"></span>
+      </div>
       <div class="hero-inner">
         <!-- text (left) -->
         <div class="hero-copy">
@@ -809,6 +823,16 @@
           </div>
 
           <div class="hero-copy-bottom">
+            <div class="hero-proof" aria-label="Quick overview">
+              <div class="hero-proof-chip">
+                <strong>05+</strong>
+                <span>creative disciplines across digital and visual work</span>
+              </div>
+              <div class="hero-proof-chip">
+                <strong>UI + Film</strong>
+                <span>a practice shaped by interface thinking and storytelling</span>
+              </div>
+            </div>
             <div class="hero-also" aria-hidden="true">elsewhere..</div>
             <ul class="hero-slashes" aria-hidden="true">
               <li>/ Photographer</li>
@@ -828,12 +852,47 @@
  
 
 <!-- ======= RECENT PROJECTS (UPDATED STYLES) ======= -->
-<section id="cc-recent-projects" style="max-width:1200px;margin:100px auto;padding:0 32px;box-sizing:border-box;">
+<section id="cc-recent-projects" style="max-width:1200px;margin:56px auto 44px;padding:0 32px;box-sizing:border-box;">
 
   <style>
     /* ===== CC RECENT PROJECTS - STYLES ===== */
-    /* container header */
+    #cc-recent-projects .cc-shell {
+      position: relative;
+      padding: 34px;
+      border-radius: 28px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.96), rgba(255,255,255,0.98)),
+        linear-gradient(135deg, rgba(255,106,61,0.08), rgba(17,17,17,0.02));
+      border: 1px solid rgba(17,17,17,0.06);
+      box-shadow: 0 28px 80px rgba(17,17,17,0.08);
+      overflow: hidden;
+      isolation: isolate;
+    }
+    #cc-recent-projects .cc-shell::before,
+    #cc-recent-projects .cc-shell::after {
+      content:"";
+      position:absolute;
+      border-radius:999px;
+      pointer-events:none;
+      z-index:0;
+    }
+    #cc-recent-projects .cc-shell::before {
+      width: 220px;
+      height: 220px;
+      top: -80px;
+      right: -40px;
+      background: radial-gradient(circle, rgba(255,106,61,0.18), rgba(255,106,61,0));
+    }
+    #cc-recent-projects .cc-shell::after {
+      width: 260px;
+      height: 260px;
+      left: -120px;
+      bottom: -140px;
+      background: radial-gradient(circle, rgba(17,17,17,0.08), rgba(17,17,17,0));
+    }
     #cc-recent-projects .cc-header {
+      position: relative;
+      z-index: 1;
       display:flex;
       justify-content:space-between;
       align-items:flex-end;
@@ -841,46 +900,39 @@
       margin-bottom:28px;
       flex-wrap:wrap;
     }
-
     #cc-recent-projects .cc-left { min-width:240px; flex:1 1 60%; }
-
+    .cc-kicker {
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      margin-bottom:14px;
+      color:#6b6b6b;
+      font-size:12px;
+      font-weight:700;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+    }
+    .cc-kicker::before {
+      content:"";
+      width:34px;
+      height:1px;
+      background:#111;
+      opacity:.35;
+    }
     .cc-title {
       font-family: 'Bebas Neue', sans-serif;
-      font-size:56px;
+      font-size:34px;
       margin:0 0 6px;
       line-height:1;
       color:#111;
     }
-
     .cc-sub {
       margin:0;
       color:#6b6b6b;
       font-size:16px;
       max-width:720px;
     }
-
-    /* view all button (clean pill) */
-    .cc-viewall-btn {
-      display:inline-block;
-      text-decoration:none;
-      color:#111;
-      font-weight:600;
-      border:1px solid rgba(0,0,0,0.08);
-      padding:8px 14px;
-      border-radius:999px;
-      background:transparent;
-      transition: all .22s ease;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.03);
-    }
-    .cc-viewall-btn:hover, .cc-viewall-btn:focus {
-      background:#111;
-      color:#fff;
-      transform: translateY(-3px);
-      box-shadow: 0 14px 40px rgba(0,0,0,0.10);
-      outline: none;
-    }
-
-        .cb-viewall-btn {
+    .cb-viewall-btn {
       display:inline-block;
       text-decoration:none;
       color:#ffffff;
@@ -900,44 +952,59 @@
       outline: #0b0a0a;
       border: 2px solid #111;
     }
-
-    /* grid */
     #cc-recent-projects .cc-grid {
+      position: relative;
+      z-index: 1;
       display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap:32px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap:24px;
       align-items:start;
     }
-
-    /* card: anchor element */
     .cc-card {
+      position:relative;
       display:flex;
       flex-direction:column;
-      background:#fff;
-      border-radius:12px;
+      min-height:100%;
+      background:rgba(255,255,255,0.82);
+      border-radius:22px;
       overflow:hidden;
-      border:1px solid rgba(0,0,0,0.05);
-      box-shadow:0 12px 30px rgba(12,12,12,0.04);
+      border:1px solid rgba(17,17,17,0.06);
+      box-shadow:0 14px 42px rgba(12,12,12,0.06);
       transition: transform .28s cubic-bezier(.22,.9,.32,1), box-shadow .28s ease;
-      text-decoration: none;        /* remove underline */
-      color: inherit;               /* neutralize default link color */
+      text-decoration:none;
+      color:inherit;
       -webkit-tap-highlight-color: transparent;
+      backdrop-filter: blur(10px);
     }
-    /* ensure anchor states don't change text color */
     .cc-card:link, .cc-card:visited, .cc-card:active { color: inherit; text-decoration:none; }
-
     .cc-card:hover, .cc-card:focus {
       transform: translateY(-8px);
       box-shadow: 0 28px 70px rgba(12,12,12,0.08);
       outline: none;
     }
-
-    /* accessible focus style */
+    .cc-card::after {
+      content:"";
+      position:absolute;
+      inset:auto 24px 0 24px;
+      height:3px;
+      border-radius:999px;
+      background: linear-gradient(90deg, #111 0%, #ff6a3d 100%);
+      transform: scaleX(0);
+      transform-origin:left center;
+      transition: transform .32s ease;
+    }
+    .cc-card:hover::after,
+    .cc-card:focus::after {
+      transform: scaleX(1);
+    }
     .cc-card:focus {
       box-shadow: 0 28px 70px rgba(12,12,12,0.10), 0 0 0 4px rgba(17,17,17,0.06);
     }
-
-    /* thumb with subtle zoom on hover */
+    .cc-media {
+      position:relative;
+      overflow:hidden;
+      border-bottom:1px solid rgba(17,17,17,0.06);
+    }
     .cc-thumb {
       width:100%;
       aspect-ratio:16/9;
@@ -952,17 +1019,50 @@
     .cc-card:focus .cc-thumb {
       transform: scale(1.03);
     }
-
-    /* info block styling (override default link color) */
+    .cc-badge {
+      position:absolute;
+      left:16px;
+      top:16px;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 12px;
+      border-radius:999px;
+      background: rgba(17,17,17,0.72);
+      color:#fff;
+      font-size:11px;
+      font-weight:700;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      backdrop-filter: blur(6px);
+    }
+    .cc-badge::before {
+      content:"";
+      width:7px;
+      height:7px;
+      border-radius:999px;
+      background:#ff6a3d;
+    }
     .cc-info {
-      padding:14px 16px 18px;
-      background: #fff;
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+      padding:18px 18px 22px;
+      background: transparent;
+    }
+    .cc-index {
+      color:#6b6b6b;
+      font-size:12px;
+      font-weight:700;
+      letter-spacing:.16em;
+      text-transform:uppercase;
     }
     .cc-info h4 {
-      margin:0 0 6px;
-      font-size:18px;
+      margin:0;
+      font-size:28px;
       font-weight:700;
-      color:#111;       /* force dark heading color */
+      color:#111;
+      line-height:1;
       text-decoration: none;
     }
     .cc-info p {
@@ -970,72 +1070,139 @@
       color:#777;
       font-size:14px;
     }
-
-    /* remove any stray underlines inside (strong override) */
+    .cc-note {
+      color:#4b4b4b;
+      font-size:15px;
+      line-height:1.6;
+      max-width:42ch;
+    }
+    .cc-meta-row {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      margin-top:auto;
+      padding-top:6px;
+    }
+    .cc-arrow {
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width:42px;
+      height:42px;
+      border-radius:999px;
+      border:1px solid rgba(17,17,17,0.1);
+      color:#111;
+      font-size:18px;
+      flex-shrink:0;
+      transition: transform .22s ease, background .22s ease, color .22s ease;
+    }
+    .cc-card:hover .cc-arrow,
+    .cc-card:focus .cc-arrow {
+      background:#111;
+      color:#fff;
+      transform: translateX(2px);
+    }
     .cc-card, .cc-card * { text-decoration: none !important; }
-
-    /* responsive */
     @media (max-width: 980px) {
-      #cc-recent-projects .cc-grid { grid-template-columns: repeat(2, 1fr); gap:24px; }
+      #cc-recent-projects .cc-shell { padding: 26px; }
+      #cc-recent-projects .cc-grid { grid-template-columns: 1fr; gap:20px; }
+      .cc-info h4 { font-size: 24px; }
     }
     @media (max-width: 640px) {
       #cc-recent-projects { padding: 0 20px; }
+      #cc-recent-projects .cc-shell { padding: 20px; border-radius: 22px; }
       #cc-recent-projects .cc-header { flex-direction:column; align-items:flex-start; gap:12px; }
       #cc-recent-projects .cc-right { text-align:left; }
-      #cc-recent-projects .cc-grid { grid-template-columns: 1fr; gap:20px; }
-      .cc-title { font-size:44px; }
+      .cc-title { font-size:26px; }
+      .cc-badge { left: 12px; top: 12px; }
+      .cc-info { padding: 16px 16px 20px; }
+      .cc-meta-row { align-items:flex-end; }
     }
-
     @media (max-width: 1000px) {
-  .cc-right{
-    text-align: center;
-    margin: 0 auto;
-  }
-    .cc-title{
-    text-align: center;
-    margin: 0 auto;
-  }
-    .cc-sub{
-    text-align: center;
-    margin: 0 auto;
-  }
-}
+      .cc-right{
+        text-align: center;
+        margin: 0 auto;
+      }
+      .cc-title{
+        text-align: center;
+        margin: 0 auto;
+      }
+      .cc-sub{
+        text-align: center;
+        margin: 0 auto;
+      }
+      .cc-kicker{
+        justify-content:center;
+        width:100%;
+      }
+    }
   </style>
 
   <!-- header row: left = title+subtitle, right = view-all -->
-  <div class="cc-header">
-    <div class="cc-left">
-      <h2 class="cc-title">Recent Projects</h2>
-      <p class="cc-sub">Highlights from my latest work - UI/UX, branding, and experience design.</p>
+  <div class="cc-shell">
+    <div class="cc-header">
+      <div class="cc-left">
+        <h2 class="cc-title">Recent Projects</h2>
+        <p class="cc-sub">A tighter, more editorial slice of the portfolio. Each project mixes storytelling, visual craft, and product thinking.</p>
+      </div>
+
+      <div class="cc-right">
+        <a href="projects.html" class="cb-viewall-btn">View All &rarr;</a>
+      </div>
     </div>
 
-    <div class="cc-right">
-      <a href="projects.html" class="cb-viewall-btn">View All &rarr;</a>
-    </div>
+    <!-- grid placeholder -->
+    <div class="cc-grid" id="ccRecentGrid"></div>
   </div>
-
-  <!-- grid placeholder -->
-  <div class="cc-grid" id="ccRecentGrid"></div>
 
   <!-- JS to populate three cards (replace image/link text as needed) -->
   <script>
     (function () {
       const items = [
-        { title: "Awara - Itinerary Generator", meta: "UI/UX &middot; 2025", img: "assets/projects/awara/cover.jpg", href: "awara.html" },
-        { title: "Prachi - Brand Identity", meta: "Branding &middot; 2024", img: "assets/projects/prachi/cover.jpg", href: "prachi.html" },
-        { title: "Toda Embroidery - Research", meta: "Research &middot; 2025", img: "assets/projects/toda/cover.jpg", href: "toda.html" }
-   
+        {
+          title: "Awara - Itinerary Generator",
+          meta: "UI/UX · 2025",
+          note: "A travel planning concept shaped around clarity, intent, and a smoother decision-making flow.",
+          tag: "Product Design",
+          img: "assets/projects/awara/cover.jpg",
+          href: "awara.html"
+        },
+        {
+          title: "Prachi - Brand Identity",
+          meta: "Branding · 2024",
+          note: "Identity work focused on memorability, tone, and a visual system that feels distinctive without becoming loud.",
+          tag: "Brand System",
+          img: "assets/projects/prachi/cover.jpg",
+          href: "prachi.html"
+        },
+        {
+          title: "Toda Embroidery - Research",
+          meta: "Research · 2025",
+          note: "A documentation-led project built with sensitivity to heritage, material detail, and narrative framing.",
+          tag: "Research Story",
+          img: "assets/projects/toda/cover.jpg",
+          href: "toda.html"
+        }
       ];
 
       const grid = document.getElementById("ccRecentGrid");
       if (!grid) return;
 
-      grid.innerHTML = items.map(item => `
+      grid.innerHTML = items.map((item, index) => `
         <a class="cc-card" href="${item.href}">
-          <div class="cc-thumb" style="background-image:url('${item.img}');"></div>
+          <div class="cc-media">
+            <div class="cc-thumb" style="background-image:url('${item.img}');"></div>
+            <span class="cc-badge">${item.tag}</span>
+          </div>
           <div class="cc-info">
+            <div class="cc-index">0${index + 1} / 03</div>
             <h4>${item.title}</h4>
-            <p>${item.meta}</p>
+            <p class="cc-note">${item.note}</p>
+            <div class="cc-meta-row">
+              <p>${item.meta}</p>
+              <span class="cc-arrow" aria-hidden="true">→</span>
+            </div>
           </div>
         </a>
       `).join("");
@@ -1131,7 +1298,7 @@
   <style>
     #c-celluloids-banner {
       max-width: 1200px;
-      margin: 90px auto 50px;
+      margin: 44px auto 28px;
       padding: 0 32px;
       box-sizing: border-box;
     }
@@ -1311,7 +1478,7 @@
     }
 
     @media (max-width: 760px) {
-      #c-celluloids-banner { padding: 0 20px; margin: 70px auto 40px; }
+      #c-celluloids-banner { padding: 0 20px; margin: 34px auto 24px; }
       #c-celluloids-banner .banner-link { min-height: 300px; }
       #c-celluloids-banner .corner-logo { width: 58px; height: 58px; top: 12px; right: 12px; }
 
