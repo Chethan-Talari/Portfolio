@@ -232,6 +232,98 @@
     });
   };
 
+  const initCustomCursor = () => {
+    if (prefersReduced || isMobileViewport() || !window.matchMedia('(pointer: fine)').matches) return;
+
+    let dot = document.querySelector('.site-cursor');
+    let ring = document.querySelector('.site-cursor-ring');
+
+    if (!dot) {
+      dot = document.createElement('div');
+      dot.className = 'site-cursor';
+      document.body.appendChild(dot);
+    }
+
+    if (!ring) {
+      ring = document.createElement('div');
+      ring.className = 'site-cursor-ring';
+      document.body.appendChild(ring);
+    }
+
+    document.body.classList.add('has-custom-cursor');
+
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+    let ringX = mouseX;
+    let ringY = mouseY;
+    let raf = 0;
+
+    const update = () => {
+      ringX += (mouseX - ringX) * 0.18;
+      ringY += (mouseY - ringY) * 0.18;
+
+      dot.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0)`;
+      ring.style.transform = `translate3d(${ringX}px, ${ringY}px, 0)`;
+      raf = requestAnimationFrame(update);
+    };
+
+    const show = () => {
+      if (!raf) raf = requestAnimationFrame(update);
+    };
+
+    const hide = () => {
+      dot.classList.remove('is-active');
+      ring.classList.remove('is-hover', 'is-title', 'is-card');
+    };
+
+    const setState = (state) => {
+      ring.classList.remove('is-hover', 'is-title', 'is-card');
+      if (state) ring.classList.add(state);
+    };
+
+    const hoverSelector = [
+      'a',
+      'button',
+      '[role="button"]',
+      '.tab',
+      '.cb-viewall-btn',
+      '.cc-viewall-btn'
+    ].join(',');
+
+    const cardSelector = [
+      '.project-card',
+      '.testi-card',
+      '.counter',
+      '.tl-item'
+    ].join(',');
+
+    document.addEventListener('mousemove', (event) => {
+      mouseX = event.clientX;
+      mouseY = event.clientY;
+      show();
+
+      const titleTarget = event.target.closest('.hero-title, .kinetic-heading');
+      const cardTarget = event.target.closest(cardSelector);
+      const hoverTarget = event.target.closest(hoverSelector);
+
+      if (titleTarget) setState('is-title');
+      else if (cardTarget) setState('is-card');
+      else if (hoverTarget) setState('is-hover');
+      else setState('');
+    }, { passive: true });
+
+    document.addEventListener('mousedown', () => {
+      dot.classList.add('is-active');
+    });
+
+    document.addEventListener('mouseup', () => {
+      dot.classList.remove('is-active');
+    });
+
+    document.addEventListener('mouseleave', hide);
+    window.addEventListener('blur', hide);
+  };
+
   const initRevealObserver = () => {
     const targets = Array.from(document.querySelectorAll('[data-reveal]'));
     if (!targets.length) return;
@@ -436,6 +528,7 @@
   const initPage = () => {
     mountResponsiveUI();
     annotatePage();
+    initCustomCursor();
     initRevealObserver();
     initKineticHeadings();
     initHeroDisciplineScramble();
