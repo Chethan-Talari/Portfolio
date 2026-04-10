@@ -11,51 +11,15 @@
   const isMobileViewport = () => window.matchMedia('(max-width: 1024px)').matches;
 
   const ensureThemeSurface = () => {
+    // Keep theme class but drop custom page-transition overlay
     document.documentElement.classList.remove('ui-page-transition', 'ui-page-ready', 'ui-page-leaving');
     document.body.classList.add('theme-imperfect');
-
-    if (!document.querySelector('.page-transition-overlay')) {
-      const overlay = document.createElement('div');
-      overlay.className = 'page-transition-overlay';
-      document.body.appendChild(overlay);
-    }
   };
 
   ensureThemeSurface();
 
   // ---------- Page transition ----------
-  if (!prefersReduced && !isMobileViewport()) {
-    const isSameOriginHttp = (url) => {
-      try {
-        const u = new URL(url, location.href);
-        return u.origin === location.origin && (u.protocol === 'http:' || u.protocol === 'https:');
-      } catch {
-        return false;
-      }
-    };
-
-    document.addEventListener('click', (e) => {
-      const a = e.target.closest('a[href]');
-      if (!a) return;
-
-      const href = a.getAttribute('href') || '';
-      if (!href || href.startsWith('#')) return;
-      if (a.target && a.target !== '_self') return;
-      if (a.hasAttribute('download')) return;
-      if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
-      if (!isSameOriginHttp(href)) return;
-
-      const next = new URL(href, location.href);
-      if (next.href === location.href) return;
-
-      e.preventDefault();
-      document.documentElement.classList.add('ui-page-transition');
-      document.documentElement.classList.add('ui-page-leaving');
-      window.setTimeout(() => {
-        location.href = next.href;
-      }, navDuration);
-    }, { passive: false });
-  }
+  // Disabled for smoother native navigation (removed overlay flash)
 
   // ---------- Desktop nav active indicator ----------
   const mountDesktopNavIndicator = () => {
@@ -212,6 +176,9 @@
   };
 
   const annotatePage = () => {
+    const isProjectDetailPage = !!document.querySelector('.project-gallery, .doc-main');
+    if (isProjectDetailPage) return;
+
     const groups = [
       '#hero, .hero-stack, #cc-recent-projects, .testimonials, #c-celluloids-banner, .marquee-full, .skill-wrap, .timeline-area, .resume-wrap, .connect-scene, .project-header, .project-gallery, .doc-main, .page-inner',
       '.project-card, .testi-card, .counter, .tl-item, .connect-card, .video-shell, .info-card, .marquee-item, .project-gallery img, .page-inner img, .doc-main img, .doc-main video'
@@ -325,6 +292,16 @@
   };
 
   const initRevealObserver = () => {
+    const isProjectDetailPage = !!document.querySelector('.project-gallery, .doc-main');
+    if (isProjectDetailPage) {
+      document.body.classList.remove('motion-ready');
+      document.querySelectorAll('[data-reveal]').forEach((el) => {
+        el.classList.add('is-visible');
+        el.removeAttribute('data-reveal');
+      });
+      return;
+    }
+
     const targets = Array.from(document.querySelectorAll('[data-reveal]'));
     if (!targets.length) return;
 
@@ -381,14 +358,9 @@
   };
 
   const initKineticHeadings = () => {
+    // Limit kinetic (hover) effect to hero heading only
     const selectors = [
-      '#hero .hero-title',
-      '#cc-recent-projects .cc-title',
-      '.testimonials .title',
-      '#c-celluloids-banner h2',
-      '.connect-title',
-      'main > h1',
-      '.project-header h1'
+      '#hero .hero-title'
     ];
 
     document.querySelectorAll(selectors.join(',')).forEach(splitHeading);
@@ -525,14 +497,55 @@
     mountFab();
   };
 
+  const syncFixedHeaderOffset = () => {
+    const header = document.querySelector('.site-header');
+    if (!header) return;
+    const headerHeight = Math.ceil(header.getBoundingClientRect().height);
+    document.body.style.paddingTop = `${headerHeight}px`;
+    document.documentElement.style.setProperty('--header-offset', `${headerHeight}px`);
+  };
+
+  const initProjectHeaderControls = () => {
+    const projectHeader = document.querySelector('.project-header');
+    if (!projectHeader) return;
+
+    const backLink = projectHeader.querySelector('.project-back-link');
+    const shareBtn = projectHeader.querySelector('.project-share-btn');
+    const title = projectHeader.querySelector('.project-page-title');
+    if (!title) return;
+
+    if (backLink) {
+      backLink.classList.add('project-back-fab');
+      if (backLink.parentElement !== document.body) document.body.appendChild(backLink);
+    }
+
+    if (shareBtn) {
+      let row = projectHeader.querySelector('.project-title-row');
+      if (!row) {
+        row = document.createElement('div');
+        row.className = 'project-title-row';
+        title.parentElement.insertBefore(row, title);
+      }
+      row.appendChild(title);
+      row.appendChild(shareBtn);
+    }
+
+    const topActions = projectHeader.querySelector('.project-top-actions');
+    if (topActions) topActions.remove();
+  };
+
   const initPage = () => {
+    syncFixedHeaderOffset();
+    initProjectHeaderControls();
     mountResponsiveUI();
     annotatePage();
-    initCustomCursor();
+    // Custom cursor disabled for accessibility/visibility issues
+    // initCustomCursor();
     initRevealObserver();
     initKineticHeadings();
     initHeroDisciplineScramble();
     initScrollMotion();
+    window.addEventListener('resize', syncFixedHeaderOffset, { passive: true });
   };
 
   if (document.readyState === 'loading') {

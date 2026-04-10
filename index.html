@@ -16,7 +16,7 @@
   <meta name="twitter:image" content="https://chethantalari.me/assets/portrait-desktop.jpg" />
   <meta name="description" content="Chethan Talari - Visual Designer. UI/UX, Brand Identity, Documentaries, Editing. Projects and case studies." />
   <!-- main stylesheet -->
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=19">
   <!-- fonts (you already used Bebas/ Special Elite) -->
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Covered+By+Your+Grace&family=Special+Elite&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
   <style>
@@ -551,7 +551,7 @@
 
 /* small pieces */
 .testi-top { display:flex; gap:12px; align-items:center; }
-.testi-photo { width:52px; height:52px; border-radius:50%; object-fit:cover; }
+.testi-photo { width:52px; height:52px; aspect-ratio:1/1; border-radius:999px; object-fit:cover; flex-shrink:0; display:block; }
 .testi-name { font-weight:700; }
 .testi-role { color:#777; font-size:13px; margin-top:3px; }
 .testi-text { color:#444; font-size:15px; line-height:1.6; }
@@ -658,12 +658,12 @@
     footer .footer-inner { max-width:var(--wrap); margin:0 auto; padding:0 28px; display:flex; justify-content:space-between; align-items:center; gap:16px; }
 
   </style>
-  <link rel="stylesheet" href="theme-imperfect.css?v=4">
+  <link rel="stylesheet" href="theme-imperfect.css?v=9">
 </head>
 <body>
 
 <!-- ===== START: Responsive header (copy into each page) ===== -->
-<header class="site-header">
+<header class="site-header" style="position:fixed;top:0;left:0;right:0;width:100%;z-index:2000;">
   <style>
     /* Minimal header styles (self-contained) */
     :root {
@@ -671,7 +671,7 @@
       --muted:#666;
       --touch:48px;
     }
-    .site-header { border-bottom:1px solid rgba(0,0,0,0.06); background:#fff; }
+    .site-header { border-bottom:1px solid rgba(0,0,0,0.06); background:#fff; position:sticky; top:0; z-index:130; }
     .site-header .container { max-width:1200px; margin:0 auto; padding:18px 32px; display:flex; align-items:center; justify-content:space-between; gap:12px; box-sizing:border-box; }
 
     .site-logo img { height:36px; display:block; }
@@ -1144,7 +1144,6 @@
     <div class="cc-header">
       <div class="cc-left">
         <h2 class="cc-title">Recent Projects</h2>
-        <p class="cc-sub">A tighter, more editorial slice of the portfolio. Each project mixes storytelling, visual craft, and product thinking.</p>
       </div>
 
       <div class="cc-right">
@@ -1201,7 +1200,7 @@
             <p class="cc-note">${item.note}</p>
             <div class="cc-meta-row">
               <p>${item.meta}</p>
-              <span class="cc-arrow" aria-hidden="true">→</span>
+              <span class="cc-arrow" aria-hidden="true">?</span>
             </div>
           </div>
         </a>
@@ -1880,6 +1879,20 @@
 })();
 </script>
 
-  <script src="ui-interactions.js?v=6" defer></script>
+  <script src="ui-interactions.js?v=10" defer></script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

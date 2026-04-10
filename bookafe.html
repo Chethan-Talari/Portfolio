@@ -13,7 +13,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Bookafe - Reading App | Chethan Talari" />
   <meta name="twitter:description" content="Bookafe project by Chethan Talari - reading app UI/UX design." />
-  <meta name="twitter:image" content="https://chethantalari.me/assets/projects/bookafe/cover.jpg" /><link rel="stylesheet" href="style.css">
+  <meta name="twitter:image" content="https://chethantalari.me/assets/projects/bookafe/cover.jpg" /><link rel="stylesheet" href="style.css?v=19">
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
   <style>
     .project-gallery {
@@ -102,11 +102,11 @@
       stroke-width: 1.9;
     }
 </style>
-  <link rel="stylesheet" href="theme-imperfect.css?v=3">
+  <link rel="stylesheet" href="theme-imperfect.css?v=9">
 </head>
 <body>
 <!-- ===== START: Responsive header (copy into each page) ===== -->
-<header class="site-header">
+<header class="site-header" style="position:fixed;top:0;left:0;right:0;width:100%;z-index:2000;">
   <style>
     /* Minimal header styles (self-contained) */
     :root {
@@ -114,7 +114,7 @@
       --muted:#666;
       --touch:48px;
     }
-    .site-header { border-bottom:1px solid rgba(0,0,0,0.06); background:#fff; }
+    .site-header { border-bottom:1px solid rgba(0,0,0,0.06); background:#fff; position:sticky; top:0; z-index:130; }
     .site-header .container { max-width:1200px; margin:0 auto; padding:18px 32px; display:flex; align-items:center; justify-content:space-between; gap:12px; box-sizing:border-box; }
 
     .site-logo img { height:36px; display:block; }
@@ -214,7 +214,7 @@
       Share
     </button>
   </div>
-<h1 style="font-family:'Bebas Neue',sans-serif;font-size:48px;margin:24px 0;">Bookafe - Reading App</h1>
+<h1 class="project-page-title">Bookafe - Reading App</h1>
     <p style="color:#777;margin:8px 0 24px;">UI/UX &middot; 2023 - A digital space where design meets reading comfort.</p>
     <p>Bookafe brings a calm and distraction-free reading experience inspired by the ambiance of a cozy cafe. This project explores typography, minimal UI, and user flow for avid readers.</p>
   </section>
@@ -392,9 +392,24 @@
       });
     })();
   </script>
-  <script src="ui-interactions.js?v=3" defer></script>
+  <script src="ui-interactions.js?v=10" defer></script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
