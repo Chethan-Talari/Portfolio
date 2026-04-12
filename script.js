@@ -125,25 +125,12 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 })();
 
-// Scroll reveal for hero photo & slashes
+// Fade/reveal disabled: ensure hero elements are visible immediately
 document.addEventListener('DOMContentLoaded', () => {
   const photo = document.querySelector('.hero-photo');
   const slashes = document.querySelector('.hero-slashes');
 
-  const reveal = (el) => {
-    if (!el) return;
-    const obs = new IntersectionObserver((entries, obsr) => {
-      entries.forEach(en => {
-        if (en.isIntersecting) {
-          el.classList.add('visible');
-          obsr.unobserve(en.target);
-        }
-      });
-    }, { threshold: 0.4 });
-    obs.observe(el);
-  };
-
-  reveal(photo);
-  reveal(slashes);
+  if (photo) photo.classList.add('visible');
+  if (slashes) slashes.classList.add('visible');
 });
 

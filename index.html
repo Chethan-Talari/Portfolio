@@ -16,7 +16,7 @@
   <meta name="twitter:image" content="https://chethantalari.me/assets/portrait-desktop.jpg" />
   <meta name="description" content="Chethan Talari - Visual Designer. UI/UX, Brand Identity, Documentaries, Editing. Projects and case studies." />
   <!-- main stylesheet -->
-  <link rel="stylesheet" href="style.css?v=19">
+  <link rel="stylesheet" href="style.css?v=22">
   <!-- fonts (you already used Bebas/ Special Elite) -->
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Covered+By+Your+Grace&family=Special+Elite&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
   <style>
@@ -26,10 +26,10 @@
 
     /* HERO */
     /* ---- HERO: 2-column (text left, portrait right) ---- */
-.hero { padding: 32px 0 18px; background:#fff; }
+.hero { padding: 10px 0 14px; background:#fff; }
 .hero-inner {
   max-width: 1200px;
-  margin: 28px auto;
+  margin: 8px auto;
   padding: 0 28px;
   display: grid;
   grid-template-columns: 1fr 420px; /* text | portrait */
@@ -564,14 +564,14 @@
 
 /* ----- Header / mobile menu fixes ----- */
 /* hide only the header's desktop nav on small screens */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   /* target the desktop nav inside the header container only */
   .site-header .container > nav > .nav-list {
-    display: none;
+    display: none !important;
   }
 
   /* show hamburger toggle */
-  .nav-toggle { display: inline-flex; }
+  .site-header .nav-toggle { display: inline-flex !important; }
 
   /* ensure mobile menu list is visible when overlay opens */
   .mobile-menu .nav-list {
@@ -658,11 +658,10 @@
     footer .footer-inner { max-width:var(--wrap); margin:0 auto; padding:0 28px; display:flex; justify-content:space-between; align-items:center; gap:16px; }
 
   </style>
-  <link rel="stylesheet" href="theme-imperfect.css?v=9">
+  <link rel="stylesheet" href="theme-imperfect.css?v=24">
 </head>
 <body>
 
-<!-- ===== START: Responsive header (copy into each page) ===== -->
 <header class="site-header" style="position:fixed;top:0;left:0;right:0;width:100%;z-index:2000;">
   <style>
     /* Minimal header styles (self-contained) */
@@ -672,25 +671,72 @@
       --touch:48px;
     }
     .site-header { border-bottom:1px solid rgba(0,0,0,0.06); background:#fff; position:sticky; top:0; z-index:130; }
-    .site-header .container { max-width:1200px; margin:0 auto; padding:18px 32px; display:flex; align-items:center; justify-content:space-between; gap:12px; box-sizing:border-box; }
+    .site-header .container { max-width:1200px; margin:0 auto; padding:12px 32px; display:flex; align-items:center; justify-content:space-between; gap:12px; box-sizing:border-box; }
 
     .site-logo img { height:36px; display:block; }
 
     .nav-list { list-style:none; margin:0; padding:0; display:flex; gap:28px; align-items:center; }
     .nav-list a { text-decoration:none; color:var(--accent); font-weight:600; padding:6px 0; }
 
-    /* hamburger toggle (hidden on desktop) */
-    .nav-toggle { display:none; width:var(--touch); height:var(--touch); align-items:center; justify-content:center; border-radius:8px; border:1px solid rgba(0,0,0,0.04); background:transparent; cursor:pointer; }
+    /* hamburger toggle + close button themed to match imperfect paper UI */
+    .nav-toggle,
+    .mobile-menu .close-btn {
+      display:none;
+      width:var(--touch);
+      height:var(--touch);
+      align-items:center;
+      justify-content:center;
+      border-radius:999px;
+      border:1.5px solid rgba(17,17,17,0.78);
+      background:linear-gradient(145deg, #ffffff 0%, #f6f6f6 100%);
+      color:#111;
+      cursor:pointer;
+      box-shadow:3px 3px 0 #ff6a3d;
+      transition:transform .22s cubic-bezier(.2,.8,.2,1), box-shadow .22s ease, background .22s ease;
+    }
+
+    .nav-toggle:hover,
+    .mobile-menu .close-btn:hover {
+      transform:translateY(-2px) rotate(-1deg);
+      box-shadow:5px 5px 0 #ff6a3d;
+      background:linear-gradient(145deg, #fff8f4 0%, #ffffff 100%);
+    }
+
+    .nav-toggle:focus-visible,
+    .mobile-menu .close-btn:focus-visible {
+      outline:2px solid #ff6a3d;
+      outline-offset:2px;
+    }
+
+    .nav-toggle[aria-expanded="true"] {
+      background:#111;
+      color:#fff;
+      box-shadow:5px 5px 0 rgba(255,106,61,0.9);
+    }
+
+    .nav-toggle svg,
+    .mobile-menu .close-btn svg {
+      width:20px;
+      height:20px;
+      display:block;
+    }
+
+    .nav-toggle svg path,
+    .mobile-menu .close-btn svg path {
+      stroke:currentColor;
+      stroke-width:1.8;
+      stroke-linecap:round;
+    }
 
     /* mobile menu overlay (hidden by default) */
     .mobile-menu { display:none; position:fixed; inset:0; background:#fff; padding:80px 20px 20px; z-index:9999; overflow:auto; }
     .mobile-menu .nav-list { flex-direction:column; gap:18px; }
 
     /* responsive breakpoints */
-    @media (max-width: 768px) {
+    @media (max-width: 1024px) {
       .site-header .container { padding:14px 20px; }
       .nav-list { display:none; }             /* hide desktop nav */
-      .nav-toggle { display:flex; }           /* show hamburger */
+      .site-header .nav-toggle { display:inline-flex !important; }           /* show hamburger */
       .site-logo img { height:32px; }
       :root { --touch:44px; }
     }
@@ -702,9 +748,9 @@
 .nav-list--mobile { display: none; }
 
 /* Small screens: hide desktop nav, show hamburger */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .nav-list--desktop { display: none !important; }
-  .nav-toggle { display: inline-flex; }
+  .site-header .nav-toggle { display: inline-flex !important; }
 
   /* mobile overlay settings */
   .mobile-menu { display: none; justify-content: center; align-items: center; }
@@ -719,6 +765,13 @@
     list-style: none;
   }
   .mobile-menu .nav-list--mobile a { font-size: 18px; padding: 8px 12px; }
+  .mobile-menu .close-btn {
+    display:inline-flex;
+    position:absolute;
+    right:18px;
+    top:18px;
+    z-index:2;
+  }
 }
  
   </style>
@@ -737,20 +790,17 @@
     </ul>
 
     <button class="nav-toggle" id="navToggle" aria-controls="mobile-menu" aria-expanded="false" aria-label="Open menu">
-      <!-- hamburger icon -->
       <svg viewBox="0 0 24 24" width="20" height="20" fill="none" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="#111" stroke-width="1.6" stroke-linecap="round"/></svg>
     </button>
   </nav>
 </div>
 
 <div id="mobile-menu" class="mobile-menu" aria-hidden="true" role="dialog" aria-modal="true">
-  <button class="close-btn" aria-label="Close menu" style="position:absolute;right:14px;top:18px;border:none;background:#fff;">
     <svg viewBox="0 0 24 24" width="20" height="20" fill="none" aria-hidden="true"><path d="M6 6l12 12M6 18L18 6" stroke="#111" stroke-width="1.6" stroke-linecap="round"/></svg>
   </button>
 
   <nav aria-label="Mobile navigation">
     <ul class="nav-list nav-list--mobile" role="menu" style="margin-top:8px;">
-      <!-- If you keep these, fine; JS will only clone desktop links if this list is empty -->
       <li><a role="menuitem" href="index.html">Home</a></li>
       <li><a role="menuitem" href="projects.html">Projects</a></li>
       <li><a role="menuitem" href="about.html">About</a></li>
@@ -761,7 +811,6 @@
 
 
   <script>
-    // Simple accessible hamburger behaviour
     (function(){
       const toggle = document.querySelector('.nav-toggle');
       const mobile = document.getElementById('mobile-menu');
@@ -790,7 +839,6 @@
     })();
   </script>
 </header>
-<!-- ===== END: Responsive header ===== -->
 
 
 
@@ -809,37 +857,35 @@
           <div class="hero-copy-top">
             <div class="hero-heading-lockup">
               <div class="hero-disciplines" aria-hidden="true">
-                <span data-text="EXPERIENCE">EXPERIENCE</span>
+                <span data-text="PRODUCT,">PRODUCT,</span>
                 <span data-text="BRAND">BRAND</span>
-                <span data-text="VISUAL">VISUAL</span>
-                <span data-text="GRAPHIC">GRAPHIC</span>
+                <span data-text="&">&</span>
+                <span data-text="EXPERIENCE">EXPERIENCE</span>
               </div>
               <h1 class="hero-title">DESIGNER</h1>
             </div>
             <p class="hero-desc">
-              I design seamless digital experiences that balance usability and aesthetics.
-              A fast learner and film enthusiast. I blend storytelling and craft to make products and projects that feel human and purposeful.
+              I craft <strong>digital experiences, visual systems</strong>, and stories that make products feel intuitive, human, and memorable.<br>
+              With a foundation in visual design, filmmaking, and interface thinking, I bridge aesthetics with usability to create work that performs.
             </p>
           </div>
 
           <div class="hero-copy-bottom">
             <div class="hero-proof" aria-label="Quick overview">
               <div class="hero-proof-chip">
-                <strong>05+</strong>
-                <span>creative disciplines across digital and visual work</span>
+                
               </div>
               <div class="hero-proof-chip">
-                <strong>UI + Film</strong>
-                <span>a practice shaped by interface thinking and storytelling</span>
+              
               </div>
             </div>
-            <div class="hero-also" aria-hidden="true">elsewhere..</div>
+            <div class="hero-also" aria-hidden="true">Beyond Design</div>
             <ul class="hero-slashes" aria-hidden="true">
               <li>/ Photographer</li>
               <li>/ Editor</li>
               <li>/ Filmmaker</li>
             </ul>
-            <a href="about.html" class="cb-viewall-btn"> Know more &rarr;</a>
+            <a href="projects.html" class="cb-viewall-btn">View Work &rarr;</a>
           </div>
         </div>
 
@@ -851,11 +897,9 @@
 
  
 
-<!-- ======= RECENT PROJECTS (UPDATED STYLES) ======= -->
 <section id="cc-recent-projects" style="max-width:1200px;margin:56px auto 44px;padding:0 32px;box-sizing:border-box;">
 
   <style>
-    /* ===== CC RECENT PROJECTS - STYLES ===== */
     #cc-recent-projects .cc-shell {
       position: relative;
       padding: 34px;
@@ -933,8 +977,11 @@
       max-width:720px;
     }
     .cb-viewall-btn {
-      display:inline-block;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
       text-decoration:none;
+      text-align:center;
       color:#ffffff;
       font-weight:600;
       border:1px solid rgba(255, 255, 255, 0.08);
@@ -1112,14 +1159,49 @@
     @media (max-width: 640px) {
       #cc-recent-projects { padding: 0 20px; }
       #cc-recent-projects .cc-shell { padding: 20px; border-radius: 22px; }
-      #cc-recent-projects .cc-header { flex-direction:column; align-items:flex-start; gap:12px; }
-      #cc-recent-projects .cc-right { text-align:left; }
-      .cc-title { font-size:26px; }
+      #cc-recent-projects .cc-header {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: nowrap;
+        gap: 8px;
+      }
+      #cc-recent-projects .cc-left,
+      #cc-recent-projects .cc-right {
+        margin: 0 !important;
+        min-width: 0;
+      }
+      #cc-recent-projects .cc-right {
+        text-align: right;
+        margin-left: auto !important;
+        flex: 0 0 auto;
+      }
+      #cc-recent-projects .cc-right .cb-viewall-btn {
+        width: auto !important;
+        max-width: 100%;
+        white-space: nowrap;
+        padding: 6px 10px;
+        font-size: 12px;
+        line-height: 1.1;
+      }
+      #cc-recent-projects .cc-title {
+        font-size: 22px;
+        line-height: 1;
+        white-space: nowrap;
+      }
       .cc-badge { left: 12px; top: 12px; }
       .cc-info { padding: 16px 16px 20px; }
+      #cc-recent-projects .cc-note { display: none; }
       .cc-meta-row { align-items:flex-end; }
+
+      /* Center hero CTA button + button label on mobile */
+      .hero-copy-bottom .cb-viewall-btn {
+        align-self: center;
+        margin-left: auto;
+        margin-right: auto;
+      }
     }
-    @media (max-width: 1000px) {
+    @media (max-width: 1000px) and (min-width: 641px) {
       .cc-right{
         text-align: center;
         margin: 0 auto;
@@ -1151,7 +1233,6 @@
       </div>
     </div>
 
-    <!-- grid placeholder -->
     <div class="cc-grid" id="ccRecentGrid"></div>
   </div>
 
@@ -1160,15 +1241,15 @@
     (function () {
       const items = [
         {
-          title: "Awara - Itinerary Generator",
+          title: "Awara <br> Itinerary Generator",
           meta: "UI/UX · 2025",
-          note: "A travel planning concept shaped around clarity, intent, and a smoother decision-making flow.",
+          note: "Transforms traveler preferences into personalized day-by-day itineraries, reducing planning fatigue and helping users make confident trip decisions faster.",
           tag: "Product Design",
           img: "assets/projects/awara/cover.jpg",
           href: "awara.html"
         },
         {
-          title: "Prachi - Brand Identity",
+          title: "Prachi <br> Brand Identity",
           meta: "Branding · 2024",
           note: "Identity work focused on memorability, tone, and a visual system that feels distinctive without becoming loud.",
           tag: "Brand System",
@@ -1176,7 +1257,7 @@
           href: "prachi.html"
         },
         {
-          title: "Toda Embroidery - Research",
+          title: "Toda Embroidery <br> Craft Research",
           meta: "Research · 2025",
           note: "A documentation-led project built with sensitivity to heritage, material detail, and narrative framing.",
           tag: "Research Story",
@@ -1200,7 +1281,7 @@
             <p class="cc-note">${item.note}</p>
             <div class="cc-meta-row">
               <p>${item.meta}</p>
-              <span class="cc-arrow" aria-hidden="true">?</span>
+              <span class="cc-arrow" aria-hidden="true">-></span>
             </div>
           </div>
         </a>
@@ -1219,9 +1300,7 @@
       <div class="title">Testimonials</div>
       <div class="testi-marquee-wrap" id="testiWrap" tabindex="0" aria-label="Client testimonials (marquee)">
         <div class="testi-track" id="testiTrack">
-          <!-- We'll duplicate the set of cards via JS for continuous loop -->
           <div class="testi-list" id="testiList">
-            <!-- 5 placeholder testimonial cards -->
             <div class="testi-card">
               <div class="testi-top">
                 <img src="assets/testi1.jpg" class="testi-photo" alt="Client 1">
@@ -1277,7 +1356,6 @@
               <div class="testi-text">Chethan has an instinct for <strong>storytelling</strong> that goes beyond visuals. He approaches every stage from concept to final cut with <strong>clarity, discipline, and genuine empathy</strong> for the subject. His work captured both the emotion and the impact we wanted to convey.</div>
             </div>
           </div>
-          <!-- JS will duplicate the testi-list to create a seamless marquee -->
         </div>
       </div>
       <div class="testi-controls" id="testiControls" aria-label="Testimonial controls">
@@ -1372,12 +1450,12 @@
       align-items: center;
       gap: 8px;
       margin: 0 0 14px;
-      padding: 6px 12px;
+      padding: 5px 10px;
       border-radius: 999px;
       background: rgba(255,255,255,0.12);
       border: 1px solid rgba(255,255,255,0.2);
-      font-size: 12px;
-      letter-spacing: .08em;
+      font-size: 10px;
+      letter-spacing: .1em;
       text-transform: uppercase;
       font-weight: 600;
     }
@@ -1388,7 +1466,8 @@
       font-family: 'Bebas Neue', sans-serif;
       font-size: clamp(44px, 7vw, 78px);
       line-height: .95;
-      letter-spacing: -.5px;
+      letter-spacing: .18em !important;
+      word-spacing: .14em;
       margin: 0;
       max-width: 16ch;
     }
@@ -1482,6 +1561,7 @@
       #c-celluloids-banner .corner-logo { width: 58px; height: 58px; top: 12px; right: 12px; }
 
     #c-celluloids-banner .banner-overlay { min-height: 300px; padding: 28px 18px; }
+      #c-celluloids-banner h2 { letter-spacing: .16em !important; }
       #c-celluloids-banner p.sub { font-size: 15px; margin: 12px 0 16px; }
       #c-celluloids-banner .proof-row { margin-bottom: 16px; }
     }
@@ -1512,7 +1592,6 @@
 
 
   
-<!-- ======= SITE FOOTER (UPDATED ICONS) ======= -->
 <footer class="site-footer" role="contentinfo" style="border-top:1px solid rgba(0,0,0,0.06);background:#fff;">
   <style>
     .site-footer { width:100%; }
@@ -1596,13 +1675,59 @@
     }
 
     @media (max-width:720px) {
-      .site-footer .footer-inner {
-        flex-direction:column;
-        align-items:center;
-        gap:12px;
-        padding:22px;
+      body.theme-imperfect .site-footer .footer-inner {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 20px 16px;
+        width: 100% !important;
       }
-      .site-footer .copyright { margin-left:50; }
+
+      body.theme-imperfect .site-footer .footer-left {
+        display: flex !important;
+        flex-direction: column;
+        align-items: flex-start !important;
+        gap: 8px !important;
+        width: auto !important;
+        justify-content: flex-start !important;
+        flex: 1 1 auto;
+        min-width: 0;
+      }
+
+      body.theme-imperfect .site-footer .footer-left img {
+        height: 38px;
+      }
+
+      body.theme-imperfect .site-footer .copyright {
+        margin-left: 0;
+        white-space: normal;
+        font-size: 12px;
+        line-height: 1.25;
+      }
+
+      body.theme-imperfect .site-footer .footer-right {
+        margin-left: auto;
+        align-items: center;
+        width: auto !important;
+        justify-content: flex-end !important;
+        flex: 0 0 auto;
+      }
+
+      body.theme-imperfect .site-footer .social {
+        gap: 8px;
+        justify-content: flex-end;
+      }
+
+      body.theme-imperfect .site-footer .social a {
+        width: 36px;
+        height: 36px;
+      }
+
+      body.theme-imperfect .site-footer .social img {
+        width: 24px;
+        height: 24px;
+      }
     }
   </style>
 
@@ -1647,7 +1772,6 @@
     })();
   </script>
 </footer>
-<!-- ======= END SITE FOOTER (UPDATED ICONS) ======= -->
 
 
   <!-- SCRIPTS -->
@@ -1879,7 +2003,7 @@
 })();
 </script>
 
-  <script src="ui-interactions.js?v=10" defer></script>
+  <script src="ui-interactions.js?v=14" defer></script>
 </body>
 </html>
 

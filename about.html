@@ -16,7 +16,7 @@
   <meta name="twitter:image" content="https://chethantalari.me/assets/about_imagelogo.png" />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Special+Elite&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css?v=19">
-  <link rel="stylesheet" href="theme-imperfect.css?v=9">
+  <link rel="stylesheet" href="theme-imperfect.css?v=24">
 </head>
 <body>
 
@@ -36,6 +36,38 @@
     .about-section-title{
       font-size:26px;
       margin-bottom:14px;
+    }
+
+    /* About mobile stats: compact cards in a single row */
+    .hero-stack .counters {
+      width: 100%;
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: center;
+      align-items: stretch;
+      gap: 8px;
+      margin-top: 8px;
+      margin-bottom: 8px;
+    }
+
+    .hero-stack .counter {
+      min-width: 0;
+      width: calc((100% - 16px) / 3);
+      max-width: 96px;
+      min-height: 78px;
+      padding: 10px 8px;
+      border-radius: 10px;
+    }
+
+    .hero-stack .counter .num {
+      font-size: 40px;
+      line-height: .9;
+    }
+
+    .hero-stack .counter .label {
+      font-size: 10px;
+      margin-top: 4px;
+      letter-spacing: .08em;
     }
   }
 
@@ -112,7 +144,7 @@
   }
 
   .about-logo-item{
-    min-height: 40px;
+    min-height: 60px;
     display:flex;
     align-items:center;
     justify-content:center;
@@ -121,7 +153,7 @@
   .about-logo-item img{
     width: auto;
     max-width: 100%;
-    height: 26px;
+    height: 50px;
     object-fit: contain;
     display:block;
     filter: none;
@@ -160,12 +192,11 @@
     }
 
     .about-logo-item img{
-      height: 80px;
+      height: 40px;
     }
   }
 </style>
 
-<!-- ===== START: Responsive header (copy into each page) ===== -->
 <header class="site-header" style="position:fixed;top:0;left:0;right:0;width:100%;z-index:2000;">
   <style>
     /* Minimal header styles (self-contained) */
@@ -220,7 +251,7 @@
   </div>
 
   <div id="mobile-menu" class="mobile-menu" aria-hidden="true" role="dialog" aria-modal="true">
-    <button class="close-btn" aria-label="Close menu" style="position:absolute;right:14px;top:18px;border:none;background:#fff;">
+    <button class="close-btn" aria-label="Close menu">
       <svg viewBox="0 0 24 24" width="20" height="20" fill="none" aria-hidden="true"><path d="M6 6l12 12M6 18L18 6" stroke="#111" stroke-width="1.6" stroke-linecap="round"/></svg>
     </button>
 
@@ -235,7 +266,6 @@
   </div>
 
   <script>
-    // Simple accessible hamburger behaviour
     (function(){
       const toggle = document.querySelector('.nav-toggle');
       const mobile = document.getElementById('mobile-menu');
@@ -264,7 +294,6 @@
     })();
   </script>
 </header>
-<!-- ===== END: Responsive header ===== -->
 
 
 
@@ -279,7 +308,7 @@
         </div>
 
         <p class="about-desc fade-up" id="about-desc">
-          I design seamless digital experiences that balance usability and aesthetics. A fast learner and film enthusiast - I blend storytelling and craft to make products and projects that feel human and purposeful.
+          <strong>Designing experiences shaped by story, systems, and emotion. </strong><br><br> I’m <b>Chethan Talari</b>, a multidisciplinary designer with a background in visual design, storytelling, photography, editing, and filmmaking. My work sits at the intersection of interface thinking and emotional narrative, helping products feel both functional and memorable.
         </p>
 
         <div class="counters" aria-hidden="false">
@@ -340,36 +369,37 @@
       <div class="tl-item">
         <div class="tl-dot" aria-hidden="true"></div>
         <div class="tl-year">2024</div>
-        <div class="tl-text">Graduated<br>B.Sc Multimedia - Gold Medalist</div>
+        <div class="tl-text">B.Sc Multimedia<br><b>Gold Medalist</b></div>
       </div>
 
       <!-- item 2 -->
       <div class="tl-item">
         <div class="tl-dot" aria-hidden="true"></div>
         <div class="tl-year">2024</div>
-        <div class="tl-text">Graphic Design Intern<br>Nologo Communications</div>
+        <div class="tl-text">Graphic Designer<br><b>Nologo Communications</b></div>
       </div>
 
       <!-- item 3 -->
       <div class="tl-item">
         <div class="tl-dot" aria-hidden="true"></div>
-        <div class="tl-year">2024-26</div>
-        <div class="tl-text">Master of Design - NIFT Bangalore</div>
+        <div class="tl-year">2025</div>
+        <div class="tl-text">Documentary Filmmaker<br><b>CSB, Ministry of Textiles.</b></div>
       </div>
 
       <!-- item 4 -->
       <div class="tl-item">
         <div class="tl-dot" aria-hidden="true"></div>
         <div class="tl-year">2025</div>
-        <div class="tl-text">Documentary Filmmaker<br>Central Silk Board, Ministry of Textiles.</div>
+        <div class="tl-text">Impact Documentary<br><b>Mahindra X Croplot</b></div>
       </div>
 
-      <!-- item 5 -->
+            <!-- item 5 -->
       <div class="tl-item">
         <div class="tl-dot" aria-hidden="true"></div>
-        <div class="tl-year">2025</div>
-        <div class="tl-text">Impact Documentary<br>Mahindra X Croplot</div>
+        <div class="tl-year">2026</div>
+        <div class="tl-text">Master of Design<br><b>NIFT Bangalore</b></div>
       </div>
+
     </div> <!-- .timeline-grid -->
 
     <!-- horizontal line sits behind the dots -->
@@ -523,8 +553,8 @@
     </div>
   </div>
 
-  <script src="about-script.js" defer></script>
-  <script src="ui-interactions.js?v=10" defer></script>
+  <script src="about-script.js?v=2" defer></script>
+  <script src="ui-interactions.js?v=14" defer></script>
 </body>
 </html>
 

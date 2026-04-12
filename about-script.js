@@ -123,28 +123,15 @@ if (marqueeA) {
 }
 
 
-  // 4) Reveal fade-up on scroll for elements with class 'fade-up'
+  // 4) Fade-up reveal is disabled globally; keep elements visible immediately.
   const reveals = Array.from(document.querySelectorAll('.fade-up'));
-  if (!prefersReduced && reveals.length) {
-    const rObs = new IntersectionObserver((entries, o) => {
-      entries.forEach(en => {
-        if (en.isIntersecting) {
-          en.target.classList.add('visible');
-          o.unobserve(en.target);
-        }
-      });
-    }, {threshold:0.12});
-    reveals.forEach(el => rObs.observe(el));
-  } else {
-    reveals.forEach(el => el.classList.add('visible'));
-  }
+  reveals.forEach(el => el.classList.add('visible'));
 
   // 5) Timeline dots + descriptions: optional highlight on scroll - just ensure visible
   // We'll sequentially reveal descs using same reveals class
   const descs = Array.from(document.querySelectorAll('.tl-desc'));
   descs.forEach((d, i) => {
-    d.style.transitionDelay = (i * 80) + 'ms';
-    if (!prefersReduced) d.classList.add('fade-up');
+    d.style.transitionDelay = '0ms';
   });
 
   // 6) Footer year
@@ -156,7 +143,7 @@ if (marqueeA) {
 // stagger timeline descriptions a little more
 const tlDescs = Array.from(document.querySelectorAll('.tl-desc'));
 tlDescs.forEach((d, i) => {
-  d.style.transitionDelay = (120 + i * 80) + 'ms';
+  d.style.transitionDelay = '0ms';
 });
 
 // --- Header Link Active State & Click Animation ---

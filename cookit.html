@@ -172,10 +172,9 @@
       stroke-width: 1.9;
     }
 </style>
-  <link rel="stylesheet" href="theme-imperfect.css?v=9">
+  <link rel="stylesheet" href="theme-imperfect.css?v=24">
 </head>
 <body>
-<!-- ===== START: Responsive header (copy into each page) ===== -->
 <header class="site-header" style="position:fixed;top:0;left:0;right:0;width:100%;z-index:2000;">
   <style>
     /* Minimal header styles (self-contained) */
@@ -228,7 +227,7 @@
   </div>
 
   <div id="mobile-menu" class="mobile-menu" aria-hidden="true" role="dialog" aria-modal="true">
-    <button class="close-btn" aria-label="Close menu" style="position:absolute;right:14px;top:18px;border:none;background:#fff;">
+    <button class="close-btn" aria-label="Close menu">
       <svg viewBox="0 0 24 24" width="20" height="20" fill="none" aria-hidden="true"><path d="M6 6l12 12M6 18L18 6" stroke="#111" stroke-width="1.6" stroke-linecap="round"/></svg>
     </button>
 
@@ -243,7 +242,6 @@
   </div>
 
   <script>
-    // Simple accessible hamburger behaviour
     (function(){
       const toggle = document.querySelector('.nav-toggle');
       const mobile = document.getElementById('mobile-menu');
@@ -272,7 +270,6 @@
     })();
   </script>
 </header>
-<!-- ===== END: Responsive header ===== -->
 
 
 <!-- end header -->
@@ -474,7 +471,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     })();
   </script>
-  <script src="ui-interactions.js?v=10" defer></script>
+  <script src="ui-interactions.js?v=14" defer></script>
 </body>
 </html>
 

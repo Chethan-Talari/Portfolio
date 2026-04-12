@@ -9,6 +9,7 @@
   };
 
   const isMobileViewport = () => window.matchMedia('(max-width: 1024px)').matches;
+  const MOBILE_NAV_BREAKPOINT = 1024;
 
   const ensureThemeSurface = () => {
     // Keep theme class but drop custom page-transition overlay
@@ -118,82 +119,96 @@
   // ---------- Mobile bottom navigation ----------
   const mountBottomNav = () => {
     const existing = document.querySelector('.mobile-bottom-nav');
-    if (!isMobileViewport()) {
-      if (existing) existing.remove();
-      return;
+    // Bottom mobile navbar intentionally disabled; use header hamburger menu instead.
+    if (existing) existing.remove();
+  };
+
+  // ---------- Header hamburger navigation ----------
+  const mountHeaderHamburgerNav = () => {
+    const headerNavList = document.querySelector('.site-header .container > nav > .nav-list');
+    const toggle = document.querySelector('.site-header .nav-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const closeBtn = mobileMenu ? mobileMenu.querySelector('.close-btn') : null;
+    const mobileNav = mobileMenu ? mobileMenu.querySelector('.nav-list') : null;
+
+    if (!headerNavList || !toggle || !mobileMenu || !mobileNav) return;
+
+    // Keep mobile links in sync when the overlay list is empty.
+    if (mobileNav.children.length === 0) {
+      mobileNav.innerHTML = headerNavList.innerHTML;
     }
-    if (existing) return;
 
-    const current = getCurrentTopLevel();
-    const links = [
-      { href: 'index.html', label: 'Home', icon: '<path d="M3 10.5L12 3l9 7.5"/><path d="M5.5 9.5V21h13V9.5"/>' },
-      { href: 'projects.html', label: 'Projects', icon: '<rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 10h16"/><path d="M10 4v16"/>' },
-      { href: 'about.html', label: 'About', icon: '<circle cx="12" cy="7.5" r="3"/><path d="M6 20c0-3.2 2.7-5.5 6-5.5s6 2.3 6 5.5"/>' },
-      { href: 'connect.html', label: 'Connect', icon: '<path d="M3.5 6.5h17v11h-17z"/><path d="M4.5 7.5L12 13l7.5-5.5"/>' }
-    ];
+    const openMenu = () => {
+      mobileMenu.classList.add('open');
+      mobileMenu.style.display = 'block';
+      mobileMenu.setAttribute('aria-hidden', 'false');
+      toggle.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+    };
 
-    const nav = document.createElement('nav');
-    nav.className = 'mobile-bottom-nav';
-    nav.setAttribute('aria-label', 'Primary mobile navigation');
-    nav.innerHTML = links.map((item) => {
-      const active = current === item.href ? ' is-active' : '';
-      return `<a href="${item.href}" class="${active.trim()}"><svg viewBox="0 0 24 24" aria-hidden="true">${item.icon}</svg><span>${item.label}</span></a>`;
-    }).join('');
+    const closeMenu = () => {
+      mobileMenu.classList.remove('open');
+      mobileMenu.style.display = 'none';
+      mobileMenu.setAttribute('aria-hidden', 'true');
+      toggle.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    };
 
-    document.body.appendChild(nav);
+    const syncLayout = () => {
+      const isMobile = window.matchMedia(`(max-width: ${MOBILE_NAV_BREAKPOINT}px)`).matches;
+
+      if (isMobile) {
+        headerNavList.style.display = 'none';
+        toggle.style.display = 'inline-flex';
+        mobileNav.style.display = 'flex';
+        mobileNav.style.flexDirection = 'column';
+        mobileNav.style.alignItems = 'center';
+        mobileNav.style.gap = '20px';
+      } else {
+        headerNavList.style.display = '';
+        toggle.style.display = '';
+        mobileNav.style.display = '';
+        mobileNav.style.flexDirection = '';
+        mobileNav.style.alignItems = '';
+        mobileNav.style.gap = '';
+        closeMenu();
+      }
+    };
+
+    if (!toggle.dataset.mobileNavBound) {
+      // Use open-only behavior here because some pages also bind inline
+      // open handlers on the same button; toggle logic can cause immediate
+      // open-then-close conflicts in mixed setups.
+      toggle.addEventListener('click', openMenu);
+
+      if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+
+      mobileNav.addEventListener('click', (e) => {
+        if (e.target && e.target.closest('a')) closeMenu();
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeMenu();
+      });
+
+      toggle.dataset.mobileNavBound = 'true';
+    }
+
+    syncLayout();
   };
 
   // ---------- Mobile floating actions ----------
   const mountFab = () => {
     const existing = document.querySelector('.mobile-fab-stack');
-    if (!isMobileViewport()) {
-      if (existing) existing.remove();
-      return;
-    }
-    if (existing) return;
-
-    const wrap = document.createElement('div');
-    wrap.className = 'mobile-fab-stack';
-    wrap.innerHTML = `
-      <button type="button" class="fab-top" aria-label="Back to top" title="Back to top">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5"/><path d="M6 11l6-6 6 6"/></svg>
-      </button>
-    `;
-
-    const topBtn = wrap.querySelector('.fab-top');
-    const onScroll = () => {
-      if (window.scrollY > 420) topBtn.classList.add('visible');
-      else topBtn.classList.remove('visible');
-    };
-
-    topBtn.addEventListener('click', () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
-    document.body.appendChild(wrap);
+    // Back-to-top FAB intentionally disabled on mobile across all pages.
+    if (existing) existing.remove();
   };
 
   const annotatePage = () => {
     const isProjectDetailPage = !!document.querySelector('.project-gallery, .doc-main');
     if (isProjectDetailPage) return;
 
-    const groups = [
-      '#hero, .hero-stack, #cc-recent-projects, .testimonials, #c-celluloids-banner, .marquee-full, .skill-wrap, .timeline-area, .resume-wrap, .connect-scene, .project-header, .project-gallery, .doc-main, .page-inner',
-      '.project-card, .testi-card, .counter, .tl-item, .connect-card, .video-shell, .info-card, .marquee-item, .project-gallery img, .page-inner img, .doc-main img, .doc-main video'
-    ];
-
-    groups.forEach((selector, groupIndex) => {
-      document.querySelectorAll(selector).forEach((el, index) => {
-        if (!el.hasAttribute('data-reveal')) {
-          el.setAttribute('data-reveal', groupIndex === 0 ? 'block' : 'item');
-          el.style.setProperty('--reveal-delay', `${Math.min(index, 8) * 70}ms`);
-          el.style.setProperty('--reveal-rotate', groupIndex === 0 ? '0deg' : (index % 2 === 0 ? '-0.5deg' : '0.5deg'));
-        }
-      });
-    });
-
+    // Reveal/fade-up motion is intentionally disabled globally.
     document.querySelectorAll('#hero, .connect-scene, .project-header, .hero-stack, #c-celluloids-banner, .video-shell').forEach((el) => {
       el.dataset.motion = 'drift';
     });
@@ -292,34 +307,13 @@
   };
 
   const initRevealObserver = () => {
-    const isProjectDetailPage = !!document.querySelector('.project-gallery, .doc-main');
-    if (isProjectDetailPage) {
-      document.body.classList.remove('motion-ready');
-      document.querySelectorAll('[data-reveal]').forEach((el) => {
-        el.classList.add('is-visible');
-        el.removeAttribute('data-reveal');
-      });
-      return;
-    }
-
-    const targets = Array.from(document.querySelectorAll('[data-reveal]'));
-    if (!targets.length) return;
-
-    if (prefersReduced) {
-      targets.forEach((el) => el.classList.add('is-visible'));
-      return;
-    }
-
-    const observer = new IntersectionObserver((entries, obs) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        entry.target.classList.add('is-visible');
-        obs.unobserve(entry.target);
-      });
-    }, { threshold: 0.14, rootMargin: '0px 0px -8% 0px' });
-
     document.body.classList.add('motion-ready');
-    targets.forEach((el) => observer.observe(el));
+    document.querySelectorAll('[data-reveal]').forEach((el) => {
+      el.classList.add('is-visible');
+      el.removeAttribute('data-reveal');
+      el.style.removeProperty('--reveal-delay');
+      el.style.removeProperty('--reveal-rotate');
+    });
   };
 
   const splitHeading = (heading) => {
@@ -492,6 +486,7 @@
   };
 
   const mountResponsiveUI = () => {
+    mountHeaderHamburgerNav();
     mountDesktopNavIndicator();
     mountBottomNav();
     mountFab();
