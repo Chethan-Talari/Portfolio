@@ -1,0 +1,418 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Laya</title>
+  <link rel="canonical" href="https://chethantalari.me/laya.html" />
+  <meta property="og:title" content="Laya - UI/UX Design | Chethan Talari" />
+  <meta property="og:description" content="Laya project by Chethan Talari - UI/UX design case study." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://chethantalari.me/assets/projects/laya/cover.jpg" />
+  <meta property="og:url" content="https://chethantalari.me/laya.html" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Laya - UI/UX Design | Chethan Talari" />
+  <meta name="twitter:description" content="Laya project by Chethan Talari - UI/UX design case study." />
+  <meta name="twitter:image" content="https://chethantalari.me/assets/projects/laya/cover.jpg" /><link rel="stylesheet" href="style.css?v=19">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    .project-gallery {
+      max-width:1200px;
+      margin:48px auto;
+      padding:0 28px;
+      box-sizing:border-box;
+    }
+    .project-gallery img {
+      display:block;
+      width:100%;
+      height:auto;
+      margin:0;
+      border-radius:0;
+      box-shadow:none;
+    }
+    .project-hero {
+      max-width:1200px;
+      margin:40px auto 0;
+      padding:0 28px;
+    }
+    .project-header {
+      max-width:1200px;
+      margin:24px auto;
+      padding:0 28px;
+    }
+
+    .project-back-link {
+      display: inline-flex;
+      align-items: center;
+      text-decoration: none;
+      color: #111;
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      line-height: 1;
+      margin: 6px 0 10px;
+      transition: transform .16s ease, opacity .16s ease;
+    }
+    .project-back-link:hover,
+    .project-back-link:focus {
+      transform: translateX(-2px);
+      opacity: 0.85;
+      outline: none;
+    }
+    .project-top-actions {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      margin: 6px 0 12px;
+    }
+
+    .project-top-actions .project-back-link {
+      margin: 0;
+    }
+
+    .project-share-btn {
+      border:1px solid rgba(0,0,0,0.14);
+      background:#fff;
+      color:#111;
+      border-radius:999px;
+      padding:8px 13px;
+      font-size:13px;
+      font-weight:700;
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      cursor:pointer;
+      transition: transform .16s ease, background .16s ease, color .16s ease;
+    }
+
+    .project-share-btn:hover,
+    .project-share-btn:focus-visible {
+      transform: translateY(-1px);
+      background:#111;
+      color:#fff;
+      outline:none;
+    }
+
+    .project-share-btn svg {
+      width:14px;
+      height:14px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.9;
+    }
+</style>
+  <link rel="stylesheet" href="theme-imperfect.css?v=24">
+</head>
+<body>
+<header class="site-header" style="position:fixed;top:0;left:0;right:0;width:100%;z-index:2000;">
+  <style>
+    /* Minimal header styles (self-contained) */
+    :root {
+      --accent:#111;
+      --muted:#666;
+      --touch:48px;
+    }
+    .site-header { border-bottom:1px solid rgba(0,0,0,0.06); background:#fff; position:sticky; top:0; z-index:130; }
+    .site-header .container { max-width:1200px; margin:0 auto; padding:18px 32px; display:flex; align-items:center; justify-content:space-between; gap:12px; box-sizing:border-box; }
+
+    .site-logo img { height:36px; display:block; }
+
+    .nav-list { list-style:none; margin:0; padding:0; display:flex; gap:28px; align-items:center; }
+    .nav-list a { text-decoration:none; color:var(--accent); font-weight:600; padding:6px 0; }
+
+    /* hamburger toggle (hidden on desktop) */
+    .nav-toggle { display:none; width:var(--touch); height:var(--touch); align-items:center; justify-content:center; border-radius:8px; border:1px solid rgba(0,0,0,0.04); background:transparent; cursor:pointer; }
+
+    /* mobile menu overlay (hidden by default) */
+    .mobile-menu { display:none; position:fixed; inset:0; background:#fff; padding:80px 20px 20px; z-index:9999; overflow:auto; }
+    .mobile-menu .nav-list { flex-direction:column; gap:18px; }
+
+    /* responsive breakpoints */
+    @media (max-width: 768px) {
+      .site-header .container { padding:14px 20px; }
+      .nav-list { display:none; }             /* hide desktop nav */
+      .nav-toggle { display:flex; }           /* show hamburger */
+      .mobile-menu .nav-list { display:flex; flex-direction:column; gap:18px; }
+      .site-logo img { height:32px; }
+      :root { --touch:44px; }
+    }</style>
+
+  <div class="container">
+    <a href="index.html" class="site-logo" aria-label="Home"><img src="assets/logo-black.png" alt="Logo"></a>
+
+    <nav aria-label="Main navigation">
+      <ul class="nav-list" role="menubar">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="connect.html">Connect</a></li>
+      </ul>
+
+      <button class="nav-toggle" aria-controls="mobile-menu" aria-expanded="false" aria-label="Open menu">
+        <!-- hamburger icon -->
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="#111" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </button>
+    </nav>
+  </div>
+
+  <div id="mobile-menu" class="mobile-menu" aria-hidden="true" role="dialog" aria-modal="true">
+    <button class="close-btn" aria-label="Close menu">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" aria-hidden="true"><path d="M6 6l12 12M6 18L18 6" stroke="#111" stroke-width="1.6" stroke-linecap="round"/></svg>
+    </button>
+
+    <nav aria-label="Mobile navigation">
+      <ul class="nav-list" role="menu" style="margin-top:8px;">
+        <li><a role="menuitem" href="index.html">Home</a></li>
+        <li><a role="menuitem" href="projects.html">Projects</a></li>
+        <li><a role="menuitem" href="about.html">About</a></li>
+        <li><a role="menuitem" href="connect.html">Connect</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <script>
+    (function(){
+      const toggle = document.querySelector('.nav-toggle');
+      const mobile = document.getElementById('mobile-menu');
+      const closeBtn = mobile.querySelector('.close-btn');
+      const links = mobile.querySelectorAll('.nav-list a');
+
+      function openMenu(){
+        mobile.style.display = 'block';
+        mobile.setAttribute('aria-hidden','false');
+        toggle.setAttribute('aria-expanded','true');
+        document.body.style.overflow = 'hidden';
+        setTimeout(()=> mobile.querySelector('.nav-list a')?.focus(), 50);
+      }
+      function closeMenu(){
+        mobile.style.display = 'none';
+        mobile.setAttribute('aria-hidden','true');
+        toggle.setAttribute('aria-expanded','false');
+        document.body.style.overflow = '';
+        toggle.focus();
+      }
+
+      toggle.addEventListener('click', openMenu);
+      closeBtn.addEventListener('click', closeMenu);
+      links.forEach(a => a.addEventListener('click', closeMenu));
+      document.addEventListener('keydown', e => { if(e.key === 'Escape') closeMenu(); });
+    })();
+  </script>
+</header>
+
+
+  <!-- PROJECT HEADER -->
+  <section class="project-header">
+    <div class="project-top-actions">
+    <a class="project-back-link" href="projects.html" aria-label="Back to projects">&#8592;</a>
+    <button type="button" class="project-share-btn" id="projectShareBtn" aria-label="Share this project">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 5h5v5"/><path d="M10 14L19 5"/><rect x="5" y="9" width="10" height="10" rx="2"/></svg>
+      Share
+    </button>
+  </div>
+<h1 class="project-page-title">Laya - UI/UX Design</h1>
+    <p style="color:#777;margin:8px 0 24px;">UI/UX · 2025 - A premium D2C brand for Gadwal Silk Sarees & Accessories.</p>
+  </section>
+
+
+  <!-- GALLERY -->
+  <main class="project-gallery">
+    <img src="assets/projects/laya/01.jpg" alt="">
+    <img src="assets/projects/laya/02.gif" alt="">
+    <img src="assets/projects/laya/03.jpg" alt="">
+    <img src="assets/projects/laya/04.jpg" alt="">
+    <img src="assets/projects/laya/05.jpg" alt="">
+    <img src="assets/projects/laya/06.jpg" alt="">
+    <img src="assets/projects/laya/07.jpg" alt="">
+    <img src="assets/projects/laya/08.jpg" alt="">
+    <img src="assets/projects/laya/09.jpg" alt="">
+    <img src="assets/projects/laya/10.jpg" alt="">
+    <img src="assets/projects/laya/11.jpg" alt="">
+    <img src="assets/projects/laya/12.jpg" alt="">
+  </main>
+
+<!-- ======= SITE FOOTER (UPDATED ICONS) ======= -->
+<footer class="site-footer" role="contentinfo" style="border-top:1px solid rgba(0,0,0,0.06);background:#fff;">
+  <style>
+    .site-footer { width:100%; }
+    .site-footer .footer-inner {
+      max-width:1200px;
+      margin:0 auto;
+      padding:28px 32px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      box-sizing:border-box;
+      font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+
+    .site-footer .footer-left img {
+      height:42px;
+      display:block;
+      user-select:none;
+    }
+
+    .site-footer .footer-right {
+      display:flex;
+      align-items:center;
+      gap:14px;
+    }
+
+    .site-footer .social {
+      display:flex;
+      gap:12px;
+      align-items:center;
+    }
+
+    .site-footer .social a {
+      display:inline-flex;
+      width:40px;
+      height:40px;
+      align-items:center;
+      justify-content:center;
+      border-radius:10px;
+      text-decoration:none;
+      color:#111;                 /* icon color */
+      background:transparent;
+      transition: all .18s ease;
+      border:1px solid rgba(0,0,0,0.04);
+      box-shadow:0 6px 18px rgba(0,0,0,0.03);
+    }
+
+    /* nicer hover: invert to dark background with white icon */
+    .site-footer .social a:hover,
+    .site-footer .social a:focus {
+      background:#111;
+      color:#fff;
+      transform: translateY(-3px);
+      box-shadow:0 14px 40px rgba(0,0,0,0.08);
+      outline: none;
+    }
+
+    .site-footer .social img {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+  display: block;
+  filter: brightness(0);      /* makes black icons */
+  transition: all 0.2s ease;
+}
+
+.site-footer .social a:hover img {
+  filter: brightness(0) invert(1);  /* turns icons white when hovered */
+}
+
+
+    /* SVG icons inherit color */
+    .site-footer .social svg { width:18px; height:18px; display:block; fill:currentColor; }
+
+    .site-footer .copyright {
+      color:#666;
+      font-size:13px;
+      margin-left:16px;
+      white-space:nowrap;
+    }
+
+    @media (max-width:720px) {
+      .site-footer .footer-inner {
+        flex-direction:column;
+        align-items:center;
+        gap:12px;
+        padding:22px;
+      }
+      .site-footer .copyright { margin-left:50; }
+    }</style>
+
+  <div class="footer-inner">
+    <div class="footer-left" style="display:flex;align-items:center;gap:16px;">
+      <a href="index.html" aria-label="Home" style="display:inline-block">
+        <img src="assets/logo-black.png" alt="Logo - Chethan Talari" />
+      </a>
+      <div class="copyright" id="footer-copyright">
+        © <span id="footer-year"></span> Chethan Talari
+      </div>
+    </div>
+
+    <div class="footer-right">
+      <nav class="social" aria-label="Social links">
+        <!-- Instagram (filled camera glyph) -->
+  
+          <div class="social">
+  <a href="https://www.instagram.com/c_celluloids/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+    <img src="assets/icons/instagram.png" alt="Instagram" />
+  </a>
+  <a href="https://www.linkedin.com/in/chethan-talari-1a9613213/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+    <img src="assets/icons/linkedin.png" alt="LinkedIn" />
+  </a>
+
+  <a href="https://www.behance.net/chethantalari" target="_blank" rel="noopener noreferrer" aria-label="Behance">
+    <img src="assets/icons/behance.png" alt="Behance" />
+  </a>
+</div>
+
+      </nav>
+    </div>
+  </div>
+
+
+    <script>
+    (() => {
+      const btn = document.getElementById('projectShareBtn');
+      if (!btn) return;
+      const label = btn.innerHTML;
+      const toast = (msg) => {
+        btn.textContent = msg;
+        setTimeout(() => { btn.innerHTML = label; }, 1200);
+      };
+      const copyLink = async () => {
+        try {
+          await navigator.clipboard.writeText(location.href);
+          toast('Copied');
+        } catch {
+          toast('Share');
+        }
+      };
+      btn.addEventListener('click', async () => {
+        if (navigator.share) {
+          try {
+            await navigator.share({ title: document.title, text: 'Check out this project', url: location.href });
+            return;
+          } catch (err) {
+            if (err && err.name === 'AbortError') return;
+          }
+        }
+        await copyLink();
+      });
+    })();
+  </script>
+  <script src="ui-interactions.js?v=14" defer></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
